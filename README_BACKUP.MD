@@ -8,6 +8,10 @@
 
 DGX Attendance & Salary HRMS**人力資源與薪酬管理系統**  數據庫初始化
 
+## 證書授權安裝
+
+需要使用證書授權安裝。
+
 ## 項目目的和作用 
 
 <u>目標:為客戶**初始化部署**, 創建初始化數據庫</u>,
@@ -16,7 +20,7 @@ Objective: Initialize deployment for customers and create an initial database.
 
 Download Deploy exe from : 
 
-**https://github.com/tonylaw2008/DataBaseCreateCoreV3**
+https://github.com/lawtatfaitony/DataBaseSetupV32
 
 ## LICENSE證書安裝
 
@@ -130,6 +134,7 @@ DataBaseCreateCoreV3 "999901" "IN60006"
 
 ![image-20240602020416439](README_IMGs/RUNNINGRESULT.png)
 
+
 **以下是操作過程中注意的問題：**
 
 ------
@@ -154,7 +159,7 @@ ALTER USER [admin] WITH DEFAULT_SCHEMA = guest; 先降級後再刪除 目的改�
 DROP USER [admin];
 ```
 
-## MainComId总公司ID規則
+## MainComId總公司ID規則
 
 MainComId总公司ID生成规则与技巧2021年6月28日:  则生成的ID是 210627 
 
@@ -174,7 +179,7 @@ MainComId总公司ID生成规则与技巧2021年6月28日:  则生成的ID是 21
 
 ### 賬號和密碼保存在一個txt文件
 
- ![CREATE_A_DATABASE_OPERATION_GUIDE_DB_OPERATION_GUIDE_2](D:\STAR\DataBaseCreateCoreV3_ENHANCE\README_IMGs\CREATE_A_DATABASE_OPERATION_GUIDE_DB_OPERATION_GUIDE_2.jpg)
+  <img src="./README_IMGs/README/image-20250414031551049.png" alt="image-20250414031551049" style="zoom: 80%;" />
 
 然後會創建一個txt文件保存對應的賬號和密碼的.
 

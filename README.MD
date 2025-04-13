@@ -134,6 +134,7 @@ DataBaseCreateCoreV3 "999901" "IN60006"
 
 ![image-20240602020416439](README_IMGs/RUNNINGRESULT.png)
 
+
 **以下是操作過程中注意的問題：**
 
 ------
@@ -178,7 +179,7 @@ MainComId总公司ID生成规则与技巧2021年6月28日:  则生成的ID是 21
 
 ### 賬號和密碼保存在一個txt文件
 
- ![CREATE_A_DATABASE_OPERATION_GUIDE_DB_OPERATION_GUIDE_2](D:\STAR\DataBaseCreateCoreV3_ENHANCE\README_IMGs\CREATE_A_DATABASE_OPERATION_GUIDE_DB_OPERATION_GUIDE_2.jpg)
+  <img src="./README_IMGs/README/image-20250414031551049.png" alt="image-20250414031551049" style="zoom: 80%;" />
 
 然後會創建一個txt文件保存對應的賬號和密碼的.
 

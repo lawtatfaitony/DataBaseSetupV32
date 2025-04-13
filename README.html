@@ -1,0 +1,203 @@
+<!doctype html>
+<html>
+<head>
+<meta charset='UTF-8'><meta name='viewport' content='width=device-width initial-scale=1'>
+<title>README</title>
+</head>
+<body><h1 id='薪酬與考勤hrm數據庫服務部署'>薪酬與考勤HRM數據庫服務部署</h1>
+<h2 id='項目目的和作用'>項目目的和作用</h2>
+<p><u>目標:為客戶<strong>初始化部署</strong>, 創建初始化數據庫</u>,</p>
+<p>Objective: Initialize deployment for customers and create an initial database.</p>
+<h2 id='license證書安裝'>LICENSE證書安裝</h2>
+<p>需要版權方授權的證書文件複製到應用程式根目錄下： AppAuth.key 或者系統安裝盤下c:</p>
+<h3 id='第一步-目標數據庫'>第一步 目標數據庫</h3>
+<p>必須檢查連接串是否正常鏈接，<strong>特別書數據庫是不是空白的目標數據庫</strong>。</p>
+<pre><code>[DATABASE CONNECTION STRING : Data Source=(local)\DATAGUARD2019;Initial Catalog=DataGuardXCore;User ID=sa;Password=a*1*3;Connect Timeout=300;TrustServerCertificate=True;ApplicationIntent=ReadWrite;MultipleActiveResultSets=true;]
+</code></pre>
+<p><img src="README_IMGs/TRY_TO_CONNECT_DATABASE.png" referrerpolicy="no-referrer" alt="TRY_TO_CONNECT_DATABASE"></p>
+<h3 id='第二步-數據庫賬號-admin'>第二步 數據庫賬號 admin</h3>
+<p>MSSQL 2019/2016 SERVER 先創建一個賬號 admin (或者其他名稱)</p>
+<h3 id='第三步-數據庫存儲路徑'>第三步 數據庫存儲路徑</h3>
+<p>創建一個空白的數據庫,注意指定具體的數據庫存儲路徑 如: D:\DataBase</p>
+<h3 id='第四步-空白數據與程式設置'>第四步 空白數據與程式設置</h3>
+<p>檢查賬戶Admin是不是數據庫所有者,即係schema還不是 dbo</p>
+<h5 id='1設置空白數據庫'>1、設置空白數據庫</h5>
+<p>	先在MS SQL 2016/1029//2022 的STUDIO 數據庫管理工具打開鏈接後,</p>
+<p><img src="README_IMGs/image-20240531103401274.png" referrerpolicy="no-referrer" alt="image-20240531103401274"></p>
+<h5 id='2設置連接串'>2、設置連接串 </h5>
+<p>	在 文件 中 appsettings.json,設置對應的數據庫連接</p>
+<h5 id='3配置appsettingjson'>3、配置appsetting.json</h5>
+<p>	位於應用程式下的根目錄，用於設置運行相關的數據。</p>
+<pre><code>    //節點定義創建的用戶
+    &quot;systemUserList&quot;: [
+        {
+          &quot;userName&quot;: &quot;Supervisor&quot;,				//默認的密碼是 admin888
+          &quot;email&quot;: &quot;Supervisor@abc.com&quot;			//這裡可以改為公司的真實EMAIL
+        },
+        {
+          &quot;userName&quot;: &quot;Admin&quot;,					//默認的密碼是 admin888
+          &quot;email&quot;: &quot;Admin@abc.com&quot;				//這裡可以改為公司的真實EMAIL 
+        }
+   ] 
+</code></pre>
+<p>4、檢查操作系統語言</p>
+<p>   如果界面出現亂碼，可能原因是：</p>
+<ul>
+<li>CMD沒有設置uft-8編碼顯示.</li>
+<li>系統沒有支持的語言,建議在系統設置-&gt;區域語言-&gt;添加英文、簡體、繁體。</li>
+
+</ul>
+<h2 id='運行'>運行</h2>
+<h2 id='命令方式'>命令方式 </h2>
+<pre><code>$ DataBaseCoreCoreV3 &quot;20211210&quot; , &quot;IN60006&quot;  第一个参数是总公司ID,必須少于等于8位的数字。
+</code></pre>
+<h2 id='bat文件方式'>Bat文件方式</h2>
+<p>或者 通過存入bat文件方式： 參數輸入形式修改參數後運行.bat</p>
+<pre><code>DataBaseCreateCoreV3.bat 文件內容如下：
+
+rem PARAMETERS 1: MainComId 2:IndustryId
+DataBaseCreateCoreV3 &quot;999901&quot; &quot;IN60006&quot;
+</code></pre>
+<p>上述第一個參數書MainComID,第二個是行業參數ID，具體參考文件：<strong>行業對照表.csv</strong></p>
+<p>這樣可以特定生成自定義的MainComID, </p>
+<h2 id='開始運行'>開始運行</h2>
+<h3 id='確認運行提示的信息'>確認運行提示的信息</h3>
+<p>		包括 數據服務鏈接串和Language.Jason的修訂日期</p>
+<h3 id='輸入行業編號'>輸入行業編號</h3>
+<p><img src="README_IMGs/IndustryGuide.png" referrerpolicy="no-referrer" alt="image-20240602011629694"></p>
+<h3 id='enter-確定創建管理員賬戶'>ENTER 確定創建管理員賬戶</h3>
+<p>按[ENTER] 確認是否創建系統操作賬戶，並且在根目錄下生成txt文件保存系統操作賬戶。</p>
+<p><img src="README_IMGs/RUNNINGRESULT.png" referrerpolicy="no-referrer" alt="image-20240602020416439"></p>
+<p><strong>以下是操作過程中注意的問題：</strong></p>
+<hr />
+<p>&nbsp;</p>
+<h2 id='如何還原數據庫'>如何還原數據庫</h2>
+<p>如果創建一個種子數據庫,以便每次部署都用這個數據庫的情況,則需要做一下動作:</p>
+<p>第一步:先複製 MDF和LOG 文件,然後附加到本地數據.如果是BAK備份文件,則要選擇還原時候的Option選擇強制OverWrite等等前兩個option都勾選.</p>
+<p>第二步:附加數據庫的同時會把來源的數據庫用戶也會複製過來的,此時可以強制刪除,但可以會把本地的數據庫服務器的用戶都刪除掉,則可以先把數據庫當前的admin用戶降級到guest後就可以刪除當前的數據庫用戶而不會導致刪除DB Server 的系統用戶. <strong>目的改變架構schema所有者架空Admin用戶才可以刪除的.</strong></p>
+<p>如: </p>
+<pre><code>USE DataGuardXcore;
+--DROP USER [admin]; 這樣刪除不行的
+ALTER USER [admin] WITH DEFAULT_SCHEMA = guest; 先降級後再刪除 目的改變架構schema所有者
+然後
+DROP USER [admin];
+</code></pre>
+<h2 id='maincomid总公司id規則'>MainComId总公司ID規則</h2>
+<p>MainComId总公司ID生成规则与技巧2021年6月28日:  则生成的ID是 210627 </p>
+<p>  年度月度日 的数字合并就是公司的ID.</p>
+<p>  由于太长的ID不方便,如果同一天安装两个,则会出现ID冲突,解决这个问题 可以通過輸入特定參數安装. </p>
+<p> 輸入預設的總公司ID和對應的行業 </p>
+<pre><code>参数输入形式修改参数后运行.bat
+rem PARAMETERS 1: MainComId 2:IndustryId
+DataBaseCreateCoreV3 &quot;999901&quot; &quot;IN60006&quot;     
+</code></pre>
+<h2 id='數據庫用戶角色'>數據庫用戶角色</h2>
+<p>數據庫所有者DBO</p>
+<h3 id='賬號和密碼保存在一個txt文件'>賬號和密碼保存在一個txt文件</h3>
+<p> <img src="D:\STAR\DataBaseCreateCoreV3_ENHANCE\README_IMGs\CREATE_A_DATABASE_OPERATION_GUIDE_DB_OPERATION_GUIDE_2.jpg" referrerpolicy="no-referrer" alt="CREATE_A_DATABASE_OPERATION_GUIDE_DB_OPERATION_GUIDE_2"></p>
+<p>然後會創建一個txt文件保存對應的賬號和密碼的.</p>
+<h3 id='系統管理員和總公司賬戶的區別'>系統管理員和總公司賬戶的區別</h3>
+<p><img src="README_IMGs/APPLICATION_DATABASE_GENERATION_TOOL_OPERATION_INSTRUCTIONS_VER3.png.jpg" referrerpolicy="no-referrer" alt="APPLICATION_DATABASE_GENERATION_TOOL_-_OPERATION_INSTRUCTIONS_VER3.png"></p>
+<p>系統管理員是管理整個系統的最高權限,而總公司賬戶是用於管理總公司下的所有資源,為何稱為[總公司賬戶]:由於以公司為單位下還可以有分公司的. 例如:建築行業裡面: 分多個分公司就是旗下的二判,二判可以是由總公司分撥資源提供系統以管理旗下的員工,當然如果是CLOUD概念下,可以由總公司架構一個雲端系統提供給旗下二判,以二判為獨立公司自我管理公司資源.</p>
+<p>The system administrator has the highest authority to manage the entire system, while the head office account is used to manage all resources under the head office. Why is it called the head office account? Because a company can have branches under it. For example, in the construction industry, multiple branches are the sub-contractors under it. The sub-contractors can be provided with resources by the head office to manage their employees. Of course, if it is under the CLOUD concept, the head office can build a cloud system to provide it to the sub-contractors under it, so that the sub-contractors can manage company resources as independent companies.</p>
+<h2 id='同步語言包languagejson'>同步語言包Language.json</h2>
+<p>文件在: 應用程序 JsonData/Language.json 這個文件來自LangMXcore應用程序的 jsonData/下面</p>
+<p>默認資源庫在Language.json的配置語言標識</p>
+<p><img src="README_IMGs/LANGUAGE_JSON.png" referrerpolicy="no-referrer" alt="LANGUAGE_JSON"></p>
+<p><strong>上述黃色字的兩行都是選擇項，一般情況下都是[ENTER]確定。</strong> Language.json文件數據同步到數據庫的每一條記錄都會慢一點的。運行過程中，可以Sceen Cut (Win+Shift+S),查閱是否異常。</p>
+<h2 id='如果重建一次的操作'>如果重建一次的操作</h2>
+<p>如果一旦操作失敗或者其他原因導致要重新一操作一次，可以清空數據庫，而無需重新創建建數據庫。</p>
+<h3 id='第一步清空約束或數據'>第一步:清空約束或數據</h3>
+<p>在刪除所有表的前提是要清空約束或數據才能刪除的:</p>
+<pre><code class='language-sql' lang='sql'>--若要清空 MSSQL 2019 中所有表的數據，您可以使用以下 T-SQL 語句：
+EXEC sp_MSForEachTable &#39;ALTER TABLE ? NOCHECK CONSTRAINT ALL&#39;   --執行這句就可以:刪除約束
+EXEC sp_MSForEachTable &#39;DELETE FROM ?&#39; 							--刪除所有數據
+EXEC sp_MSForEachTable &#39;ALTER TABLE ? CHECK CONSTRAINT ALL&#39; 	--恢復約束
+</code></pre>
+<p>這些 T-SQL 語句將會逐一對每一個表執行暫時禁用約束、刪除數據、重新啟用約束的操作，從而清空所有表的數據。請謹慎使用這個操作，因為刪除數據後將無法恢復。</p>
+<h3 id='第二步刪除由用戶建立的表'>第二步:刪除由用戶建立的表</h3>
+<p>在 MSSQL 2019 中，您可以使用以下 T-SQL 語句來刪除所有由用戶建立的表：</p>
+<pre><code class='language-sql' lang='sql'>USE [YourDatabaseName];
+
+DECLARE @sql NVARCHAR(MAX) = N&#39;&#39;;
+
+SELECT @sql += &#39;DROP TABLE &#39; + QUOTENAME(TABLE_SCHEMA) + &#39;.&#39; + QUOTENAME(TABLE_NAME) + &#39;;&#39; 
+FROM INFORMATION_SCHEMA.TABLES 
+WHERE TABLE_TYPE = &#39;BASE TABLE&#39; AND TABLE_SCHEMA &lt;&gt; &#39;sys&#39;;
+
+EXEC sp_executesql @sql;
+</code></pre>
+<p><img src="README_IMGs/clearDATABASE.png" referrerpolicy="no-referrer" alt="image-20240602001137568"></p>
+<p>請確保將 <code>[YourDatabaseName]</code> 替換為您的數據庫名稱。這個 T-SQL 語句將會動態生成一條包含刪除所有用戶建立表格的 SQL 語句，然後執行這些語句來刪除所有用戶建立的表格。請謹慎使用這個操作，因為刪除表格後數據將無法恢復。</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>j建議選擇大綱瀏覽</p>
+<p>Author:Tony Law </p>
+<p>Email: <a href='mailto:caihaili82@gmail.com' target='_blank' class='url'>caihaili82@gmail.com</a></p>
+<p>Phone: 62595738</p>
+</body>
+</html>

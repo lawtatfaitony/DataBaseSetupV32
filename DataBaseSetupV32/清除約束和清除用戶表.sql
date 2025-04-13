@@ -1,0 +1,15 @@
+USE [DataGuardXcoreCreate];
+
+EXEC sp_MSForEachTable 'ALTER TABLE ? NOCHECK CONSTRAINT ALL'   --執行這句就可以:刪除約束
+EXEC sp_MSForEachTable 'DELETE FROM ?' 							--刪除所有數據
+EXEC sp_MSForEachTable 'ALTER TABLE ? CHECK CONSTRAINT ALL' 	--恢復約束
+
+
+
+DECLARE @sql NVARCHAR(MAX) = N'';
+
+SELECT @sql += 'DROP TABLE ' + QUOTENAME(TABLE_SCHEMA) + '.' + QUOTENAME(TABLE_NAME) + ';' 
+FROM INFORMATION_SCHEMA.TABLES 
+WHERE TABLE_TYPE = 'BASE TABLE' AND TABLE_SCHEMA <> 'sys';
+
+EXEC sp_executesql @sql;

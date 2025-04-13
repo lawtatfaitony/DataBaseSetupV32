@@ -1,0 +1,60 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+	<PropertyGroup>
+		<OutputType>Exe</OutputType>
+		<TargetFramework>net6.0</TargetFramework>
+		<StartupObject>DataBaseSetupV3.Program</StartupObject>
+		<Version>$(ENV_VERSION_PREFIX)</Version>
+		<AssemblyVersion>3.2.2025.04</AssemblyVersion>
+		<Company>DGX HRMS</Company>
+		<Product>DGX HRMS $(AssemblyName)</Product>
+		<VersionPrefix>3.2.2025.04</VersionPrefix>
+		<Description>DGX HRMS 數據庫初始化 
+DGX HRMS Database Initialization</Description>
+		<FileVersion>3.2.2025.04</FileVersion>
+		<NeutralLanguage>en</NeutralLanguage>
+		<Title>$(AssemblyName)</Title>
+		<Copyright>DATAGUARD DGX HRMS</Copyright>
+		<PackageReleaseNotes>DATAGUARD DGX HRMS</PackageReleaseNotes>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<!-- EF Core 6.0 -->
+		<PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.0" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="6.0.0">
+			<PrivateAssets>all</PrivateAssets>
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>
+		<PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="6.0.0" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.0" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="6.0.0">
+			<PrivateAssets>all</PrivateAssets>
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>
+
+		<!-- ASP.NET Core Identity 6.0 -->
+		<PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="6.0.0" />
+		<PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="6.0.0" />
+
+		<!-- Microsoft Extensions 6.0 -->
+		<PackageReference Include="Microsoft.Extensions.Configuration" Version="6.0.0" />
+		<PackageReference Include="Microsoft.Extensions.Configuration.CommandLine" Version="6.0.0" />
+		<PackageReference Include="Microsoft.Extensions.Hosting" Version="6.0.0" />
+		<PackageReference Include="Microsoft.Extensions.Logging.Console" Version="6.0.0" />
+		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="6.0.0" />
+		<PackageReference Include="Microsoft.Extensions.Options" Version="6.0.0" />
+
+		<!-- 第三方包 -->
+		<PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+		<PackageReference Include="Portable.BouncyCastle" Version="1.9.0" />
+		<PackageReference Include="System.Management" Version="6.0.0" />
+		<PackageReference Include="System.Runtime.Caching" Version="6.0.0" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<Reference Include="Encryption">
+			<HintPath>bin\Encryption.dll</HintPath>
+			<SpecificVersion>False</SpecificVersion>
+			<Aliases></Aliases>
+		</Reference>
+	</ItemGroup>
+</Project>

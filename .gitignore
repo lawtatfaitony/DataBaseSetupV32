@@ -1,6 +1,5 @@
 .vs/
 .obj/
-*.json
 *.cache
 *.cache
 *.props

@@ -20,7 +20,7 @@ Objective: Initialize deployment for customers and create an initial database.
 
 Download Deploy exe from : 
 
-**https://github.com/tonylaw2008/DataBaseCreateCoreV3**
+https://github.com/lawtatfaitony/DataBaseSetupV32
 
 ## LICENSE證書安裝
 

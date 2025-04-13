@@ -159,7 +159,7 @@ ALTER USER [admin] WITH DEFAULT_SCHEMA = guest; 先降級後再刪除 目的改�
 DROP USER [admin];
 ```
 
-## MainComId总公司ID規則
+## MainComId總公司ID規則
 
 MainComId总公司ID生成规则与技巧2021年6月28日:  则生成的ID是 210627 
 

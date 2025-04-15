@@ -22,7 +22,13 @@ namespace DataBaseSetupV3.Model
         public decimal AvgOnDutyPaidRatio { get; set; }
         public decimal OverAllCompletedRatio { get; set; }
         public DateTime CalcDateTime { get; set; }
+        /// <summary>
+        /// OPEN=1
+        /// </summary>
         public int AccountingComplete { get; set; }
+        /// <summary>
+        /// GeneralStatus (ACTIVE=1;INACTIVE = 0) 
+        /// </summary>
         public int GeneralStatus { get; set; }
         public string MainComId { get; set; }
         public DateTime OperateDateTime { get; set; }

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace DataBaseSetupV3.DbFirst
+namespace AttendanceBussiness.DbFirst
 {
     public partial class Department
     {
@@ -13,7 +13,7 @@ namespace DataBaseSetupV3.DbFirst
         public string CompanyName { get; set; }
         public string IndustryId { get; set; }
         public string UserIds { get; set; }
-        public bool? IsActive { get; set; }
+        public bool IsActive { get; set; }
         public string ParantsDeptId { get; set; }
         public string ParentsDeptName { get; set; }
         public int Sequence { get; set; }

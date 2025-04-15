@@ -1,8 +1,10 @@
 ﻿using System;
+using System.Collections.Generic;
+using DataBaseSetupV3.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 
-namespace DataBaseSetupV3.DbFirst
+namespace AttendanceBussiness.DbFirst
 {
     public partial class DataBaseContext : DbContext
     {
@@ -14,18 +16,18 @@ namespace DataBaseSetupV3.DbFirst
             : base(options)
         {
         }
-
+        public virtual DbSet<AttPolicy> AttPolicy { get; set; }
         public virtual DbSet<ApproveFlow> ApproveFlow { get; set; }
         public virtual DbSet<ApproveFlowLog> ApproveFlowLog { get; set; }
-        public virtual DbSet<AspNetRoleClaims> AspNetRoleClaims { get; set; }
         public virtual DbSet<AspNetRoles> AspNetRoles { get; set; }
+        public virtual DbSet<AspNetRoleClaims> AspNetRoleClaims { get; set; }
+        public virtual DbSet<AspNetUserRoles> AspNetUserRoles { get; set; }
+        public virtual DbSet<AspNetUsers> AspNetUsers { get; set; }
         public virtual DbSet<AspNetUserClaims> AspNetUserClaims { get; set; }
         public virtual DbSet<AspNetUserLogins> AspNetUserLogins { get; set; }
-        public virtual DbSet<AspNetUserRoles> AspNetUserRoles { get; set; }
         public virtual DbSet<AspNetUserTokens> AspNetUserTokens { get; set; }
-        public virtual DbSet<AspNetUsers> AspNetUsers { get; set; }
         public virtual DbSet<AttLog> AttLog { get; set; }
-        public virtual DbSet<AttPolicy> AttPolicy { get; set; }
+        public virtual DbSet<AttPolicy> AttPolicie { get; set; }
         public virtual DbSet<AttPolicyCalc> AttPolicyCalc { get; set; }
         public virtual DbSet<AttPolicyOfEply> AttPolicyOfEply { get; set; }
         public virtual DbSet<AttendanceByCom> AttendanceByCom { get; set; }
@@ -72,20 +74,29 @@ namespace DataBaseSetupV3.DbFirst
         public virtual DbSet<TransferObjectList> TransferObjectList { get; set; }
         public virtual DbSet<UploadItem> UploadItem { get; set; }
         public virtual DbSet<UserTrace> UserTrace { get; set; }
+        
+        
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
             {
-#warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
-                optionsBuilder.UseSqlServer("Data Source=192.168.0.9;Initial Catalog=DataGuardXcore;User ID=admin;Password=admin123;Connect Timeout=300;TrustServerCertificate=True;ApplicationIntent=ReadWrite;MultiSubnetFailover=False;;MultipleActiveResultSets=true");
+                //    #warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
+                //    optionsBuilder.UseSqlServer("Data Source=(local)\\DATAGUARD;Initial Catalog=DataGuardXcore;User ID=admin;Password=admin123;Connect Timeout=300;TrustServerCertificate=True;ApplicationIntent=ReadWrite;MultiSubnetFailover=False;");
+                string CONNECTION_STRING = AppSetting.GetConfig("ConnectionStrings:DefaultConnection");
+                //optionsBuilder.UseSqlServer("Data Source=192.168.0.9;Initial Catalog=DataGuardXCore;User ID=admin;Password=admin123;Connect Timeout=300;TrustServerCertificate=True;ApplicationIntent=ReadWrite;");
+                optionsBuilder.UseSqlServer(CONNECTION_STRING);
             }
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.UseCollation("SQL_Latin1_General_CP1_CI_AS");
+
             modelBuilder.Entity<ApproveFlow>(entity =>
             {
+                entity.ToTable("ApproveFlow");
+
                 entity.Property(e => e.ApproveFlowId)
                     .HasMaxLength(50)
                     .IsUnicode(false);
@@ -122,6 +133,8 @@ namespace DataBaseSetupV3.DbFirst
 
             modelBuilder.Entity<ApproveFlowLog>(entity =>
             {
+                entity.ToTable("ApproveFlowLog");
+
                 entity.Property(e => e.ApproveFlowLogId)
                     .HasMaxLength(50)
                     .IsUnicode(false);
@@ -167,21 +180,9 @@ namespace DataBaseSetupV3.DbFirst
                 entity.Property(e => e.UndoTime).HasColumnType("datetime");
             });
 
-            modelBuilder.Entity<AspNetRoleClaims>(entity =>
-            {
-                entity.HasIndex(e => e.RoleId);
-
-                entity.Property(e => e.RoleId).IsRequired();
-
-                entity.HasOne(d => d.Role)
-                    .WithMany(p => p.AspNetRoleClaims)
-                    .HasForeignKey(d => d.RoleId);
-            });
-
             modelBuilder.Entity<AspNetRoles>(entity =>
             {
-                entity.HasIndex(e => e.NormalizedName)
-                    .HasName("RoleNameIndex")
+                entity.HasIndex(e => e.NormalizedName, "RoleNameIndex")
                     .IsUnique()
                     .HasFilter("([NormalizedName] IS NOT NULL)");
 
@@ -190,9 +191,43 @@ namespace DataBaseSetupV3.DbFirst
                 entity.Property(e => e.NormalizedName).HasMaxLength(256);
             });
 
+            modelBuilder.Entity<AspNetRoleClaims>(entity =>
+            {
+                entity.HasIndex(e => e.RoleId, "IX_AspNetRoleClaims_RoleId");
+
+                entity.Property(e => e.RoleId).IsRequired();
+
+                entity.HasOne(d => d.Role)
+                    .WithMany(p => p.AspNetRoleClaims)
+                    .HasForeignKey(d => d.RoleId);
+            });
+
+            modelBuilder.Entity<AspNetUsers>(entity =>
+            {
+                entity.HasIndex(e => e.NormalizedEmail)
+                    .HasDatabaseName("EmailIndex");
+
+                entity.HasIndex(e => e.NormalizedUserName)
+                    .HasDatabaseName("UserNameIndex")
+                    .IsUnique()
+                    .HasFilter("([NormalizedUserName] IS NOT NULL)");
+
+                entity.Property(e => e.Email).HasMaxLength(256);
+
+                entity.Property(e => e.IndustryId).HasMaxLength(20);
+
+                entity.Property(e => e.MainComId).HasMaxLength(20);
+
+                entity.Property(e => e.NormalizedEmail).HasMaxLength(256);
+
+                entity.Property(e => e.NormalizedUserName).HasMaxLength(256);
+
+                entity.Property(e => e.UserName).HasMaxLength(256);
+            });
+
             modelBuilder.Entity<AspNetUserClaims>(entity =>
             {
-                entity.HasIndex(e => e.UserId);
+                entity.HasIndex(e => e.UserId, "IX_AspNetUserClaims_UserId");
 
                 entity.Property(e => e.UserId).IsRequired();
 
@@ -200,10 +235,13 @@ namespace DataBaseSetupV3.DbFirst
                     .WithMany(p => p.AspNetUserClaims)
                     .HasForeignKey(d => d.UserId);
             });
-
+             
             modelBuilder.Entity<AspNetUserLogins>(entity =>
             {
-                entity.HasKey(e => new { e.LoginProvider, e.ProviderKey });
+                entity.HasKey(e => new { e.LoginProvider, e.ProviderKey })
+                      .HasName("PK_AspNetUserLogins");
+                 
+                entity.HasIndex(e => e.UserId, "IX_AspNetUserLogins_UserId");
 
                 entity.HasIndex(e => e.UserId);
 
@@ -215,7 +253,7 @@ namespace DataBaseSetupV3.DbFirst
 
                 entity.HasOne(d => d.User)
                     .WithMany(p => p.AspNetUserLogins)
-                    .HasForeignKey(d => d.UserId);
+                    .HasForeignKey(d => d.UserId); 
             });
 
             modelBuilder.Entity<AspNetUserRoles>(entity =>
@@ -246,32 +284,11 @@ namespace DataBaseSetupV3.DbFirst
                     .HasForeignKey(d => d.UserId);
             });
 
-            modelBuilder.Entity<AspNetUsers>(entity =>
-            {
-                entity.HasIndex(e => e.NormalizedEmail)
-                    .HasName("EmailIndex");
-
-                entity.HasIndex(e => e.NormalizedUserName)
-                    .HasName("UserNameIndex")
-                    .IsUnique()
-                    .HasFilter("([NormalizedUserName] IS NOT NULL)");
-
-                entity.Property(e => e.Email).HasMaxLength(256);
-
-                entity.Property(e => e.IndustryId).HasMaxLength(20);
-
-                entity.Property(e => e.MainComId).HasMaxLength(20);
-
-                entity.Property(e => e.NormalizedEmail).HasMaxLength(256);
-
-                entity.Property(e => e.NormalizedUserName).HasMaxLength(256);
-
-                entity.Property(e => e.UserName).HasMaxLength(256);
-            });
-
             modelBuilder.Entity<AttLog>(entity =>
             {
                 entity.HasKey(e => e.AttendanceLogId);
+
+                entity.ToTable("AttLog");
 
                 entity.Property(e => e.AttendanceLogId).HasDefaultValueSql("((-1))");
 
@@ -339,6 +356,8 @@ namespace DataBaseSetupV3.DbFirst
 
             modelBuilder.Entity<AttPolicy>(entity =>
             {
+                entity.ToTable("AttPolicy");
+
                 entity.Property(e => e.AttPolicyId)
                     .HasMaxLength(128)
                     .IsUnicode(false);
@@ -372,6 +391,8 @@ namespace DataBaseSetupV3.DbFirst
 
             modelBuilder.Entity<AttPolicyCalc>(entity =>
             {
+                entity.ToTable("AttPolicyCalc");
+
                 entity.Property(e => e.AttPolicyCalcId)
                     .HasMaxLength(128)
                     .IsUnicode(false)
@@ -428,6 +449,8 @@ namespace DataBaseSetupV3.DbFirst
 
             modelBuilder.Entity<AttPolicyOfEply>(entity =>
             {
+                entity.ToTable("AttPolicyOfEply");
+
                 entity.Property(e => e.AttPolicyOfEplyId)
                     .HasMaxLength(128)
                     .IsUnicode(false);
@@ -478,6 +501,8 @@ namespace DataBaseSetupV3.DbFirst
 
             modelBuilder.Entity<AttendanceByCom>(entity =>
             {
+                entity.ToTable("AttendanceByCom");
+
                 entity.Property(e => e.AttendanceByComId).HasMaxLength(30);
 
                 entity.Property(e => e.ContractorId).HasMaxLength(128);
@@ -500,6 +525,8 @@ namespace DataBaseSetupV3.DbFirst
 
             modelBuilder.Entity<AttendanceByDay>(entity =>
             {
+                entity.ToTable("AttendanceByDay");
+
                 entity.Property(e => e.AttendanceByDayId).HasMaxLength(30);
 
                 entity.Property(e => e.ContractorId)
@@ -602,6 +629,8 @@ namespace DataBaseSetupV3.DbFirst
 
             modelBuilder.Entity<AttendanceByPeriod>(entity =>
             {
+                entity.ToTable("AttendanceByPeriod");
+
                 entity.Property(e => e.AttendanceByPeriodId).HasMaxLength(30);
 
                 entity.Property(e => e.AccuAbsentDays).HasColumnType("decimal(18, 2)");
@@ -695,6 +724,8 @@ namespace DataBaseSetupV3.DbFirst
 
             modelBuilder.Entity<AttendanceByShift>(entity =>
             {
+                entity.ToTable("AttendanceByShift");
+
                 entity.Property(e => e.AttendanceByShiftId).HasMaxLength(30);
 
                 entity.Property(e => e.BreakTimeTotalSpan).HasColumnType("decimal(18, 2)");
@@ -827,6 +858,8 @@ namespace DataBaseSetupV3.DbFirst
 
             modelBuilder.Entity<AttendanceLog>(entity =>
             {
+                entity.ToTable("AttendanceLog");
+
                 entity.Property(e => e.AttendanceLogId).HasDefaultValueSql("((-1))");
 
                 entity.Property(e => e.AccesscardId).HasMaxLength(200);
@@ -893,6 +926,8 @@ namespace DataBaseSetupV3.DbFirst
 
             modelBuilder.Entity<CardManage>(entity =>
             {
+                entity.ToTable("CardManage");
+
                 entity.Property(e => e.Id)
                     .HasMaxLength(20)
                     .IsUnicode(false);
@@ -931,6 +966,8 @@ namespace DataBaseSetupV3.DbFirst
 
             modelBuilder.Entity<Contractor>(entity =>
             {
+                entity.ToTable("Contractor");
+
                 entity.Property(e => e.ContractorId).HasMaxLength(128);
 
                 entity.Property(e => e.OperatedDate).HasColumnType("datetime");
@@ -944,6 +981,8 @@ namespace DataBaseSetupV3.DbFirst
 
             modelBuilder.Entity<DefinitedPeriod>(entity =>
             {
+                entity.ToTable("DefinitedPeriod");
+
                 entity.Property(e => e.DefinitedPeriodId).HasMaxLength(30);
 
                 entity.Property(e => e.DefinitedPeriodName).HasMaxLength(50);
@@ -964,6 +1003,8 @@ namespace DataBaseSetupV3.DbFirst
 
             modelBuilder.Entity<Department>(entity =>
             {
+                entity.ToTable("Department");
+
                 entity.Property(e => e.DepartmentId).HasMaxLength(128);
 
                 entity.Property(e => e.CompanyName).HasMaxLength(256);
@@ -1001,6 +1042,8 @@ namespace DataBaseSetupV3.DbFirst
 
             modelBuilder.Entity<Device>(entity =>
             {
+                entity.ToTable("Device");
+
                 entity.Property(e => e.DeviceId).HasMaxLength(50);
 
                 entity.Property(e => e.DeviceName)
@@ -1041,6 +1084,8 @@ namespace DataBaseSetupV3.DbFirst
 
             modelBuilder.Entity<DeviceUser>(entity =>
             {
+                entity.ToTable("DeviceUser");
+
                 entity.Property(e => e.Id)
                     .HasMaxLength(50)
                     .IsUnicode(false);
@@ -1108,6 +1153,8 @@ namespace DataBaseSetupV3.DbFirst
 
             modelBuilder.Entity<Employee>(entity =>
             {
+                entity.ToTable("Employee");
+
                 entity.Property(e => e.EmployeeId).HasMaxLength(128);
 
                 entity.Property(e => e.AccessCardId).HasMaxLength(128);
@@ -1175,8 +1222,9 @@ namespace DataBaseSetupV3.DbFirst
 
             modelBuilder.Entity<EplyFinance>(entity =>
             {
-                entity.HasIndex(e => e.EplyFinanceId)
-                    .HasName("IX_EplyFinanceId")
+                entity.ToTable("EplyFinance");
+
+                entity.HasIndex(e => e.EplyFinanceId, "IX_EplyFinanceId")
                     .IsUnique();
 
                 entity.Property(e => e.EplyFinanceId)
@@ -1231,6 +1279,8 @@ namespace DataBaseSetupV3.DbFirst
 
             modelBuilder.Entity<EplyFinanceItem>(entity =>
             {
+                entity.ToTable("EplyFinanceItem");
+
                 entity.Property(e => e.EplyFinanceItemId)
                     .HasMaxLength(128)
                     .IsUnicode(false);
@@ -1311,6 +1361,8 @@ namespace DataBaseSetupV3.DbFirst
 
             modelBuilder.Entity<EplyFinanceItemName>(entity =>
             {
+                entity.ToTable("EplyFinanceItemName");
+
                 entity.Property(e => e.EplyFinanceItemNameId)
                     .HasMaxLength(128)
                     .IsUnicode(false);
@@ -1338,6 +1390,8 @@ namespace DataBaseSetupV3.DbFirst
 
             modelBuilder.Entity<EventLog>(entity =>
             {
+                entity.ToTable("EventLog");
+
                 entity.Property(e => e.EventLogId).HasMaxLength(128);
 
                 entity.Property(e => e.EventDatetime)
@@ -1364,6 +1418,8 @@ namespace DataBaseSetupV3.DbFirst
 
             modelBuilder.Entity<Holiday>(entity =>
             {
+                entity.ToTable("Holiday");
+
                 entity.Property(e => e.HolidayId)
                     .HasMaxLength(20)
                     .IsUnicode(false);
@@ -1385,14 +1441,18 @@ namespace DataBaseSetupV3.DbFirst
 
             modelBuilder.Entity<Industry>(entity =>
             {
+                entity.ToTable("Industry");
+
                 entity.Property(e => e.IndustryId).HasMaxLength(128);
             });
 
             modelBuilder.Entity<InfoCate>(entity =>
             {
+                entity.ToTable("InfoCate");
+
                 entity.Property(e => e.InfoCateId)
-                    .HasColumnName("InfoCateID")
-                    .HasMaxLength(128);
+                    .HasMaxLength(128)
+                    .HasColumnName("InfoCateID");
 
                 entity.Property(e => e.InfoCateName).HasMaxLength(50);
 
@@ -1405,14 +1465,16 @@ namespace DataBaseSetupV3.DbFirst
                 entity.Property(e => e.OperatedUserName).HasMaxLength(128);
 
                 entity.Property(e => e.PrarentsId)
-                    .HasColumnName("PrarentsID")
-                    .HasMaxLength(500);
+                    .HasMaxLength(500)
+                    .HasColumnName("PrarentsID");
             });
 
             modelBuilder.Entity<InfoDetail>(entity =>
             {
                 entity.HasKey(e => e.InfoId)
                     .HasName("PK_dbo.InfoDetail");
+
+                entity.ToTable("InfoDetail");
 
                 entity.Property(e => e.InfoId).HasMaxLength(20);
 
@@ -1451,6 +1513,8 @@ namespace DataBaseSetupV3.DbFirst
 
             modelBuilder.Entity<Job>(entity =>
             {
+                entity.ToTable("Job");
+
                 entity.Property(e => e.JobId).HasMaxLength(128);
 
                 entity.Property(e => e.MainComId)
@@ -1463,17 +1527,37 @@ namespace DataBaseSetupV3.DbFirst
             {
                 entity.HasKey(e => e.KeyName);
 
-                entity.Property(e => e.KeyName).HasMaxLength(50);
+                entity.ToTable("Language");
 
-                entity.Property(e => e.EnUs).HasColumnName("en_US");
+                entity.Property(e => e.KeyName)
+                    .HasMaxLength(50)
+                    .UseCollation("Chinese_Taiwan_Stroke_CI_AS");
 
-                entity.Property(e => e.ZhCn).HasColumnName("zh_CN");
+                entity.Property(e => e.EnUs)
+                    .HasColumnName("en_US")
+                    .UseCollation("Chinese_Taiwan_Stroke_CI_AS");
 
-                entity.Property(e => e.ZhHk).HasColumnName("zh_HK");
+                entity.Property(e => e.IndustryIdArr).UseCollation("Chinese_Taiwan_Stroke_CI_AS");
+
+                entity.Property(e => e.KeyType).UseCollation("Chinese_Taiwan_Stroke_CI_AS");
+
+                entity.Property(e => e.MainComIdArr).UseCollation("Chinese_Taiwan_Stroke_CI_AS");
+
+                entity.Property(e => e.Remark).UseCollation("Chinese_Taiwan_Stroke_CI_AS");
+
+                entity.Property(e => e.ZhCn)
+                    .HasColumnName("zh_CN")
+                    .UseCollation("Chinese_Taiwan_Stroke_CI_AS");
+
+                entity.Property(e => e.ZhHk)
+                    .HasColumnName("zh_HK")
+                    .UseCollation("Chinese_Taiwan_Stroke_CI_AS");
             });
 
             modelBuilder.Entity<Leave>(entity =>
             {
+                entity.ToTable("Leave");
+
                 entity.Property(e => e.LeaveId).HasMaxLength(20);
 
                 entity.Property(e => e.ApplovedBy).HasMaxLength(50);
@@ -1516,6 +1600,8 @@ namespace DataBaseSetupV3.DbFirst
             {
                 entity.HasKey(e => new { e.LeaveType, e.MainComId });
 
+                entity.ToTable("LeaveTypeDay");
+
                 entity.Property(e => e.LeaveType)
                     .HasMaxLength(50)
                     .HasComment("MainComId 和 LeaveType 确定唯一的记录，例如定义 公司6000014的年假10天");
@@ -1543,9 +1629,9 @@ namespace DataBaseSetupV3.DbFirst
 
                 entity.Property(e => e.MaxLeaveDaySpan)
                     .IsRequired()
-                    .HasComment("累計的時長：年假10天，標準工作時間8小時，則對應的值等於80小時 ")
                     .IsRowVersion()
-                    .IsConcurrencyToken();
+                    .IsConcurrencyToken()
+                    .HasComment("累計的時長：年假10天，標準工作時間8小時，則對應的值等於80小時 ");
 
                 entity.Property(e => e.MaxLeaveNatureWorkDay)
                     .HasColumnType("decimal(4, 2)")
@@ -1560,6 +1646,8 @@ namespace DataBaseSetupV3.DbFirst
 
             modelBuilder.Entity<MainCom>(entity =>
             {
+                entity.ToTable("MainCom");
+
                 entity.Property(e => e.MainComId).HasMaxLength(20);
 
                 entity.Property(e => e.CicReferenceNo).HasColumnName("CIC_ReferenceNo");
@@ -1581,6 +1669,8 @@ namespace DataBaseSetupV3.DbFirst
 
             modelBuilder.Entity<MenuItem>(entity =>
             {
+                entity.ToTable("MenuItem");
+
                 entity.Property(e => e.MenuItemId).HasMaxLength(128);
 
                 entity.Property(e => e.OperatedDate).HasColumnType("datetime");
@@ -1588,6 +1678,8 @@ namespace DataBaseSetupV3.DbFirst
 
             modelBuilder.Entity<Position>(entity =>
             {
+                entity.ToTable("Position");
+
                 entity.Property(e => e.PositionId).HasMaxLength(128);
 
                 entity.Property(e => e.CreatedDate).HasColumnType("datetime");
@@ -1605,6 +1697,8 @@ namespace DataBaseSetupV3.DbFirst
 
             modelBuilder.Entity<SalAssessment>(entity =>
             {
+                entity.ToTable("SalAssessment");
+
                 entity.Property(e => e.SalAssessmentId)
                     .HasMaxLength(128)
                     .IsUnicode(false);
@@ -1652,6 +1746,8 @@ namespace DataBaseSetupV3.DbFirst
 
             modelBuilder.Entity<SalTaxRate>(entity =>
             {
+                entity.ToTable("SalTaxRate");
+
                 entity.Property(e => e.SalTaxRateId)
                     .HasMaxLength(20)
                     .IsUnicode(false);
@@ -1685,6 +1781,8 @@ namespace DataBaseSetupV3.DbFirst
 
             modelBuilder.Entity<SalWelfareCalc>(entity =>
             {
+                entity.ToTable("SalWelfareCalc");
+
                 entity.Property(e => e.SalWelfareCalcId)
                     .HasMaxLength(20)
                     .IsUnicode(false);
@@ -1692,8 +1790,6 @@ namespace DataBaseSetupV3.DbFirst
                 entity.Property(e => e.Amount).HasColumnType("decimal(18, 2)");
 
                 entity.Property(e => e.ApprovedBy).HasMaxLength(256);
-
-                entity.Property(e => e.ApprovedStatus).HasDefaultValueSql("((0))");
 
                 entity.Property(e => e.CalcBusinessDesc).IsRequired();
 
@@ -1727,6 +1823,8 @@ namespace DataBaseSetupV3.DbFirst
 
             modelBuilder.Entity<SalaryAndFinanceSecurity>(entity =>
             {
+                entity.ToTable("SalaryAndFinanceSecurity");
+
                 entity.Property(e => e.SalaryAndFinanceSecurityId)
                     .HasMaxLength(128)
                     .IsUnicode(false);
@@ -1753,6 +1851,8 @@ namespace DataBaseSetupV3.DbFirst
 
             modelBuilder.Entity<SalaryDeduction>(entity =>
             {
+                entity.ToTable("SalaryDeduction");
+
                 entity.Property(e => e.SalaryDeductionId)
                     .HasMaxLength(128)
                     .IsUnicode(false);
@@ -1816,6 +1916,8 @@ namespace DataBaseSetupV3.DbFirst
 
             modelBuilder.Entity<Schedule>(entity =>
             {
+                entity.ToTable("Schedule");
+
                 entity.Property(e => e.ScheduleId)
                     .HasMaxLength(128)
                     .IsUnicode(false);
@@ -1852,6 +1954,8 @@ namespace DataBaseSetupV3.DbFirst
 
             modelBuilder.Entity<Shift>(entity =>
             {
+                entity.ToTable("Shift");
+
                 entity.Property(e => e.ShiftId)
                     .HasMaxLength(30)
                     .HasDefaultValueSql("((6))");
@@ -1923,6 +2027,8 @@ namespace DataBaseSetupV3.DbFirst
 
             modelBuilder.Entity<Site>(entity =>
             {
+                entity.ToTable("Site");
+
                 entity.Property(e => e.SiteId).HasMaxLength(10);
 
                 entity.Property(e => e.MainComId)
@@ -1941,14 +2047,16 @@ namespace DataBaseSetupV3.DbFirst
                 entity.HasKey(e => e.SourceStatisticsId)
                     .HasName("PK_dbo.SourceStatistic");
 
+                entity.ToTable("SourceStatistic");
+
                 entity.Property(e => e.CreatedDate).HasColumnType("datetime");
 
                 entity.Property(e => e.Duration).HasColumnType("decimal(18, 2)");
 
                 entity.Property(e => e.Ip)
                     .IsRequired()
-                    .HasColumnName("IP")
-                    .HasMaxLength(128);
+                    .HasMaxLength(128)
+                    .HasColumnName("IP");
 
                 entity.Property(e => e.LastUpdateDate).HasColumnType("datetime");
 
@@ -1959,8 +2067,8 @@ namespace DataBaseSetupV3.DbFirst
                 entity.Property(e => e.OpenId).HasMaxLength(256);
 
                 entity.Property(e => e.Osversion)
-                    .HasColumnName("OSVersion")
-                    .HasMaxLength(128);
+                    .HasMaxLength(128)
+                    .HasColumnName("OSVersion");
 
                 entity.Property(e => e.RecommUserId).HasMaxLength(128);
 
@@ -1985,8 +2093,8 @@ namespace DataBaseSetupV3.DbFirst
                 entity.Property(e => e.StaffId).HasMaxLength(128);
 
                 entity.Property(e => e.ChannelId)
-                    .HasColumnName("ChannelID")
-                    .HasMaxLength(256);
+                    .HasMaxLength(256)
+                    .HasColumnName("ChannelID");
 
                 entity.Property(e => e.ContactTitle).HasMaxLength(100);
 
@@ -2018,6 +2126,8 @@ namespace DataBaseSetupV3.DbFirst
             modelBuilder.Entity<SysModule>(entity =>
             {
                 entity.HasKey(e => e.KeyId);
+
+                entity.ToTable("SysModule");
 
                 entity.Property(e => e.KeyId).HasMaxLength(128);
 
@@ -2055,6 +2165,8 @@ namespace DataBaseSetupV3.DbFirst
                 entity.HasKey(e => e.TableName)
                     .HasName("PK_dbo.TableIdentity");
 
+                entity.ToTable("TableIdentity");
+
                 entity.Property(e => e.TableName).HasMaxLength(128);
 
                 entity.Property(e => e.OperatedDate).HasColumnType("datetime");
@@ -2062,6 +2174,8 @@ namespace DataBaseSetupV3.DbFirst
 
             modelBuilder.Entity<TaskJob>(entity =>
             {
+                entity.ToTable("TaskJob");
+
                 entity.Property(e => e.TaskJobId).HasMaxLength(20);
 
                 entity.Property(e => e.CompletedDatetime).HasColumnType("datetime");
@@ -2085,6 +2199,8 @@ namespace DataBaseSetupV3.DbFirst
 
             modelBuilder.Entity<TaskSetting>(entity =>
             {
+                entity.ToTable("TaskSetting");
+
                 entity.Property(e => e.TaskSettingId).HasMaxLength(50);
 
                 entity.Property(e => e.CalcPeriodSpan).HasDefaultValueSql("((60))");
@@ -2100,6 +2216,8 @@ namespace DataBaseSetupV3.DbFirst
 
             modelBuilder.Entity<TransferObjectList>(entity =>
             {
+                entity.ToTable("TransferObjectList");
+
                 entity.Property(e => e.TransferObjectListId)
                     .HasMaxLength(20)
                     .IsUnicode(false);
@@ -2140,6 +2258,8 @@ namespace DataBaseSetupV3.DbFirst
 
             modelBuilder.Entity<UploadItem>(entity =>
             {
+                entity.ToTable("UploadItem");
+
                 entity.Property(e => e.UploadItemId).HasMaxLength(100);
 
                 entity.Property(e => e.FileExt).HasMaxLength(20);
@@ -2163,9 +2283,11 @@ namespace DataBaseSetupV3.DbFirst
 
             modelBuilder.Entity<UserTrace>(entity =>
             {
+                entity.ToTable("UserTrace");
+
                 entity.Property(e => e.UserTraceId)
-                    .HasColumnName("UserTraceID")
-                    .HasMaxLength(128);
+                    .HasMaxLength(128)
+                    .HasColumnName("UserTraceID");
 
                 entity.Property(e => e.MainComId).HasMaxLength(20);
 
@@ -2174,8 +2296,8 @@ namespace DataBaseSetupV3.DbFirst
                 entity.Property(e => e.OperatedUserName).HasMaxLength(256);
 
                 entity.Property(e => e.TableKeyId)
-                    .HasColumnName("TableKeyID")
-                    .HasMaxLength(128);
+                    .HasMaxLength(128)
+                    .HasColumnName("TableKeyID");
 
                 entity.Property(e => e.UserId).HasMaxLength(128);
             });

@@ -15,7 +15,7 @@ namespace DataBaseSetupV3.Model
         public int DrorCr { get; set; }
         public string CalcBusinessDesc { get; set; }
         public string ApprovedBy { get; set; }
-        public int? ApprovedStatus { get; set; }
+        public int ApprovedStatus { get; set; }
         public DateTime OperateDateTime { get; set; }
         public string MainComId { get; set; }
     }

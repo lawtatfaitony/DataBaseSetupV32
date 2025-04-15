@@ -10,7 +10,7 @@ namespace DataBaseSetupV3.Model
         public string HolidayEnName { get; set; }
         public DateTime HolidayDate { get; set; }
         public int IsWholeDay { get; set; }
-        public bool? StatutoryHoliday { get; set; }
+        public bool StatutoryHoliday { get; set; }
         public int HolidayPaidType { get; set; }
         public string HolidayPaidTypeName { get; set; }
         public decimal OnDutyPaidRatio { get; set; }

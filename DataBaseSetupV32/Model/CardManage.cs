@@ -12,6 +12,9 @@ namespace DataBaseSetupV3.Model
         public string OccupiedByEmployeeName { get; set; }
         public string MapToUserDeviceSerialNo { get; set; }
         public string MainComId { get; set; }
+        /// <summary>
+        /// 0 = not ; 2 = applicable ; 2 =  active inactive
+        /// </summary>
         public int Status { get; set; }
         public DateTime UpdateDateTime { get; set; }
         public string OperatedUser { get; set; }

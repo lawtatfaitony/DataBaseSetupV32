@@ -30,7 +30,10 @@ namespace DataBaseSetupV3
 
                 foreach(Shift shift in shiftList)
                 {
-                    databaseContext.Shift.Add(shift);
+                    if(databaseContext.Shift.Find(shift.ShiftId)==null)
+                    {
+                        databaseContext.Shift.Add(shift);
+                    }
                 }
                 int result = databaseContext.SaveChanges();
                 if (result > 0)

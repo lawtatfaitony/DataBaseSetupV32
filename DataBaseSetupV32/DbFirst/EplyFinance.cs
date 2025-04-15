@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace DataBaseSetupV3.DbFirst
+namespace AttendanceBussiness.DbFirst
 {
     public partial class EplyFinance
     {
@@ -12,11 +12,17 @@ namespace DataBaseSetupV3.DbFirst
         public string MainComId { get; set; }
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
+        /// <summary>
+        /// 会计状态
+        /// </summary>
         public int AccountingStatus { get; set; }
         public string TransBankingId { get; set; }
         public string TransBankingName { get; set; }
         public string TransferNo { get; set; }
         public string BankBusiness { get; set; }
+        /// <summary>
+        /// settle  account
+        /// </summary>
         public bool IsClosed { get; set; }
         public int SettlePeriodMode { get; set; }
         public string OperatedUser { get; set; }

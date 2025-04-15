@@ -48,6 +48,13 @@ namespace DataBaseSetupV3
             SystemData.CheckParmsCache();
             #endregion
 
+            //Get CPU Serial Number
+            string cpuSeralNo = EncryptionRSA.GetCpuSeralNo();
+            Console.WriteLine("\n------------------------------------------");
+            Console.WriteLine("\n[CPU SERIAL NUMBER={0}]\n", cpuSeralNo);
+            Console.WriteLine("------------------------------------------\n");
+
+
             DataBaseContext context1 = new DataBaseContext();
             Console.WriteLine("\n[TRY TO CONNECT DATABASE..............................]\n");
             Console.WriteLine("\n[DATABASE CONNECTION STRING : {0}]\n", context1.Database.GetDbConnection().ConnectionString);

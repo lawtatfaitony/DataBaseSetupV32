@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace DataBaseSetupV3.DbFirst
+namespace AttendanceBussiness.DbFirst
 {
     public partial class TransferObjectList
     {
@@ -11,6 +11,9 @@ namespace DataBaseSetupV3.DbFirst
         public string HolderRfId { get; set; }
         public string ObjectId { get; set; }
         public string ObjectName { get; set; }
+        /// <summary>
+        /// 对应AccessCardId
+        /// </summary>
         public string ObjectRfId { get; set; }
         public int StorageState { get; set; }
         public long ObjectLogDateTime { get; set; }

@@ -58,10 +58,7 @@
     "KeyType": "Modal_PropertyName",
     "zh_CN": "当前的考勤人员账目（账户）的状态是「无现金流账户」，这类账户可能涉及应收帐款、应付帐款或其他会计项目，但并不涉及实际的现金交易。这些账户的状态通常反映的是会计上的记录，而不是实际的现金流动。",
     "zh_HK": "當前的考勤人員賬目（賬戶）的狀態是「無現金流賬戶」，這類賬戶可能涉及應收帳款、應付帳款或其他會計項目，但並不涉及實際的現金交易。這些賬戶的狀態通常反映的是會計上的記錄，而不是實際的現金流動。",
-    "en_US": "The status of the current attendance staff account  is "
-    "no",
-    "cash",
-    "flow" "account\". This type of account may involve accounts receivable, accounts payable or other accounting items, but does not involve actual cash transactions. The status of these accounts usually reflects accounting records rather than actual cash flows.\"",
+    "en_US": "The status of the current attendance staff account is no cash flow account. This type of account may involve accounts receivable, accounts payable or other accounting items, but does not involve actual cash transactions. The status of these accounts usually reflects accounting records rather than actual cash flows.",
     "IndustryIdArr": "",
     "MainComIdArr": ""
   },
@@ -4516,11 +4513,7 @@
     "KeyType": "Modal_PropertyName",
     "zh_CN": "未按考勤任务完成,则需要按规则扣减余下未完成考勤的那部分薪酬,例如,中途离职,剩下10个工作日未完成,则需要审核并做出扣减,又例如迟到早退严重,按考勤支付率计算人工或者自由工作者来说,这个计算项是非常灵活的计算薪酬的。依据的指标是「1-考勤支付率/总体考勤完成率」。",
     "zh_HK": "未按考勤任務完成,則需要按規則扣減餘下未完成考勤的那部分薪酬,例如,中途離職,剩下10個工作日未完成,則需要審核並做出扣減,又例如遲到早退嚴重,按考勤支付率計算人工或者自由工作者來說,這個計算項是非常靈活的計算薪酬的。依據的指標是「1-考勤支付率/總體考勤完成率」。",
-    "en_US": "If the attendance task is not completed, the remaining salary for the unfinished attendance needs to be deducted according to the rules. For example, if you leave the company midway and there are 10 working days left to complete, it is necessary to review and make deductions. Another example is that if you are seriously late or leave early, this calculation item is very flexible for calculating wages based on the attendance payment rate for labor or freelance workers. The indicator used is "
-    "1-Attendance",
-    "payment",
-    "rate/overall" "attendance",
-    "completion" "rate\".\"",
+    "en_US": "If the attendance task is not completed, the remaining salary for the unfinished attendance needs to be deducted according to the rules. For example, if you leave the company midway and there are 10 working days left to complete, it is necessary to review and make deductions. Another example is that if you are seriously late or leave early, this calculation item is very flexible for calculating wages based on the attendance payment rate for labor or freelance workers. The indicator used is Attendance payment rate overall attendance completion rate",
     "IndustryIdArr": "",
     "MainComIdArr": ""
   },
@@ -5716,18 +5709,20 @@
     "KeyName": "DashBoard_DepartmentLateAttendanceStatistics",
     "KeyType": "Modal_PropertyName",
     "zh_CN": "部门迟到统计",
-    "zh_HK": "部門遲到統計,
-    "," "en_US\" : \"Department",
-    "late" "attendance",
-    "statistics\",\"IndustryIdArr\" : \"\",\"MainComIdArr\" : \"\" }," {
-      "KeyName": "Dashbord_Index_Title",
-      "KeyType": "ModalView_PropertyName",
-      "zh_CN": "仪表板 Dashbord",
-      "zh_HK": "仪表板 Dashbord",
-      "en_US": "Dashbord",
-      "IndustryIdArr": "0,IN60006",
-      "MainComIdArr": ""
-    },
+    "zh_HK": "部門遲到統計",
+    "en_US": "Department late attendance statistics",
+    "IndustryIdArr": "",
+    "MainComIdArr": ""
+  },
+  {
+    "KeyName": "Dashbord_Index_Title",
+    "KeyType": "ModalView_PropertyName",
+    "zh_CN": "仪表板 Dashbord",
+    "zh_HK": "儀表板 Dashbord",
+    "en_US": "Dashbord",
+    "IndustryIdArr": "0,IN60006",
+    "MainComIdArr": ""
+  },
     {
       "KeyName": "DateTimeRangeObj_QureryTipsStartAtMonthFirst",
       "KeyType": "Modal_PropertyName",

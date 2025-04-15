@@ -14,6 +14,9 @@ namespace DataBaseSetupV3.Model
         public string ApprovalUserName { get; set; }
         public int ApprovalSequence { get; set; }
         public int Status { get; set; }
+        /// <summary>
+        /// ApproveFlowLog.Status  判斷上一個節點 ApproveFlowLog.TargetResult是否和下一個節點的ApproveFlowLog.TargetResult 是否一致. 
+        /// </summary>
         public int TargetResult { get; set; }
         public DateTime ApprovedDateTime { get; set; }
         public DateTime CreatedDatetime { get; set; }

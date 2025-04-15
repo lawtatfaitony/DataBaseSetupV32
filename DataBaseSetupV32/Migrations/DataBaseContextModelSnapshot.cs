@@ -6,6 +6,8 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
+#nullable disable
+
 namespace DataBaseSetupV3.Migrations
 {
     [DbContext(typeof(DataBaseContext))]
@@ -15,24 +17,25 @@ namespace DataBaseSetupV3.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "3.1.9")
-                .HasAnnotation("Relational:MaxIdentifierLength", 128)
-                .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                .HasAnnotation("ProductVersion", "6.0.0")
+                .HasAnnotation("Relational:MaxIdentifierLength", 128);
+
+            SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
 
             modelBuilder.Entity("DataBaseSetupV3.Model.ApproveFlow", b =>
                 {
                     b.Property<string>("ApproveFlowId")
-                        .HasColumnType("varchar(50)")
                         .HasMaxLength(50)
-                        .IsUnicode(false);
+                        .IsUnicode(false)
+                        .HasColumnType("varchar(50)");
 
                     b.Property<int>("ApprovalSequence")
                         .HasColumnType("int");
 
                     b.Property<string>("ApprovalUserIds")
-                        .HasColumnType("varchar(300)")
                         .HasMaxLength(300)
-                        .IsUnicode(false);
+                        .IsUnicode(false)
+                        .HasColumnType("varchar(300)");
 
                     b.Property<bool>("AprovedByDeptSupervisor")
                         .HasColumnType("bit")
@@ -42,15 +45,15 @@ namespace DataBaseSetupV3.Migrations
                         .HasColumnType("time");
 
                     b.Property<string>("CreatedBy")
-                        .HasColumnType("nvarchar(450)")
-                        .HasMaxLength(450);
+                        .HasMaxLength(450)
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<DateTime>("CreatedDatetime")
                         .HasColumnType("datetime");
 
                     b.Property<string>("MainComId")
-                        .HasColumnType("nvarchar(20)")
-                        .HasMaxLength(20);
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
 
                     b.Property<DateTime>("StartupDatetime")
                         .ValueGeneratedOnAdd()
@@ -62,20 +65,20 @@ namespace DataBaseSetupV3.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("TableColumn")
-                        .HasColumnType("varchar(50)")
                         .HasMaxLength(50)
-                        .IsUnicode(false);
+                        .IsUnicode(false)
+                        .HasColumnType("varchar(50)");
 
                     b.Property<string>("TableName")
-                        .HasColumnType("varchar(50)")
                         .HasMaxLength(50)
-                        .IsUnicode(false);
+                        .IsUnicode(false)
+                        .HasColumnType("varchar(50)");
 
                     b.Property<string>("UpdatedBy")
-                        .HasColumnType("nvarchar(450)")
-                        .HasMaxLength(450);
+                        .HasMaxLength(450)
+                        .HasColumnType("nvarchar(450)");
 
-                    b.Property<DateTime>("UpdatedDatetime")
+                    b.Property<DateTime?>("UpdatedDatetime")
                         .HasColumnType("datetime");
 
                     b.HasKey("ApproveFlowId");
@@ -86,27 +89,27 @@ namespace DataBaseSetupV3.Migrations
             modelBuilder.Entity("DataBaseSetupV3.Model.ApproveFlowLog", b =>
                 {
                     b.Property<string>("ApproveFlowLogId")
-                        .HasColumnType("varchar(50)")
                         .HasMaxLength(50)
-                        .IsUnicode(false);
+                        .IsUnicode(false)
+                        .HasColumnType("varchar(50)");
 
                     b.Property<int>("ApprovalSequence")
                         .HasColumnType("int");
 
                     b.Property<string>("ApprovalUserId")
-                        .HasColumnType("varchar(50)")
                         .HasMaxLength(50)
-                        .IsUnicode(false);
+                        .IsUnicode(false)
+                        .HasColumnType("varchar(50)");
 
                     b.Property<string>("ApprovalUserName")
-                        .HasColumnType("nvarchar(50)")
-                        .HasMaxLength(50);
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<string>("ApproveFlowId")
                         .IsRequired()
-                        .HasColumnType("varchar(50)")
                         .HasMaxLength(50)
-                        .IsUnicode(false);
+                        .IsUnicode(false)
+                        .HasColumnType("varchar(50)");
 
                     b.Property<DateTime>("ApprovedDateTime")
                         .HasColumnType("datetime");
@@ -118,36 +121,36 @@ namespace DataBaseSetupV3.Migrations
                         .HasColumnType("bit");
 
                     b.Property<string>("MainComId")
-                        .HasColumnType("nvarchar(20)")
-                        .HasMaxLength(20);
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
 
                     b.Property<string>("PrimaryxKey")
                         .IsRequired()
-                        .HasColumnType("varchar(128)")
                         .HasMaxLength(128)
-                        .IsUnicode(false);
+                        .IsUnicode(false)
+                        .HasColumnType("varchar(128)");
 
                     b.Property<string>("Remarks")
-                        .HasColumnType("nvarchar(300)")
-                        .HasMaxLength(300);
+                        .HasMaxLength(300)
+                        .HasColumnType("nvarchar(300)");
 
                     b.Property<string>("SourceRowHash")
-                        .HasColumnType("varchar(256)")
                         .HasMaxLength(256)
-                        .IsUnicode(false);
+                        .IsUnicode(false)
+                        .HasColumnType("varchar(256)");
 
                     b.Property<int>("Status")
                         .HasColumnType("int");
 
                     b.Property<string>("TableColumn")
-                        .HasColumnType("varchar(50)")
                         .HasMaxLength(50)
-                        .IsUnicode(false);
+                        .IsUnicode(false)
+                        .HasColumnType("varchar(50)");
 
                     b.Property<string>("TableName")
-                        .HasColumnType("varchar(50)")
                         .HasMaxLength(50)
-                        .IsUnicode(false);
+                        .IsUnicode(false)
+                        .HasColumnType("varchar(50)");
 
                     b.Property<int>("TargetResult")
                         .HasColumnType("int")
@@ -165,8 +168,9 @@ namespace DataBaseSetupV3.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<string>("ClaimType")
                         .HasColumnType("nvarchar(max)");
@@ -194,18 +198,18 @@ namespace DataBaseSetupV3.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
-                        .HasColumnType("nvarchar(256)")
-                        .HasMaxLength(256);
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
 
                     b.Property<string>("NormalizedName")
-                        .HasColumnType("nvarchar(256)")
-                        .HasMaxLength(256);
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
 
                     b.HasKey("Id");
 
                     b.HasIndex("NormalizedName")
                         .IsUnique()
-                        .HasName("RoleNameIndex")
+                        .HasDatabaseName("RoleNameIndex")
                         .HasFilter("([NormalizedName] IS NOT NULL)");
 
                     b.ToTable("AspNetRoles");
@@ -215,8 +219,9 @@ namespace DataBaseSetupV3.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<string>("ClaimType")
                         .HasColumnType("nvarchar(max)");
@@ -238,12 +243,12 @@ namespace DataBaseSetupV3.Migrations
             modelBuilder.Entity("DataBaseSetupV3.Model.AspNetUserLogins", b =>
                 {
                     b.Property<string>("LoginProvider")
-                        .HasColumnType("nvarchar(128)")
-                        .HasMaxLength(128);
+                        .HasMaxLength(128)
+                        .HasColumnType("nvarchar(128)");
 
                     b.Property<string>("ProviderKey")
-                        .HasColumnType("nvarchar(128)")
-                        .HasMaxLength(128);
+                        .HasMaxLength(128)
+                        .HasColumnType("nvarchar(128)");
 
                     b.Property<string>("ProviderDisplayName")
                         .HasColumnType("nvarchar(max)");
@@ -274,27 +279,6 @@ namespace DataBaseSetupV3.Migrations
                     b.ToTable("AspNetUserRoles");
                 });
 
-            modelBuilder.Entity("DataBaseSetupV3.Model.AspNetUserTokens", b =>
-                {
-                    b.Property<string>("UserId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("LoginProvider")
-                        .HasColumnType("nvarchar(128)")
-                        .HasMaxLength(128);
-
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(128)")
-                        .HasMaxLength(128);
-
-                    b.Property<string>("Value")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("UserId", "LoginProvider", "Name");
-
-                    b.ToTable("AspNetUserTokens");
-                });
-
             modelBuilder.Entity("DataBaseSetupV3.Model.AspNetUsers", b =>
                 {
                     b.Property<string>("Id")
@@ -307,15 +291,15 @@ namespace DataBaseSetupV3.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Email")
-                        .HasColumnType("nvarchar(256)")
-                        .HasMaxLength(256);
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
 
                     b.Property<bool>("EmailConfirmed")
                         .HasColumnType("bit");
 
                     b.Property<string>("IndustryId")
-                        .HasColumnType("nvarchar(20)")
-                        .HasMaxLength(20);
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
 
                     b.Property<bool>("LockoutEnabled")
                         .HasColumnType("bit");
@@ -324,16 +308,16 @@ namespace DataBaseSetupV3.Migrations
                         .HasColumnType("datetimeoffset");
 
                     b.Property<string>("MainComId")
-                        .HasColumnType("nvarchar(20)")
-                        .HasMaxLength(20);
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
 
                     b.Property<string>("NormalizedEmail")
-                        .HasColumnType("nvarchar(256)")
-                        .HasMaxLength(256);
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
 
                     b.Property<string>("NormalizedUserName")
-                        .HasColumnType("nvarchar(256)")
-                        .HasMaxLength(256);
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
 
                     b.Property<string>("PasswordHash")
                         .HasColumnType("nvarchar(max)");
@@ -351,381 +335,59 @@ namespace DataBaseSetupV3.Migrations
                         .HasColumnType("bit");
 
                     b.Property<string>("UserName")
-                        .HasColumnType("nvarchar(256)")
-                        .HasMaxLength(256);
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
 
                     b.HasKey("Id");
 
                     b.HasIndex("NormalizedEmail")
-                        .HasName("EmailIndex");
+                        .HasDatabaseName("EmailIndex");
 
                     b.HasIndex("NormalizedUserName")
                         .IsUnique()
-                        .HasName("UserNameIndex")
+                        .HasDatabaseName("UserNameIndex")
                         .HasFilter("([NormalizedUserName] IS NOT NULL)");
 
                     b.ToTable("AspNetUsers");
                 });
 
-            modelBuilder.Entity("DataBaseSetupV3.Model.AttLog", b =>
+            modelBuilder.Entity("DataBaseSetupV3.Model.AspNetUserTokens", b =>
                 {
-                    b.Property<long>("AttendanceLogId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
-                        .HasDefaultValueSql("((-1))");
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
 
-                    b.Property<string>("AccesscardId")
-                        .HasColumnType("nvarchar(200)")
-                        .HasMaxLength(200);
-
-                    b.Property<string>("CatchPicture")
-                        .HasColumnType("text");
-
-                    b.Property<string>("CatchPictureFileName")
-                        .HasColumnType("nvarchar(256)")
-                        .HasMaxLength(256);
-
-                    b.Property<string>("CnName")
-                        .HasColumnType("nvarchar(128)")
-                        .HasMaxLength(128);
-
-                    b.Property<string>("CompanyName")
-                        .HasColumnType("nvarchar(128)")
-                        .HasMaxLength(128);
-
-                    b.Property<string>("ContractorId")
-                        .HasColumnType("nvarchar(128)")
-                        .HasMaxLength(128);
-
-                    b.Property<string>("ContractorName")
-                        .HasColumnType("nvarchar(128)")
-                        .HasMaxLength(128);
-
-                    b.Property<DateTime>("CratedDateTime")
-                        .HasColumnType("datetime");
-
-                    b.Property<string>("DepartmentId")
-                        .HasColumnType("nvarchar(128)")
-                        .HasMaxLength(128);
-
-                    b.Property<string>("DepartmentName")
-                        .HasColumnType("nvarchar(128)")
-                        .HasMaxLength(128);
-
-                    b.Property<int>("DeviceEntryMode")
-                        .HasColumnType("int");
-
-                    b.Property<string>("DeviceId")
-                        .HasColumnType("nvarchar(128)")
-                        .HasMaxLength(128);
-
-                    b.Property<string>("DeviceName")
-                        .HasColumnType("nvarchar(128)")
-                        .HasMaxLength(128);
-
-                    b.Property<string>("EmployeeId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(128)")
-                        .HasMaxLength(128);
-
-                    b.Property<string>("FacialArea")
-                        .HasColumnType("varchar(128)")
+                    b.Property<string>("LoginProvider")
                         .HasMaxLength(128)
-                        .IsUnicode(false);
+                        .HasColumnType("nvarchar(128)");
 
-                    b.Property<string>("FacialAvatar")
-                        .HasColumnType("text");
-
-                    b.Property<string>("HmacHash")
-                        .IsRequired()
-                        .HasColumnType("varchar(64)")
-                        .HasMaxLength(64)
-                        .IsUnicode(false);
-
-                    b.Property<string>("JobId")
-                        .HasColumnType("nvarchar(128)")
-                        .HasMaxLength(128);
-
-                    b.Property<string>("JobName")
-                        .HasColumnType("nvarchar(128)")
-                        .HasMaxLength(128);
-
-                    b.Property<string>("LatitudeAndLongitude")
-                        .HasColumnType("nvarchar(500)")
-                        .HasMaxLength(500);
-
-                    b.Property<string>("MainComId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(20)")
-                        .HasMaxLength(20);
-
-                    b.Property<int>("Mode")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasDefaultValueSql("((-1))");
-
-                    b.Property<string>("ObjData")
-                        .HasColumnType("ntext");
-
-                    b.Property<long>("OccurDateTime")
-                        .HasColumnType("bigint");
-
-                    b.Property<string>("PositionId")
-                        .HasColumnType("nvarchar(128)")
-                        .HasMaxLength(128);
-
-                    b.Property<string>("PositionTitle")
-                        .HasColumnType("nvarchar(128)")
-                        .HasMaxLength(128);
-
-                    b.Property<string>("SiteId")
-                        .HasColumnType("nvarchar(10)")
-                        .HasMaxLength(10);
-
-                    b.Property<string>("SiteName")
-                        .HasColumnType("nvarchar(128)")
-                        .HasMaxLength(128);
-
-                    b.HasKey("AttendanceLogId");
-
-                    b.ToTable("AttLog");
-                });
-
-            modelBuilder.Entity("DataBaseSetupV3.Model.AttPolicy", b =>
-                {
-                    b.Property<string>("AttPolicyId")
-                        .HasColumnType("varchar(128)")
+                    b.Property<string>("Name")
                         .HasMaxLength(128)
-                        .IsUnicode(false);
+                        .HasColumnType("nvarchar(128)");
 
-                    b.Property<int>("AttPolicyConfigCalcMode")
-                        .HasColumnType("int");
+                    b.Property<string>("Value")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("AttPolicyLabelName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(128)")
-                        .HasMaxLength(128);
+                    b.HasKey("UserId", "LoginProvider", "Name");
 
-                    b.Property<DateTime>("CreatedDateTime")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("datetime")
-                        .HasDefaultValueSql("(getdate())");
-
-                    b.Property<string>("MainComId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(20)")
-                        .HasMaxLength(20);
-
-                    b.Property<DateTime>("OperateDateTime")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("datetime")
-                        .HasDefaultValueSql("(getdate())");
-
-                    b.Property<string>("OperatedUser")
-                        .HasColumnType("nvarchar(256)")
-                        .HasMaxLength(256);
-
-                    b.Property<string>("PolicyConfig")
-                        .HasColumnType("varchar(max)")
-                        .IsUnicode(false);
-
-                    b.Property<string>("RuleDescription")
-                        .HasColumnType("ntext");
-
-                    b.Property<int>("SettlePeriodMode")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasDefaultValueSql("((3))");
-
-                    b.Property<int>("Status")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasDefaultValueSql("((1))");
-
-                    b.HasKey("AttPolicyId");
-
-                    b.ToTable("AttPolicy");
-                });
-
-            modelBuilder.Entity("DataBaseSetupV3.Model.AttPolicyCalc", b =>
-                {
-                    b.Property<string>("AttPolicyCalcId")
-                        .HasColumnType("varchar(128)")
-                        .HasComment("改用 對應 常量ShiftBusiness.ApprovedMode 但column name 保留不變, 2025-3-1, 功能:審批 拒絕 取消等狀態")
-                        .HasMaxLength(128)
-                        .IsUnicode(false);
-
-                    b.Property<int>("AccountingComplete")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasDefaultValueSql("((1))")
-                        .HasComment("OPEN=1");
-
-                    b.Property<decimal>("Amount")
-                        .HasColumnType("decimal(18, 2)");
-
-                    b.Property<int>("ApprovedStatus")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasDefaultValueSql("((1))")
-                        .HasComment("GeneralStatus 改為 ApprovedStatus 常量值是 ShiftBusiness.ApprovedMode");
-
-                    b.Property<DateTime>("CalcDateTime")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("datetime")
-                        .HasDefaultValueSql("(getdate())");
-
-                    b.Property<string>("ComfirmeddBy")
-                        .HasColumnType("nvarchar(256)")
-                        .HasMaxLength(256);
-
-                    b.Property<string>("ContractorId")
-                        .HasColumnType("nvarchar(128)")
-                        .HasMaxLength(128);
-
-                    b.Property<string>("ContractorName")
-                        .HasColumnType("nvarchar(50)")
-                        .HasMaxLength(50);
-
-                    b.Property<DateTime>("DateTimeForRpt")
-                        .HasColumnType("datetime");
-
-                    b.Property<string>("DepartmentId")
-                        .HasColumnType("nvarchar(128)")
-                        .HasMaxLength(128);
-
-                    b.Property<string>("DepartmentName")
-                        .HasColumnType("nvarchar(50)")
-                        .HasMaxLength(50);
-
-                    b.Property<int>("DrorCr")
-                        .HasColumnName("DRorCR")
-                        .HasColumnType("int");
-
-                    b.Property<string>("EmployeeId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(128)")
-                        .HasMaxLength(128);
-
-                    b.Property<string>("EmployeeName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(128)")
-                        .HasMaxLength(128);
-
-                    b.Property<string>("MainComId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(20)")
-                        .HasMaxLength(20);
-
-                    b.Property<DateTime>("OperateDateTime")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("datetime")
-                        .HasDefaultValueSql("(getdate())");
-
-                    b.Property<string>("PolicyConfigLog")
-                        .IsRequired()
-                        .HasColumnType("varchar(max)")
-                        .IsUnicode(false);
-
-                    b.Property<int>("SettlePeriodMode")
-                        .HasColumnType("int");
-
-                    b.HasKey("AttPolicyCalcId");
-
-                    b.ToTable("AttPolicyCalc");
-                });
-
-            modelBuilder.Entity("DataBaseSetupV3.Model.AttPolicyOfEply", b =>
-                {
-                    b.Property<string>("AttPolicyOfEplyId")
-                        .HasColumnType("varchar(128)")
-                        .HasMaxLength(128)
-                        .IsUnicode(false);
-
-                    b.Property<string>("AttPolicyId")
-                        .IsRequired()
-                        .HasColumnType("varchar(128)")
-                        .HasMaxLength(128)
-                        .IsUnicode(false);
-
-                    b.Property<string>("AttPolicyLabelName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(128)")
-                        .HasMaxLength(128);
-
-                    b.Property<DateTime>("CreatedDateTime")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("datetime")
-                        .HasDefaultValueSql("(getdate())");
-
-                    b.Property<string>("DepartmentId")
-                        .HasColumnType("nvarchar(128)")
-                        .HasMaxLength(128);
-
-                    b.Property<string>("DepartmentName")
-                        .HasColumnType("nvarchar(128)")
-                        .HasMaxLength(128);
-
-                    b.Property<string>("EmployeeId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(50)")
-                        .HasMaxLength(50);
-
-                    b.Property<string>("EmployeeName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(128)")
-                        .HasMaxLength(128);
-
-                    b.Property<string>("MainComId")
-                        .HasColumnType("nvarchar(20)")
-                        .HasMaxLength(20);
-
-                    b.Property<DateTime>("OperateDateTime")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("datetime")
-                        .HasDefaultValueSql("(getdate())");
-
-                    b.Property<string>("OperatedUser")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(256)")
-                        .HasMaxLength(256);
-
-                    b.Property<string>("PolicyConfig")
-                        .IsRequired()
-                        .HasColumnType("varchar(max)")
-                        .IsUnicode(false);
-
-                    b.Property<int>("SettlePeriodMode")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasDefaultValueSql("((3))");
-
-                    b.Property<int>("Status")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasDefaultValueSql("((1))");
-
-                    b.HasKey("AttPolicyOfEplyId");
-
-                    b.ToTable("AttPolicyOfEply");
+                    b.ToTable("AspNetUserTokens");
                 });
 
             modelBuilder.Entity("DataBaseSetupV3.Model.AttendanceByCom", b =>
                 {
                     b.Property<string>("AttendanceByComId")
-                        .HasColumnType("nvarchar(30)")
-                        .HasMaxLength(30);
+                        .HasMaxLength(30)
+                        .HasColumnType("nvarchar(30)");
 
                     b.Property<int>("CalcPeriodType")
                         .HasColumnType("int");
 
                     b.Property<string>("ContractorId")
-                        .HasColumnType("nvarchar(128)")
-                        .HasMaxLength(128);
+                        .HasMaxLength(128)
+                        .HasColumnType("nvarchar(128)");
 
                     b.Property<string>("ContractorName")
-                        .HasColumnType("nvarchar(50)")
-                        .HasMaxLength(50);
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<DateTime>("EndDate")
                         .HasColumnType("date");
@@ -736,9 +398,9 @@ namespace DataBaseSetupV3.Migrations
                     b.Property<string>("MainComId")
                         .IsRequired()
                         .ValueGeneratedOnAdd()
+                        .HasMaxLength(20)
                         .HasColumnType("nvarchar(20)")
-                        .HasDefaultValueSql("((0))")
-                        .HasMaxLength(20);
+                        .HasDefaultValueSql("((0))");
 
                     b.Property<bool>("OnDataLocked")
                         .HasColumnType("bit");
@@ -792,20 +454,20 @@ namespace DataBaseSetupV3.Migrations
             modelBuilder.Entity("DataBaseSetupV3.Model.AttendanceByDay", b =>
                 {
                     b.Property<string>("AttendanceByDayId")
-                        .HasColumnType("nvarchar(30)")
-                        .HasMaxLength(30);
+                        .HasMaxLength(30)
+                        .HasColumnType("nvarchar(30)");
 
                     b.Property<int>("CalcPeriodType")
                         .HasColumnType("int");
 
                     b.Property<string>("ContractorId")
-                        .HasColumnType("varchar(128)")
                         .HasMaxLength(128)
-                        .IsUnicode(false);
+                        .IsUnicode(false)
+                        .HasColumnType("varchar(128)");
 
                     b.Property<string>("ContractorName")
-                        .HasColumnType("nvarchar(50)")
-                        .HasMaxLength(50);
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<int>("DayEarlyOutTimeSpan")
                         .HasColumnType("int");
@@ -862,12 +524,12 @@ namespace DataBaseSetupV3.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("DayShiftListJson")
-                        .HasColumnType("nvarchar(500)")
-                        .HasMaxLength(500);
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
 
                     b.Property<string>("DayShiftNameList")
-                        .HasColumnType("nvarchar(500)")
-                        .HasMaxLength(500);
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
 
                     b.Property<TimeSpan>("DayTotalLunchTimeSpan")
                         .ValueGeneratedOnAdd()
@@ -888,36 +550,36 @@ namespace DataBaseSetupV3.Migrations
                         .HasColumnType("time");
 
                     b.Property<string>("DepartmentId")
-                        .HasColumnType("varchar(128)")
                         .HasMaxLength(128)
-                        .IsUnicode(false);
+                        .IsUnicode(false)
+                        .HasColumnType("varchar(128)");
 
                     b.Property<string>("DepartmentName")
-                        .HasColumnType("nvarchar(50)")
-                        .HasMaxLength(50);
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<string>("EmployeeId")
                         .IsRequired()
-                        .HasColumnType("nvarchar(128)")
-                        .HasMaxLength(128);
+                        .HasMaxLength(128)
+                        .HasColumnType("nvarchar(128)");
 
                     b.Property<string>("EmployeeName")
-                        .HasColumnType("nvarchar(50)")
-                        .HasMaxLength(50);
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<string>("HmacHash")
-                        .HasColumnType("varchar(40)")
                         .HasMaxLength(40)
-                        .IsUnicode(false);
+                        .IsUnicode(false)
+                        .HasColumnType("varchar(40)");
 
                     b.Property<string>("HolidayId")
-                        .HasColumnType("varchar(20)")
                         .HasMaxLength(20)
-                        .IsUnicode(false);
+                        .IsUnicode(false)
+                        .HasColumnType("varchar(20)");
 
                     b.Property<string>("HolidayName")
-                        .HasColumnType("nvarchar(150)")
-                        .HasMaxLength(150);
+                        .HasMaxLength(150)
+                        .HasColumnType("nvarchar(150)");
 
                     b.Property<int>("HolidayPaidType")
                         .ValueGeneratedOnAdd()
@@ -925,13 +587,13 @@ namespace DataBaseSetupV3.Migrations
                         .HasDefaultValueSql("((-1))");
 
                     b.Property<string>("HolidayPaidTypeName")
+                        .HasMaxLength(10)
                         .HasColumnType("nchar(10)")
-                        .IsFixedLength(true)
-                        .HasMaxLength(10);
+                        .IsFixedLength();
 
                     b.Property<decimal?>("HolidayWithPaidRatio")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("decimal(18, 3)")
+                        .HasColumnType("decimal(18,3)")
                         .HasDefaultValueSql("((0))");
 
                     b.Property<bool>("IsAbsentDay")
@@ -944,17 +606,17 @@ namespace DataBaseSetupV3.Migrations
                         .HasColumnType("bit");
 
                     b.Property<string>("JobId")
-                        .HasColumnType("varchar(128)")
                         .HasMaxLength(128)
-                        .IsUnicode(false);
+                        .IsUnicode(false)
+                        .HasColumnType("varchar(128)");
 
                     b.Property<string>("JobName")
-                        .HasColumnType("nvarchar(50)")
-                        .HasMaxLength(50);
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<string>("LeaveId")
-                        .HasColumnType("nvarchar(20)")
-                        .HasMaxLength(20);
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
 
                     b.Property<int>("LeavePaidType")
                         .ValueGeneratedOnAdd()
@@ -962,25 +624,25 @@ namespace DataBaseSetupV3.Migrations
                         .HasDefaultValueSql("((-1))");
 
                     b.Property<string>("LeavePaidTypeName")
-                        .HasColumnType("nvarchar(150)")
-                        .HasMaxLength(150);
+                        .HasMaxLength(150)
+                        .HasColumnType("nvarchar(150)");
 
                     b.Property<int>("LeaveType")
                         .HasColumnType("int");
 
                     b.Property<string>("LeaveTypeName")
-                        .HasColumnType("nvarchar(150)")
-                        .HasMaxLength(150);
+                        .HasMaxLength(150)
+                        .HasColumnType("nvarchar(150)");
 
                     b.Property<decimal>("LeaveWithPaidRatio")
-                        .HasColumnType("decimal(18, 2)");
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<string>("MainComId")
                         .IsRequired()
                         .ValueGeneratedOnAdd()
+                        .HasMaxLength(20)
                         .HasColumnType("nvarchar(20)")
-                        .HasDefaultValueSql("((0))")
-                        .HasMaxLength(20);
+                        .HasDefaultValueSql("((0))");
 
                     b.Property<DateTime>("OccurDate")
                         .ValueGeneratedOnAdd()
@@ -992,31 +654,31 @@ namespace DataBaseSetupV3.Migrations
 
                     b.Property<decimal>("OnDutyPaidRatioAvg")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("decimal(18, 3)")
+                        .HasColumnType("decimal(18,3)")
                         .HasDefaultValueSql("((1))");
 
                     b.Property<decimal>("OnDutyWorkRatioAvg")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("decimal(18, 3)")
+                        .HasColumnType("decimal(18,3)")
                         .HasDefaultValueSql("((1))");
 
                     b.Property<string>("PositionId")
-                        .HasColumnType("varchar(128)")
                         .HasMaxLength(128)
-                        .IsUnicode(false);
+                        .IsUnicode(false)
+                        .HasColumnType("varchar(128)");
 
                     b.Property<string>("PositionTitle")
-                        .HasColumnType("nvarchar(50)")
-                        .HasMaxLength(50);
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<string>("SiteId")
-                        .HasColumnType("varchar(128)")
                         .HasMaxLength(128)
-                        .IsUnicode(false);
+                        .IsUnicode(false)
+                        .HasColumnType("varchar(128)");
 
                     b.Property<string>("SiteName")
-                        .HasColumnType("nvarchar(50)")
-                        .HasMaxLength(50);
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<DateTime>("SysCalcDateTime")
                         .ValueGeneratedOnAdd()
@@ -1049,11 +711,11 @@ namespace DataBaseSetupV3.Migrations
             modelBuilder.Entity("DataBaseSetupV3.Model.AttendanceByPeriod", b =>
                 {
                     b.Property<string>("AttendanceByPeriodId")
-                        .HasColumnType("nvarchar(30)")
-                        .HasMaxLength(30);
+                        .HasMaxLength(30)
+                        .HasColumnType("nvarchar(30)");
 
                     b.Property<decimal>("AccuAbsentDays")
-                        .HasColumnType("decimal(18, 2)");
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<long>("AccuEarlyLunchOutTimeSpan")
                         .HasColumnType("bigint");
@@ -1065,13 +727,13 @@ namespace DataBaseSetupV3.Migrations
                         .HasColumnType("bigint");
 
                     b.Property<decimal>("AccuHolidays")
-                        .HasColumnType("decimal(18, 2)");
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<long>("AccuLateInTimeSpan")
                         .HasColumnType("bigint");
 
                     b.Property<decimal>("AccuLeaveDays")
-                        .HasColumnType("decimal(18, 2)");
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<long>("AccuLunchLateInTimeSpan")
                         .HasColumnType("bigint");
@@ -1149,14 +811,14 @@ namespace DataBaseSetupV3.Migrations
                         .HasColumnType("bigint");
 
                     b.Property<decimal>("AccuWorkDays")
-                        .HasColumnType("decimal(18, 2)");
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<long>("AccuWorkTimeSpan")
                         .HasColumnType("bigint");
 
                     b.Property<decimal>("AvgAttWeightedRatio")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("decimal(18, 4)")
+                        .HasColumnType("decimal(18,4)")
                         .HasDefaultValueSql("((1))")
                         .HasComment("加權平均考勤率：加權平均法計算出這個時期的平均加權考勤率");
 
@@ -1164,10 +826,10 @@ namespace DataBaseSetupV3.Migrations
                         .HasColumnType("bigint");
 
                     b.Property<decimal>("AvgOnDutyPaidRatio")
-                        .HasColumnType("decimal(18, 4)");
+                        .HasColumnType("decimal(18,4)");
 
                     b.Property<decimal>("AvgOnDutyWorkRatio")
-                        .HasColumnType("decimal(18, 4)");
+                        .HasColumnType("decimal(18,4)");
 
                     b.Property<long>("AvgOverTimeSpan")
                         .HasColumnType("bigint");
@@ -1184,31 +846,31 @@ namespace DataBaseSetupV3.Migrations
                         .HasDefaultValueSql("((2))");
 
                     b.Property<string>("ContractorId")
-                        .HasColumnType("varchar(128)")
                         .HasMaxLength(128)
-                        .IsUnicode(false);
+                        .IsUnicode(false)
+                        .HasColumnType("varchar(128)");
 
                     b.Property<string>("ContractorName")
-                        .HasColumnType("nvarchar(50)")
-                        .HasMaxLength(50);
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<string>("DepartmentId")
-                        .HasColumnType("varchar(128)")
                         .HasMaxLength(128)
-                        .IsUnicode(false);
+                        .IsUnicode(false)
+                        .HasColumnType("varchar(128)");
 
                     b.Property<string>("DepartmentName")
-                        .HasColumnType("nvarchar(50)")
-                        .HasMaxLength(50);
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<string>("EmployeeId")
                         .IsRequired()
-                        .HasColumnType("nvarchar(128)")
-                        .HasMaxLength(128);
+                        .HasMaxLength(128)
+                        .HasColumnType("nvarchar(128)");
 
                     b.Property<string>("EmployeeName")
-                        .HasColumnType("nvarchar(50)")
-                        .HasMaxLength(50);
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<DateTime>("EndDate")
                         .ValueGeneratedOnAdd()
@@ -1216,28 +878,28 @@ namespace DataBaseSetupV3.Migrations
                         .HasDefaultValueSql("(getdate())");
 
                     b.Property<string>("HmacHash")
-                        .HasColumnType("varchar(50)")
                         .HasMaxLength(50)
-                        .IsUnicode(false);
+                        .IsUnicode(false)
+                        .HasColumnType("varchar(50)");
 
                     b.Property<bool>("IsCompleted")
                         .HasColumnType("bit");
 
                     b.Property<string>("JobId")
-                        .HasColumnType("varchar(128)")
                         .HasMaxLength(128)
-                        .IsUnicode(false);
+                        .IsUnicode(false)
+                        .HasColumnType("varchar(128)");
 
                     b.Property<string>("JobName")
-                        .HasColumnType("nvarchar(50)")
-                        .HasMaxLength(50);
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<string>("MainComId")
                         .IsRequired()
                         .ValueGeneratedOnAdd()
+                        .HasMaxLength(20)
                         .HasColumnType("nvarchar(20)")
-                        .HasDefaultValueSql("((0))")
-                        .HasMaxLength(20);
+                        .HasDefaultValueSql("((0))");
 
                     b.Property<int>("Mode")
                         .ValueGeneratedOnAdd()
@@ -1251,32 +913,32 @@ namespace DataBaseSetupV3.Migrations
                         .HasColumnType("bit");
 
                     b.Property<decimal>("OverAllCompletedRatio")
-                        .HasColumnType("decimal(18, 4)")
+                        .HasColumnType("decimal(18,4)")
                         .HasComment("總體完成率 是指實際確切的工作時間減去應工作的排班時間 如週期(月度)結束,合理情況是100%");
 
                     b.Property<string>("PositionId")
-                        .HasColumnType("varchar(128)")
                         .HasMaxLength(128)
-                        .IsUnicode(false);
+                        .IsUnicode(false)
+                        .HasColumnType("varchar(128)");
 
                     b.Property<string>("PositionTitle")
-                        .HasColumnType("nvarchar(50)")
-                        .HasMaxLength(50);
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<decimal>("PresetWorkTimeSpan")
-                        .HasColumnType("decimal(18, 4)");
+                        .HasColumnType("decimal(18,4)");
 
                     b.Property<string>("ShiftNameStructure")
                         .HasColumnType("ntext");
 
                     b.Property<string>("SiteId")
-                        .HasColumnType("varchar(128)")
                         .HasMaxLength(128)
-                        .IsUnicode(false);
+                        .IsUnicode(false)
+                        .HasColumnType("varchar(128)");
 
                     b.Property<string>("SiteName")
-                        .HasColumnType("nvarchar(50)")
-                        .HasMaxLength(50);
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<DateTime>("StartDate")
                         .ValueGeneratedOnAdd()
@@ -1296,11 +958,11 @@ namespace DataBaseSetupV3.Migrations
             modelBuilder.Entity("DataBaseSetupV3.Model.AttendanceByShift", b =>
                 {
                     b.Property<string>("AttendanceByShiftId")
-                        .HasColumnType("nvarchar(30)")
-                        .HasMaxLength(30);
+                        .HasMaxLength(30)
+                        .HasColumnType("nvarchar(30)");
 
                     b.Property<decimal>("BreakTimeTotalSpan")
-                        .HasColumnType("decimal(18, 2)");
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<int>("BreakTimes")
                         .HasColumnType("int");
@@ -1309,57 +971,57 @@ namespace DataBaseSetupV3.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("ContractorId")
-                        .HasColumnType("varchar(128)")
                         .HasMaxLength(128)
-                        .IsUnicode(false);
+                        .IsUnicode(false)
+                        .HasColumnType("varchar(128)");
 
                     b.Property<string>("ContractorName")
-                        .HasColumnType("nvarchar(50)")
-                        .HasMaxLength(50);
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<string>("DepartmentId")
-                        .HasColumnType("varchar(128)")
                         .HasMaxLength(128)
-                        .IsUnicode(false);
+                        .IsUnicode(false)
+                        .HasColumnType("varchar(128)");
 
                     b.Property<string>("DepartmentName")
-                        .HasColumnType("nvarchar(50)")
-                        .HasMaxLength(50);
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<int>("EarlyOut")
                         .HasColumnType("int");
 
                     b.Property<string>("EmployeeId")
                         .IsRequired()
-                        .HasColumnType("nvarchar(128)")
-                        .HasMaxLength(128);
+                        .HasMaxLength(128)
+                        .HasColumnType("nvarchar(128)");
 
                     b.Property<string>("EmployeeName")
-                        .HasColumnType("nvarchar(50)")
-                        .HasMaxLength(50);
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<string>("HmacHash")
-                        .HasColumnType("varchar(40)")
                         .HasMaxLength(40)
-                        .IsUnicode(false);
+                        .IsUnicode(false)
+                        .HasColumnType("varchar(40)");
 
                     b.Property<string>("HolidayId")
                         .IsRequired()
-                        .HasColumnType("varchar(20)")
                         .HasMaxLength(20)
-                        .IsUnicode(false);
+                        .IsUnicode(false)
+                        .HasColumnType("varchar(20)");
 
                     b.Property<string>("HolidayName")
                         .IsRequired()
-                        .HasColumnType("nvarchar(150)")
-                        .HasMaxLength(150);
+                        .HasMaxLength(150)
+                        .HasColumnType("nvarchar(150)");
 
                     b.Property<int>("HolidayPaidType")
                         .HasColumnType("int");
 
                     b.Property<string>("HolidayPaidTypeName")
-                        .HasColumnType("nvarchar(150)")
-                        .HasMaxLength(150);
+                        .HasMaxLength(150)
+                        .HasColumnType("nvarchar(150)");
 
                     b.Property<bool>("IsAbsentDay")
                         .HasColumnType("bit");
@@ -1398,35 +1060,35 @@ namespace DataBaseSetupV3.Migrations
                         .HasColumnType("bit");
 
                     b.Property<string>("JobId")
-                        .HasColumnType("varchar(128)")
                         .HasMaxLength(128)
-                        .IsUnicode(false);
+                        .IsUnicode(false)
+                        .HasColumnType("varchar(128)");
 
                     b.Property<string>("JobName")
-                        .HasColumnType("nvarchar(50)")
-                        .HasMaxLength(50);
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<int>("LateIn")
                         .HasColumnType("int");
 
                     b.Property<string>("LeaveId")
                         .IsRequired()
-                        .HasColumnType("nvarchar(20)")
-                        .HasMaxLength(20);
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
 
                     b.Property<int>("LeavePaidType")
                         .HasColumnType("int");
 
                     b.Property<string>("LeavePaidTypeName")
-                        .HasColumnType("nvarchar(150)")
-                        .HasMaxLength(150);
+                        .HasMaxLength(150)
+                        .HasColumnType("nvarchar(150)");
 
                     b.Property<int>("LeaveType")
                         .HasColumnType("int");
 
                     b.Property<string>("LeaveTypeName")
-                        .HasColumnType("nvarchar(150)")
-                        .HasMaxLength(150);
+                        .HasMaxLength(150)
+                        .HasColumnType("nvarchar(150)");
 
                     b.Property<int>("LunchTimeEarlyOut")
                         .HasColumnType("int");
@@ -1444,7 +1106,7 @@ namespace DataBaseSetupV3.Migrations
                         .HasColumnType("int");
 
                     b.Property<decimal>("LunchTimeSpan")
-                        .HasColumnType("decimal(18, 2)");
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<DateTime>("LunchTimeStart")
                         .HasColumnType("datetime");
@@ -1452,9 +1114,9 @@ namespace DataBaseSetupV3.Migrations
                     b.Property<string>("MainComId")
                         .IsRequired()
                         .ValueGeneratedOnAdd()
+                        .HasMaxLength(20)
                         .HasColumnType("nvarchar(20)")
-                        .HasDefaultValueSql("((0))")
-                        .HasMaxLength(20);
+                        .HasDefaultValueSql("((0))");
 
                     b.Property<int>("MissingLunchEnd")
                         .ValueGeneratedOnAdd()
@@ -1494,12 +1156,12 @@ namespace DataBaseSetupV3.Migrations
 
                     b.Property<decimal>("OnDutyPaidRatio")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("decimal(18, 3)")
+                        .HasColumnType("decimal(18,3)")
                         .HasDefaultValueSql("((1))");
 
                     b.Property<decimal>("OnDutyWorkRatio")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("decimal(18, 3)")
+                        .HasColumnType("decimal(18,3)")
                         .HasDefaultValueSql("((1))");
 
                     b.Property<int>("OverTimeEarlyOut")
@@ -1518,19 +1180,19 @@ namespace DataBaseSetupV3.Migrations
                         .HasColumnType("int");
 
                     b.Property<decimal>("OverTimeSpan")
-                        .HasColumnType("decimal(18, 2)");
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<DateTime>("OverTimeStart")
                         .HasColumnType("datetime");
 
                     b.Property<string>("PositionId")
-                        .HasColumnType("varchar(128)")
                         .HasMaxLength(128)
-                        .IsUnicode(false);
+                        .IsUnicode(false)
+                        .HasColumnType("varchar(128)");
 
                     b.Property<string>("PositionTitle")
-                        .HasColumnType("nvarchar(50)")
-                        .HasMaxLength(50);
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<DateTime>("ScheduleDate")
                         .ValueGeneratedOnAdd()
@@ -1539,28 +1201,28 @@ namespace DataBaseSetupV3.Migrations
 
                     b.Property<string>("ShiftAbbrId")
                         .IsRequired()
-                        .HasColumnType("nvarchar(10)")
-                        .HasMaxLength(10);
+                        .HasMaxLength(10)
+                        .HasColumnType("nvarchar(10)");
 
                     b.Property<string>("ShiftId")
                         .IsRequired()
                         .ValueGeneratedOnAdd()
+                        .HasMaxLength(30)
                         .HasColumnType("nvarchar(30)")
-                        .HasDefaultValueSql("((0))")
-                        .HasMaxLength(30);
+                        .HasDefaultValueSql("((0))");
 
                     b.Property<string>("ShiftName")
-                        .HasColumnType("nvarchar(150)")
-                        .HasMaxLength(150);
+                        .HasMaxLength(150)
+                        .HasColumnType("nvarchar(150)");
 
                     b.Property<string>("SiteId")
-                        .HasColumnType("varchar(128)")
                         .HasMaxLength(128)
-                        .IsUnicode(false);
+                        .IsUnicode(false)
+                        .HasColumnType("varchar(128)");
 
                     b.Property<string>("SiteName")
-                        .HasColumnType("nvarchar(50)")
-                        .HasMaxLength(50);
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<DateTime>("SysCalcDateTime")
                         .ValueGeneratedOnAdd()
@@ -1568,7 +1230,7 @@ namespace DataBaseSetupV3.Migrations
                         .HasDefaultValueSql("(getdate())");
 
                     b.Property<decimal>("WorkActualNetTimeSpan")
-                        .HasColumnType("decimal(18, 2)");
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<DateTime>("WorkEnd")
                         .HasColumnType("datetime");
@@ -1577,7 +1239,7 @@ namespace DataBaseSetupV3.Migrations
                         .HasColumnType("datetime");
 
                     b.Property<decimal>("WorkTimeSpan")
-                        .HasColumnType("decimal(18, 2)");
+                        .HasColumnType("decimal(18,2)");
 
                     b.HasKey("AttendanceByShiftId");
 
@@ -1592,89 +1254,89 @@ namespace DataBaseSetupV3.Migrations
                         .HasDefaultValueSql("((-1))");
 
                     b.Property<string>("AccesscardId")
-                        .HasColumnType("nvarchar(200)")
-                        .HasMaxLength(200);
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
 
                     b.Property<string>("CatchPicture")
                         .HasColumnType("text");
 
                     b.Property<string>("CatchPictureFileName")
-                        .HasColumnType("nvarchar(256)")
-                        .HasMaxLength(256);
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
 
                     b.Property<string>("CnName")
-                        .HasColumnType("nvarchar(128)")
-                        .HasMaxLength(128);
+                        .HasMaxLength(128)
+                        .HasColumnType("nvarchar(128)");
 
                     b.Property<string>("CompanyName")
-                        .HasColumnType("nvarchar(128)")
-                        .HasMaxLength(128);
+                        .HasMaxLength(128)
+                        .HasColumnType("nvarchar(128)");
 
                     b.Property<string>("ContractorId")
-                        .HasColumnType("nvarchar(128)")
-                        .HasMaxLength(128);
+                        .HasMaxLength(128)
+                        .HasColumnType("nvarchar(128)");
 
                     b.Property<string>("ContractorName")
-                        .HasColumnType("nvarchar(128)")
-                        .HasMaxLength(128);
+                        .HasMaxLength(128)
+                        .HasColumnType("nvarchar(128)");
 
                     b.Property<DateTime>("CratedDateTime")
                         .HasColumnType("datetime");
 
                     b.Property<string>("DepartmentId")
-                        .HasColumnType("nvarchar(128)")
-                        .HasMaxLength(128);
+                        .HasMaxLength(128)
+                        .HasColumnType("nvarchar(128)");
 
                     b.Property<string>("DepartmentName")
-                        .HasColumnType("nvarchar(128)")
-                        .HasMaxLength(128);
+                        .HasMaxLength(128)
+                        .HasColumnType("nvarchar(128)");
 
                     b.Property<int>("DeviceEntryMode")
                         .HasColumnType("int");
 
                     b.Property<string>("DeviceId")
-                        .HasColumnType("nvarchar(128)")
-                        .HasMaxLength(128);
+                        .HasMaxLength(128)
+                        .HasColumnType("nvarchar(128)");
 
                     b.Property<string>("DeviceName")
-                        .HasColumnType("nvarchar(128)")
-                        .HasMaxLength(128);
+                        .HasMaxLength(128)
+                        .HasColumnType("nvarchar(128)");
 
                     b.Property<string>("EmployeeId")
                         .IsRequired()
-                        .HasColumnType("nvarchar(128)")
-                        .HasMaxLength(128);
+                        .HasMaxLength(128)
+                        .HasColumnType("nvarchar(128)");
 
                     b.Property<string>("FacialArea")
-                        .HasColumnType("varchar(128)")
                         .HasMaxLength(128)
-                        .IsUnicode(false);
+                        .IsUnicode(false)
+                        .HasColumnType("varchar(128)");
 
                     b.Property<string>("FacialAvatar")
                         .HasColumnType("text");
 
                     b.Property<string>("HmacHash")
                         .IsRequired()
-                        .HasColumnType("varchar(64)")
                         .HasMaxLength(64)
-                        .IsUnicode(false);
+                        .IsUnicode(false)
+                        .HasColumnType("varchar(64)");
 
                     b.Property<string>("JobId")
-                        .HasColumnType("nvarchar(128)")
-                        .HasMaxLength(128);
+                        .HasMaxLength(128)
+                        .HasColumnType("nvarchar(128)");
 
                     b.Property<string>("JobName")
-                        .HasColumnType("nvarchar(128)")
-                        .HasMaxLength(128);
+                        .HasMaxLength(128)
+                        .HasColumnType("nvarchar(128)");
 
                     b.Property<string>("LatitudeAndLongitude")
-                        .HasColumnType("nvarchar(500)")
-                        .HasMaxLength(500);
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
 
                     b.Property<string>("MainComId")
                         .IsRequired()
-                        .HasColumnType("nvarchar(20)")
-                        .HasMaxLength(20);
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
 
                     b.Property<int>("Mode")
                         .ValueGeneratedOnAdd()
@@ -1682,77 +1344,421 @@ namespace DataBaseSetupV3.Migrations
                         .HasDefaultValueSql("((-1))");
 
                     b.Property<string>("ObjData")
-                        .HasColumnType("nvarchar(500)")
-                        .HasMaxLength(500);
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
 
                     b.Property<long>("OccurDateTime")
                         .HasColumnType("bigint");
 
                     b.Property<string>("PositionId")
-                        .HasColumnType("nvarchar(128)")
-                        .HasMaxLength(128);
+                        .HasMaxLength(128)
+                        .HasColumnType("nvarchar(128)");
 
                     b.Property<string>("PositionTitle")
-                        .HasColumnType("nvarchar(128)")
-                        .HasMaxLength(128);
+                        .HasMaxLength(128)
+                        .HasColumnType("nvarchar(128)");
 
                     b.Property<string>("SiteId")
-                        .HasColumnType("nvarchar(10)")
-                        .HasMaxLength(10);
+                        .HasMaxLength(10)
+                        .HasColumnType("nvarchar(10)");
 
                     b.Property<string>("SiteName")
-                        .HasColumnType("nvarchar(128)")
-                        .HasMaxLength(128);
+                        .HasMaxLength(128)
+                        .HasColumnType("nvarchar(128)");
 
                     b.HasKey("AttendanceLogId");
 
                     b.ToTable("AttendanceLog");
                 });
 
-            modelBuilder.Entity("DataBaseSetupV3.Model.CardManage", b =>
+            modelBuilder.Entity("DataBaseSetupV3.Model.AttLog", b =>
                 {
-                    b.Property<string>("Id")
-                        .HasColumnType("varchar(20)")
-                        .HasMaxLength(20)
-                        .IsUnicode(false);
+                    b.Property<long>("AttendanceLogId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasDefaultValueSql("((-1))");
 
-                    b.Property<string>("CardNo")
-                        .IsRequired()
-                        .HasColumnType("varchar(20)")
-                        .HasMaxLength(20)
-                        .IsUnicode(false);
+                    b.Property<string>("AccesscardId")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("CatchPicture")
+                        .HasColumnType("text");
+
+                    b.Property<string>("CatchPictureFileName")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<string>("CnName")
+                        .HasMaxLength(128)
+                        .HasColumnType("nvarchar(128)");
+
+                    b.Property<string>("CompanyName")
+                        .HasMaxLength(128)
+                        .HasColumnType("nvarchar(128)");
 
                     b.Property<string>("ContractorId")
-                        .HasColumnType("nvarchar(128)")
-                        .HasMaxLength(128);
+                        .HasMaxLength(128)
+                        .HasColumnType("nvarchar(128)");
+
+                    b.Property<string>("ContractorName")
+                        .HasMaxLength(128)
+                        .HasColumnType("nvarchar(128)");
+
+                    b.Property<DateTime>("CratedDateTime")
+                        .HasColumnType("datetime");
+
+                    b.Property<string>("DepartmentId")
+                        .HasMaxLength(128)
+                        .HasColumnType("nvarchar(128)");
+
+                    b.Property<string>("DepartmentName")
+                        .HasMaxLength(128)
+                        .HasColumnType("nvarchar(128)");
+
+                    b.Property<int>("DeviceEntryMode")
+                        .HasColumnType("int");
+
+                    b.Property<string>("DeviceId")
+                        .HasMaxLength(128)
+                        .HasColumnType("nvarchar(128)");
+
+                    b.Property<string>("DeviceName")
+                        .HasMaxLength(128)
+                        .HasColumnType("nvarchar(128)");
+
+                    b.Property<string>("EmployeeId")
+                        .IsRequired()
+                        .HasMaxLength(128)
+                        .HasColumnType("nvarchar(128)");
+
+                    b.Property<string>("FacialArea")
+                        .HasMaxLength(128)
+                        .IsUnicode(false)
+                        .HasColumnType("varchar(128)");
+
+                    b.Property<string>("FacialAvatar")
+                        .HasColumnType("text");
+
+                    b.Property<string>("HmacHash")
+                        .IsRequired()
+                        .HasMaxLength(64)
+                        .IsUnicode(false)
+                        .HasColumnType("varchar(64)");
+
+                    b.Property<string>("JobId")
+                        .HasMaxLength(128)
+                        .HasColumnType("nvarchar(128)");
+
+                    b.Property<string>("JobName")
+                        .HasMaxLength(128)
+                        .HasColumnType("nvarchar(128)");
+
+                    b.Property<string>("LatitudeAndLongitude")
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
 
                     b.Property<string>("MainComId")
                         .IsRequired()
-                        .HasColumnType("nvarchar(20)")
-                        .HasMaxLength(20);
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
 
-                    b.Property<string>("MapToUserDeviceSerialNo")
-                        .HasColumnType("varchar(512)")
-                        .HasMaxLength(512)
-                        .IsUnicode(false);
+                    b.Property<int>("Mode")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasDefaultValueSql("((-1))");
 
-                    b.Property<string>("OccupiedByEmployeeId")
-                        .HasColumnType("nvarchar(128)")
-                        .HasMaxLength(128);
+                    b.Property<string>("ObjData")
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
 
-                    b.Property<string>("OccupiedByEmployeeName")
-                        .HasColumnType("nvarchar(128)")
-                        .HasMaxLength(128);
+                    b.Property<long>("OccurDateTime")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("PositionId")
+                        .HasMaxLength(128)
+                        .HasColumnType("nvarchar(128)");
+
+                    b.Property<string>("PositionTitle")
+                        .HasMaxLength(128)
+                        .HasColumnType("nvarchar(128)");
+
+                    b.Property<string>("SiteId")
+                        .HasMaxLength(10)
+                        .HasColumnType("nvarchar(10)");
+
+                    b.Property<string>("SiteName")
+                        .HasMaxLength(128)
+                        .HasColumnType("nvarchar(128)");
+
+                    b.HasKey("AttendanceLogId");
+
+                    b.ToTable("AttLog");
+                });
+
+            modelBuilder.Entity("DataBaseSetupV3.Model.AttPolicy", b =>
+                {
+                    b.Property<string>("AttPolicyId")
+                        .HasMaxLength(128)
+                        .IsUnicode(false)
+                        .HasColumnType("varchar(128)");
+
+                    b.Property<int>("AttPolicyConfigCalcMode")
+                        .HasColumnType("int");
+
+                    b.Property<string>("AttPolicyLabelName")
+                        .IsRequired()
+                        .HasMaxLength(128)
+                        .HasColumnType("nvarchar(128)");
+
+                    b.Property<DateTime>("CreatedDateTime")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime")
+                        .HasDefaultValueSql("(getdate())");
+
+                    b.Property<string>("MainComId")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
+
+                    b.Property<DateTime>("OperateDateTime")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime")
+                        .HasDefaultValueSql("(getdate())");
+
+                    b.Property<string>("OperatedUser")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<string>("PolicyConfig")
+                        .IsUnicode(false)
+                        .HasColumnType("varchar(max)");
+
+                    b.Property<string>("RuleDescription")
+                        .HasColumnType("ntext");
+
+                    b.Property<int>("SettlePeriodMode")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasDefaultValueSql("((3))");
+
+                    b.Property<int>("Status")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasDefaultValueSql("((1))");
+
+                    b.HasKey("AttPolicyId");
+
+                    b.ToTable("AttPolicy");
+                });
+
+            modelBuilder.Entity("DataBaseSetupV3.Model.AttPolicyCalc", b =>
+                {
+                    b.Property<string>("AttPolicyCalcId")
+                        .HasMaxLength(128)
+                        .IsUnicode(false)
+                        .HasColumnType("varchar(128)")
+                        .HasComment("改用 對應 常量ShiftBusiness.ApprovedMode 但column name 保留不變, 2025-3-1, 功能:審批 拒絕 取消等狀態");
+
+                    b.Property<int>("AccountingComplete")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasDefaultValueSql("((1))")
+                        .HasComment("OPEN=1");
+
+                    b.Property<decimal>("Amount")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<int>("ApprovedStatus")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasDefaultValueSql("((1))")
+                        .HasComment("GeneralStatus 改為 ApprovedStatus 常量值是 ShiftBusiness.ApprovedMode");
+
+                    b.Property<DateTime>("CalcDateTime")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime")
+                        .HasDefaultValueSql("(getdate())");
+
+                    b.Property<string>("ComfirmeddBy")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<string>("ContractorId")
+                        .HasMaxLength(128)
+                        .HasColumnType("nvarchar(128)");
+
+                    b.Property<string>("ContractorName")
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<DateTime>("DateTimeForRpt")
+                        .HasColumnType("datetime");
+
+                    b.Property<string>("DepartmentId")
+                        .HasMaxLength(128)
+                        .HasColumnType("nvarchar(128)");
+
+                    b.Property<string>("DepartmentName")
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<int>("DrorCr")
+                        .HasColumnType("int")
+                        .HasColumnName("DRorCR");
+
+                    b.Property<string>("EmployeeId")
+                        .IsRequired()
+                        .HasMaxLength(128)
+                        .HasColumnType("nvarchar(128)");
+
+                    b.Property<string>("EmployeeName")
+                        .IsRequired()
+                        .HasMaxLength(128)
+                        .HasColumnType("nvarchar(128)");
+
+                    b.Property<string>("MainComId")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
+
+                    b.Property<DateTime>("OperateDateTime")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime")
+                        .HasDefaultValueSql("(getdate())");
+
+                    b.Property<string>("PolicyConfigLog")
+                        .IsRequired()
+                        .IsUnicode(false)
+                        .HasColumnType("varchar(max)");
+
+                    b.Property<int>("SettlePeriodMode")
+                        .HasColumnType("int");
+
+                    b.HasKey("AttPolicyCalcId");
+
+                    b.ToTable("AttPolicyCalc");
+                });
+
+            modelBuilder.Entity("DataBaseSetupV3.Model.AttPolicyOfEply", b =>
+                {
+                    b.Property<string>("AttPolicyOfEplyId")
+                        .HasMaxLength(128)
+                        .IsUnicode(false)
+                        .HasColumnType("varchar(128)");
+
+                    b.Property<string>("AttPolicyId")
+                        .IsRequired()
+                        .HasMaxLength(128)
+                        .IsUnicode(false)
+                        .HasColumnType("varchar(128)");
+
+                    b.Property<string>("AttPolicyLabelName")
+                        .IsRequired()
+                        .HasMaxLength(128)
+                        .HasColumnType("nvarchar(128)");
+
+                    b.Property<DateTime>("CreatedDateTime")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime")
+                        .HasDefaultValueSql("(getdate())");
+
+                    b.Property<string>("DepartmentId")
+                        .HasMaxLength(128)
+                        .HasColumnType("nvarchar(128)");
+
+                    b.Property<string>("DepartmentName")
+                        .HasMaxLength(128)
+                        .HasColumnType("nvarchar(128)");
+
+                    b.Property<string>("EmployeeId")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<string>("EmployeeName")
+                        .IsRequired()
+                        .HasMaxLength(128)
+                        .HasColumnType("nvarchar(128)");
+
+                    b.Property<string>("MainComId")
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
+
+                    b.Property<DateTime>("OperateDateTime")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime")
+                        .HasDefaultValueSql("(getdate())");
 
                     b.Property<string>("OperatedUser")
                         .IsRequired()
-                        .HasColumnType("nvarchar(128)")
-                        .HasMaxLength(128);
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<string>("PolicyConfig")
+                        .IsRequired()
+                        .IsUnicode(false)
+                        .HasColumnType("varchar(max)");
+
+                    b.Property<int>("SettlePeriodMode")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasDefaultValueSql("((3))");
+
+                    b.Property<int>("Status")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasDefaultValueSql("((1))");
+
+                    b.HasKey("AttPolicyOfEplyId");
+
+                    b.ToTable("AttPolicyOfEply");
+                });
+
+            modelBuilder.Entity("DataBaseSetupV3.Model.CardManage", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasMaxLength(20)
+                        .IsUnicode(false)
+                        .HasColumnType("varchar(20)");
+
+                    b.Property<string>("CardNo")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .IsUnicode(false)
+                        .HasColumnType("varchar(20)");
+
+                    b.Property<string>("ContractorId")
+                        .HasMaxLength(128)
+                        .HasColumnType("nvarchar(128)");
+
+                    b.Property<string>("MainComId")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
+
+                    b.Property<string>("MapToUserDeviceSerialNo")
+                        .HasMaxLength(512)
+                        .IsUnicode(false)
+                        .HasColumnType("varchar(512)");
+
+                    b.Property<string>("OccupiedByEmployeeId")
+                        .HasMaxLength(128)
+                        .HasColumnType("nvarchar(128)");
+
+                    b.Property<string>("OccupiedByEmployeeName")
+                        .HasMaxLength(128)
+                        .HasColumnType("nvarchar(128)");
+
+                    b.Property<string>("OperatedUser")
+                        .IsRequired()
+                        .HasMaxLength(128)
+                        .HasColumnType("nvarchar(128)");
 
                     b.Property<string>("PhysicalId")
-                        .HasColumnType("varchar(20)")
                         .HasMaxLength(20)
-                        .IsUnicode(false);
+                        .IsUnicode(false)
+                        .HasColumnType("varchar(20)");
 
                     b.Property<int>("Status")
                         .HasColumnType("int")
@@ -1769,8 +1775,8 @@ namespace DataBaseSetupV3.Migrations
             modelBuilder.Entity("DataBaseSetupV3.Model.Contractor", b =>
                 {
                     b.Property<string>("ContractorId")
-                        .HasColumnType("nvarchar(128)")
-                        .HasMaxLength(128);
+                        .HasMaxLength(128)
+                        .HasColumnType("nvarchar(128)");
 
                     b.Property<string>("CompanyAddress")
                         .HasColumnType("nvarchar(max)");
@@ -1821,8 +1827,8 @@ namespace DataBaseSetupV3.Migrations
                         .HasColumnType("datetime");
 
                     b.Property<string>("UserIds")
-                        .HasColumnType("varchar(max)")
-                        .IsUnicode(false);
+                        .IsUnicode(false)
+                        .HasColumnType("varchar(max)");
 
                     b.HasKey("ContractorId");
 
@@ -1832,19 +1838,19 @@ namespace DataBaseSetupV3.Migrations
             modelBuilder.Entity("DataBaseSetupV3.Model.DefinitedPeriod", b =>
                 {
                     b.Property<string>("DefinitedPeriodId")
-                        .HasColumnType("nvarchar(30)")
-                        .HasMaxLength(30);
+                        .HasMaxLength(30)
+                        .HasColumnType("nvarchar(30)");
 
                     b.Property<string>("DefinitedPeriodName")
-                        .HasColumnType("nvarchar(50)")
-                        .HasMaxLength(50);
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<string>("MainComId")
                         .IsRequired()
                         .ValueGeneratedOnAdd()
+                        .HasMaxLength(20)
                         .HasColumnType("nvarchar(20)")
-                        .HasDefaultValueSql("((0))")
-                        .HasMaxLength(20);
+                        .HasDefaultValueSql("((0))");
 
                     b.Property<DateTime>("OperatedUserName")
                         .ValueGeneratedOnAdd()
@@ -1865,16 +1871,16 @@ namespace DataBaseSetupV3.Migrations
             modelBuilder.Entity("DataBaseSetupV3.Model.Department", b =>
                 {
                     b.Property<string>("DepartmentId")
-                        .HasColumnType("nvarchar(128)")
-                        .HasMaxLength(128);
+                        .HasMaxLength(128)
+                        .HasColumnType("nvarchar(128)");
 
                     b.Property<string>("CompanyName")
-                        .HasColumnType("nvarchar(256)")
-                        .HasMaxLength(256);
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
 
                     b.Property<string>("CreatedBy")
-                        .HasColumnType("nvarchar(256)")
-                        .HasMaxLength(256);
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
 
                     b.Property<DateTime>("CreatedDatetime")
                         .ValueGeneratedOnAdd()
@@ -1882,20 +1888,20 @@ namespace DataBaseSetupV3.Migrations
                         .HasDefaultValueSql("(getdate())");
 
                     b.Property<string>("DepartmentAbbrName")
-                        .HasColumnType("nvarchar(256)")
-                        .HasMaxLength(256);
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
 
                     b.Property<string>("DepartmentName")
-                        .HasColumnType("nvarchar(256)")
-                        .HasMaxLength(256);
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
 
                     b.Property<string>("EnDepartmentName")
-                        .HasColumnType("nvarchar(256)")
-                        .HasMaxLength(256);
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
 
                     b.Property<string>("IndustryId")
-                        .HasColumnType("nvarchar(256)")
-                        .HasMaxLength(256);
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
 
                     b.Property<bool?>("IsActive")
                         .IsRequired()
@@ -1904,30 +1910,30 @@ namespace DataBaseSetupV3.Migrations
                         .HasDefaultValueSql("((1))");
 
                     b.Property<string>("MainComId")
-                        .HasColumnType("nvarchar(256)")
-                        .HasMaxLength(256);
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
 
                     b.Property<string>("ParantsDeptId")
-                        .HasColumnType("nvarchar(128)")
-                        .HasMaxLength(128);
+                        .HasMaxLength(128)
+                        .HasColumnType("nvarchar(128)");
 
                     b.Property<string>("ParentsDeptName")
-                        .HasColumnType("nvarchar(256)")
-                        .HasMaxLength(256);
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
 
                     b.Property<int>("Sequence")
                         .HasColumnType("int");
 
                     b.Property<string>("UpdatedBy")
-                        .HasColumnType("nvarchar(256)")
-                        .HasMaxLength(256);
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
 
                     b.Property<DateTime?>("UpdatedDatetime")
                         .HasColumnType("datetime");
 
                     b.Property<string>("UserIds")
-                        .HasColumnType("nvarchar(512)")
-                        .HasMaxLength(512);
+                        .HasMaxLength(512)
+                        .HasColumnType("nvarchar(512)");
 
                     b.HasKey("DepartmentId");
 
@@ -1937,8 +1943,8 @@ namespace DataBaseSetupV3.Migrations
             modelBuilder.Entity("DataBaseSetupV3.Model.Device", b =>
                 {
                     b.Property<string>("DeviceId")
-                        .HasColumnType("nvarchar(50)")
-                        .HasMaxLength(50);
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<string>("Config")
                         .HasColumnType("nvarchar(max)");
@@ -1948,18 +1954,18 @@ namespace DataBaseSetupV3.Migrations
 
                     b.Property<string>("DeviceName")
                         .IsRequired()
-                        .HasColumnType("nvarchar(50)")
-                        .HasMaxLength(50);
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<string>("DeviceSerialNo")
-                        .HasColumnType("nvarchar(512)")
-                        .HasMaxLength(512);
+                        .HasMaxLength(512)
+                        .HasColumnType("nvarchar(512)");
 
                     b.Property<string>("HangDownDevices")
-                        .HasColumnType("varchar(4000)")
-                        .HasComment("DEV  JSON LIST 設備載體平台的 下掛設備 utf-8 編碼文字")
                         .HasMaxLength(4000)
-                        .IsUnicode(false);
+                        .IsUnicode(false)
+                        .HasColumnType("varchar(4000)")
+                        .HasComment("DEV  JSON LIST 設備載體平台的 下掛設備 utf-8 編碼文字");
 
                     b.Property<bool?>("IsReverseHex")
                         .IsRequired()
@@ -1969,18 +1975,18 @@ namespace DataBaseSetupV3.Migrations
 
                     b.Property<string>("MainComId")
                         .IsRequired()
-                        .HasColumnType("nvarchar(20)")
-                        .HasMaxLength(20);
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
 
                     b.Property<string>("OperatedUser")
-                        .HasColumnType("varchar(128)")
                         .HasMaxLength(128)
-                        .IsUnicode(false);
+                        .IsUnicode(false)
+                        .HasColumnType("varchar(128)");
 
                     b.Property<string>("SiteId")
-                        .HasColumnType("varchar(50)")
                         .HasMaxLength(50)
-                        .IsUnicode(false);
+                        .IsUnicode(false)
+                        .HasColumnType("varchar(50)");
 
                     b.Property<int>("Status")
                         .HasColumnType("int")
@@ -1988,8 +1994,8 @@ namespace DataBaseSetupV3.Migrations
 
                     b.Property<string>("SysModuleId")
                         .IsRequired()
-                        .HasColumnType("nvarchar(50)")
-                        .HasMaxLength(50);
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<DateTime?>("UpdateDateTime")
                         .HasColumnType("datetime");
@@ -2002,13 +2008,13 @@ namespace DataBaseSetupV3.Migrations
             modelBuilder.Entity("DataBaseSetupV3.Model.DeviceUser", b =>
                 {
                     b.Property<string>("Id")
-                        .HasColumnType("varchar(50)")
                         .HasMaxLength(50)
-                        .IsUnicode(false);
+                        .IsUnicode(false)
+                        .HasColumnType("varchar(50)");
 
                     b.Property<string>("AccessCardId")
-                        .HasColumnType("nvarchar(128)")
-                        .HasMaxLength(128);
+                        .HasMaxLength(128)
+                        .HasColumnType("nvarchar(128)");
 
                     b.Property<DateTime>("CreatedDate")
                         .ValueGeneratedOnAdd()
@@ -2019,16 +2025,16 @@ namespace DataBaseSetupV3.Migrations
                         .HasColumnType("bit");
 
                     b.Property<string>("DeviceId")
-                        .HasColumnType("nvarchar(50)")
-                        .HasMaxLength(50);
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<string>("DeviceName")
-                        .HasColumnType("nvarchar(50)")
-                        .HasMaxLength(50);
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<string>("DevidceUserProfileId")
-                        .HasColumnType("nvarchar(256)")
-                        .HasMaxLength(256);
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
 
                     b.Property<int>("DownDelStatus")
                         .ValueGeneratedOnAdd()
@@ -2061,18 +2067,18 @@ namespace DataBaseSetupV3.Migrations
                         .HasDefaultValueSql("(getdate())");
 
                     b.Property<string>("EmployName")
-                        .HasColumnType("nvarchar(50)")
-                        .HasMaxLength(50);
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<string>("EmployeeId")
                         .IsRequired()
-                        .HasColumnType("nvarchar(128)")
-                        .HasMaxLength(128);
+                        .HasMaxLength(128)
+                        .HasColumnType("nvarchar(128)");
 
                     b.Property<string>("FingerPrints")
-                        .HasColumnType("varchar(4000)")
                         .HasMaxLength(4000)
-                        .IsUnicode(false);
+                        .IsUnicode(false)
+                        .HasColumnType("varchar(4000)");
 
                     b.Property<int>("GeneralStatus")
                         .ValueGeneratedOnAdd()
@@ -2080,17 +2086,17 @@ namespace DataBaseSetupV3.Migrations
                         .HasDefaultValueSql("((1))");
 
                     b.Property<string>("PassKey")
-                        .HasColumnType("varchar(20)")
                         .HasMaxLength(20)
-                        .IsUnicode(false);
+                        .IsUnicode(false)
+                        .HasColumnType("varchar(20)");
 
                     b.Property<int>("SearchMode")
                         .HasColumnType("int");
 
                     b.Property<string>("SynchronizedStatusRemarks")
-                        .HasColumnType("varchar(4000)")
                         .HasMaxLength(4000)
-                        .IsUnicode(false);
+                        .IsUnicode(false)
+                        .HasColumnType("varchar(4000)");
 
                     b.Property<DateTime>("UpdatedDate")
                         .HasColumnType("datetime");
@@ -2117,8 +2123,8 @@ namespace DataBaseSetupV3.Migrations
                         .HasColumnType("bit");
 
                     b.Property<string>("UserId")
-                        .HasColumnType("nvarchar(128)")
-                        .HasMaxLength(128);
+                        .HasMaxLength(128)
+                        .HasColumnType("nvarchar(128)");
 
                     b.HasKey("Id");
 
@@ -2128,133 +2134,133 @@ namespace DataBaseSetupV3.Migrations
             modelBuilder.Entity("DataBaseSetupV3.Model.Employee", b =>
                 {
                     b.Property<string>("EmployeeId")
-                        .HasColumnType("nvarchar(128)")
-                        .HasMaxLength(128);
+                        .HasMaxLength(128)
+                        .HasColumnType("nvarchar(128)");
 
                     b.Property<string>("AccessCardId")
-                        .HasColumnType("nvarchar(128)")
-                        .HasMaxLength(128);
+                        .HasMaxLength(128)
+                        .HasColumnType("nvarchar(128)");
 
                     b.Property<DateTime>("Birthday")
                         .HasColumnType("datetime");
 
                     b.Property<string>("CnName")
-                        .HasColumnType("nvarchar(128)")
-                        .HasMaxLength(128);
+                        .HasMaxLength(128)
+                        .HasColumnType("nvarchar(128)");
 
                     b.Property<string>("CompanyName")
-                        .HasColumnType("nvarchar(128)")
-                        .HasMaxLength(128);
+                        .HasMaxLength(128)
+                        .HasColumnType("nvarchar(128)");
 
                     b.Property<string>("ContractorId")
-                        .HasColumnType("nvarchar(128)")
-                        .HasMaxLength(128);
+                        .HasMaxLength(128)
+                        .HasColumnType("nvarchar(128)");
 
                     b.Property<string>("ContractorName")
-                        .HasColumnType("nvarchar(128)")
-                        .HasMaxLength(128);
+                        .HasMaxLength(128)
+                        .HasColumnType("nvarchar(128)");
 
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("datetime");
 
                     b.Property<string>("DepartmentId")
-                        .HasColumnType("nvarchar(128)")
-                        .HasMaxLength(128);
+                        .HasMaxLength(128)
+                        .HasColumnType("nvarchar(128)");
 
                     b.Property<string>("DepartmentName")
-                        .HasColumnType("nvarchar(128)")
-                        .HasMaxLength(128);
+                        .HasMaxLength(128)
+                        .HasColumnType("nvarchar(128)");
 
                     b.Property<string>("Email")
-                        .HasColumnType("nvarchar(128)")
-                        .HasMaxLength(128);
+                        .HasMaxLength(128)
+                        .HasColumnType("nvarchar(128)");
 
                     b.Property<DateTime>("EnrollmentDate")
                         .HasColumnType("datetime");
 
                     b.Property<string>("FingerPrint")
-                        .HasColumnType("nvarchar(128)")
-                        .HasMaxLength(128);
+                        .HasMaxLength(128)
+                        .HasColumnType("nvarchar(128)");
 
                     b.Property<string>("FirstName")
-                        .HasColumnType("nvarchar(128)")
-                        .HasMaxLength(128);
+                        .HasMaxLength(128)
+                        .HasColumnType("nvarchar(128)");
 
                     b.Property<int>("Gender")
                         .HasColumnType("int");
 
                     b.Property<string>("IdNumber")
-                        .HasColumnType("nvarchar(128)")
-                        .HasMaxLength(128);
+                        .HasMaxLength(128)
+                        .HasColumnType("nvarchar(128)");
 
                     b.Property<bool>("IsBlock")
                         .HasColumnType("bit");
 
                     b.Property<string>("JobId")
-                        .HasColumnType("nvarchar(128)")
-                        .HasMaxLength(128);
+                        .HasMaxLength(128)
+                        .HasColumnType("nvarchar(128)");
 
                     b.Property<string>("JobName")
-                        .HasColumnType("nvarchar(128)")
-                        .HasMaxLength(128);
+                        .HasMaxLength(128)
+                        .HasColumnType("nvarchar(128)");
 
                     b.Property<string>("LastName")
-                        .HasColumnType("nvarchar(128)")
-                        .HasMaxLength(128);
+                        .HasMaxLength(128)
+                        .HasColumnType("nvarchar(128)");
 
                     b.Property<DateTime>("LeaveDate")
                         .HasColumnType("datetime");
 
                     b.Property<string>("MainComId")
-                        .HasColumnType("nvarchar(128)")
-                        .HasMaxLength(128);
+                        .HasMaxLength(128)
+                        .HasColumnType("nvarchar(128)");
 
                     b.Property<DateTime>("OperatedDate")
                         .HasColumnType("datetime");
 
                     b.Property<string>("OperatedUserName")
-                        .HasColumnType("nvarchar(128)")
-                        .HasMaxLength(128);
+                        .HasMaxLength(128)
+                        .HasColumnType("nvarchar(128)");
 
                     b.Property<string>("ParentUserId")
-                        .HasColumnType("nvarchar(128)")
-                        .HasMaxLength(128);
+                        .HasMaxLength(128)
+                        .HasColumnType("nvarchar(128)");
 
                     b.Property<string>("PhoneNumber")
-                        .HasColumnType("nvarchar(128)")
-                        .HasMaxLength(128);
+                        .HasMaxLength(128)
+                        .HasColumnType("nvarchar(128)");
 
                     b.Property<string>("PositionId")
-                        .HasColumnType("nvarchar(128)")
-                        .HasMaxLength(128);
+                        .HasMaxLength(128)
+                        .HasColumnType("nvarchar(128)");
 
                     b.Property<string>("PositionTitle")
-                        .HasColumnType("nvarchar(128)")
-                        .HasMaxLength(128);
+                        .HasMaxLength(128)
+                        .HasColumnType("nvarchar(128)");
 
                     b.Property<string>("Remarks")
-                        .HasColumnType("nvarchar(500)")
-                        .HasMaxLength(500);
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
 
                     b.Property<string>("SiteId")
-                        .HasColumnType("nvarchar(128)")
-                        .HasMaxLength(128);
+                        .HasMaxLength(128)
+                        .HasColumnType("nvarchar(128)");
 
                     b.Property<string>("SiteName")
-                        .HasColumnType("nvarchar(128)")
-                        .HasMaxLength(128);
+                        .HasMaxLength(128)
+                        .HasColumnType("nvarchar(128)");
 
                     b.Property<string>("The3rdPartyEmployeeId")
-                        .HasColumnType("nvarchar(128)")
-                        .HasMaxLength(128);
+                        .HasMaxLength(128)
+                        .HasColumnType("nvarchar(128)");
 
                     b.Property<string>("UserIcon")
-                        .HasColumnType("nvarchar(128)")
-                        .HasMaxLength(128);
+                        .HasMaxLength(128)
+                        .HasColumnType("nvarchar(128)");
 
                     b.Property<string>("UserId")
-                        .HasColumnType("nvarchar(128)")
-                        .HasMaxLength(128);
+                        .HasMaxLength(128)
+                        .HasColumnType("nvarchar(128)");
 
                     b.HasKey("EmployeeId");
 
@@ -2264,35 +2270,36 @@ namespace DataBaseSetupV3.Migrations
             modelBuilder.Entity("DataBaseSetupV3.Model.EplyFinance", b =>
                 {
                     b.Property<string>("EplyFinanceId")
-                        .HasColumnType("varchar(128)")
                         .HasMaxLength(128)
-                        .IsUnicode(false);
+                        .IsUnicode(false)
+                        .HasColumnType("varchar(128)");
 
                     b.Property<int>("AccountingStatus")
                         .HasColumnType("int")
                         .HasComment("会计状态");
 
                     b.Property<string>("BankBusiness")
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(2000)
+                        .HasColumnType("nvarchar(2000)");
 
                     b.Property<string>("ContractorId")
-                        .HasColumnType("nvarchar(128)")
-                        .HasMaxLength(128);
+                        .HasMaxLength(128)
+                        .HasColumnType("nvarchar(128)");
 
                     b.Property<string>("DepartmentId")
-                        .HasColumnType("nvarchar(128)")
-                        .HasMaxLength(128);
+                        .HasMaxLength(128)
+                        .HasColumnType("nvarchar(128)");
 
                     b.Property<string>("EmployeeFunllName")
                         .IsRequired()
-                        .HasColumnType("nvarchar(256)")
-                        .HasMaxLength(256);
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
 
                     b.Property<string>("EmployeeId")
                         .IsRequired()
-                        .HasColumnType("varchar(128)")
                         .HasMaxLength(128)
-                        .IsUnicode(false);
+                        .IsUnicode(false)
+                        .HasColumnType("varchar(128)");
 
                     b.Property<DateTime>("EndDate")
                         .HasColumnType("datetime");
@@ -2303,16 +2310,16 @@ namespace DataBaseSetupV3.Migrations
 
                     b.Property<string>("MainComId")
                         .IsRequired()
-                        .HasColumnType("nvarchar(20)")
-                        .HasMaxLength(20);
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
 
                     b.Property<DateTime>("OperateDateTime")
                         .HasColumnType("datetime");
 
                     b.Property<string>("OperatedUser")
                         .IsRequired()
-                        .HasColumnType("nvarchar(256)")
-                        .HasMaxLength(256);
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
 
                     b.Property<int>("SettlePeriodMode")
                         .HasColumnType("int");
@@ -2321,27 +2328,27 @@ namespace DataBaseSetupV3.Migrations
                         .HasColumnType("datetime");
 
                     b.Property<decimal>("TotalAmount")
-                        .HasColumnType("decimal(18, 2)");
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<string>("TransBankingId")
-                        .HasColumnType("varchar(256)")
                         .HasMaxLength(256)
-                        .IsUnicode(false);
+                        .IsUnicode(false)
+                        .HasColumnType("varchar(256)");
 
                     b.Property<string>("TransBankingName")
-                        .HasColumnType("nvarchar(256)")
-                        .HasMaxLength(256);
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
 
                     b.Property<string>("TransferNo")
-                        .HasColumnType("varchar(256)")
                         .HasMaxLength(256)
-                        .IsUnicode(false);
+                        .IsUnicode(false)
+                        .HasColumnType("varchar(256)");
 
                     b.HasKey("EplyFinanceId");
 
                     b.HasIndex("EplyFinanceId")
                         .IsUnique()
-                        .HasName("IX_EplyFinanceId");
+                        .HasDatabaseName("IX_EplyFinanceId");
 
                     b.ToTable("EplyFinance");
                 });
@@ -2349,29 +2356,29 @@ namespace DataBaseSetupV3.Migrations
             modelBuilder.Entity("DataBaseSetupV3.Model.EplyFinanceItem", b =>
                 {
                     b.Property<string>("EplyFinanceItemId")
-                        .HasColumnType("varchar(128)")
                         .HasMaxLength(128)
-                        .IsUnicode(false);
+                        .IsUnicode(false)
+                        .HasColumnType("varchar(128)");
 
                     b.Property<string>("AccountingCode")
                         .IsRequired()
+                        .HasMaxLength(10)
                         .HasColumnType("nchar(10)")
-                        .IsFixedLength(true)
-                        .HasComment("會計記賬代碼 Accounting Code")
-                        .HasMaxLength(10);
+                        .IsFixedLength()
+                        .HasComment("會計記賬代碼 Accounting Code");
 
                     b.Property<string>("AccountingDocuments")
                         .ValueGeneratedOnAdd()
+                        .HasMaxLength(600)
                         .HasColumnType("nvarchar(600)")
-                        .HasDefaultValueSql("(N'上存會計文件保存 文件名分號隔開的數組字符串')")
-                        .HasMaxLength(600);
+                        .HasDefaultValueSql("(N'上存會計文件保存 文件名分號隔開的數組字符串')");
 
                     b.Property<int>("AccountingStatus")
                         .HasColumnType("int")
                         .HasComment("会计状态");
 
                     b.Property<decimal>("Amount")
-                        .HasColumnType("decimal(18, 2)");
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<DateTime?>("CreatedDateTime")
                         .ValueGeneratedOnAdd()
@@ -2379,47 +2386,47 @@ namespace DataBaseSetupV3.Migrations
                         .HasDefaultValueSql("(getdate())");
 
                     b.Property<int>("DrorCr")
-                        .HasColumnName("DRorCR")
                         .HasColumnType("int")
+                        .HasColumnName("DRorCR")
                         .HasComment("借或者贷");
 
                     b.Property<string>("EmployeeFunllName")
                         .IsRequired()
-                        .HasColumnType("nvarchar(256)")
-                        .HasMaxLength(256);
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
 
                     b.Property<string>("EmployeeId")
                         .IsRequired()
-                        .HasColumnType("varchar(128)")
                         .HasMaxLength(128)
-                        .IsUnicode(false);
+                        .IsUnicode(false)
+                        .HasColumnType("varchar(128)");
 
                     b.Property<string>("EplyFinanceId")
                         .IsRequired()
-                        .HasColumnType("varchar(128)")
                         .HasMaxLength(128)
-                        .IsUnicode(false);
+                        .IsUnicode(false)
+                        .HasColumnType("varchar(128)");
 
                     b.Property<int>("IsClosed")
                         .HasColumnType("int");
 
                     b.Property<string>("ItemName")
                         .IsRequired()
+                        .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)")
-                        .HasComment("Item Name : BusFee  LunchFee")
-                        .HasMaxLength(50);
+                        .HasComment("Item Name : BusFee  LunchFee");
 
                     b.Property<string>("ItemNameId")
                         .IsRequired()
-                        .HasColumnType("varchar(128)")
-                        .HasComment(" = EplyFinanceItemNameId")
                         .HasMaxLength(128)
-                        .IsUnicode(false);
+                        .IsUnicode(false)
+                        .HasColumnType("varchar(128)")
+                        .HasComment(" = EplyFinanceItemNameId");
 
                     b.Property<string>("MainComId")
                         .IsRequired()
-                        .HasColumnType("nvarchar(20)")
-                        .HasMaxLength(20);
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
 
                     b.Property<DateTime>("OccuredDateTime")
                         .HasColumnType("datetime");
@@ -2429,25 +2436,25 @@ namespace DataBaseSetupV3.Migrations
 
                     b.Property<string>("OperatedUser")
                         .IsRequired()
-                        .HasColumnType("nvarchar(256)")
-                        .HasMaxLength(256);
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
 
                     b.Property<string>("Remarks")
+                        .HasMaxLength(1200)
                         .HasColumnType("nvarchar(1200)")
-                        .HasComment("系統使用的 json數據結果")
-                        .HasMaxLength(1200);
+                        .HasComment("系統使用的 json數據結果");
 
                     b.Property<int>("SettlePeriodMode")
                         .HasColumnType("int");
 
                     b.Property<string>("SubmitUser")
+                        .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)")
-                        .HasComment("提交申請者(USER)")
-                        .HasMaxLength(256);
+                        .HasComment("提交申請者(USER)");
 
                     b.Property<string>("Summary")
-                        .HasColumnType("nvarchar(600)")
-                        .HasMaxLength(600);
+                        .HasMaxLength(600)
+                        .HasColumnType("nvarchar(600)");
 
                     b.Property<DateTime?>("UpDatedDateTime")
                         .ValueGeneratedOnAdd()
@@ -2462,34 +2469,34 @@ namespace DataBaseSetupV3.Migrations
             modelBuilder.Entity("DataBaseSetupV3.Model.EplyFinanceItemName", b =>
                 {
                     b.Property<string>("EplyFinanceItemNameId")
-                        .HasColumnType("varchar(128)")
                         .HasMaxLength(128)
-                        .IsUnicode(false);
+                        .IsUnicode(false)
+                        .HasColumnType("varchar(128)");
 
                     b.Property<string>("AccountingCode")
                         .IsRequired()
-                        .HasColumnType("varchar(10)")
-                        .HasComment("會計記賬代碼 Accounting Code")
                         .HasMaxLength(10)
-                        .IsUnicode(false);
+                        .IsUnicode(false)
+                        .HasColumnType("varchar(10)")
+                        .HasComment("會計記賬代碼 Accounting Code");
 
                     b.Property<string>("ItemName")
                         .IsRequired()
-                        .HasColumnType("nvarchar(50)")
-                        .HasMaxLength(50);
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<string>("MainComId")
                         .IsRequired()
-                        .HasColumnType("nvarchar(20)")
-                        .HasMaxLength(20);
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
 
                     b.Property<DateTime>("OperateDateTime")
                         .HasColumnType("datetime");
 
                     b.Property<string>("OperatedUser")
                         .IsRequired()
-                        .HasColumnType("nvarchar(50)")
-                        .HasMaxLength(50);
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<int>("Status")
                         .HasColumnType("int");
@@ -2502,8 +2509,8 @@ namespace DataBaseSetupV3.Migrations
             modelBuilder.Entity("DataBaseSetupV3.Model.EventLog", b =>
                 {
                     b.Property<string>("EventLogId")
-                        .HasColumnType("nvarchar(128)")
-                        .HasMaxLength(128);
+                        .HasMaxLength(128)
+                        .HasColumnType("nvarchar(128)");
 
                     b.Property<DateTime?>("EventDatetime")
                         .ValueGeneratedOnAdd()
@@ -2512,12 +2519,12 @@ namespace DataBaseSetupV3.Migrations
 
                     b.Property<string>("MainComId")
                         .IsRequired()
-                        .HasColumnType("nvarchar(20)")
-                        .HasMaxLength(20);
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
 
                     b.Property<string>("MessageIfException")
-                        .HasColumnType("nvarchar(2000)")
-                        .HasMaxLength(2000);
+                        .HasMaxLength(2000)
+                        .HasColumnType("nvarchar(2000)");
 
                     b.Property<DateTime?>("OperateDatetime")
                         .ValueGeneratedOnAdd()
@@ -2530,9 +2537,9 @@ namespace DataBaseSetupV3.Migrations
                     b.Property<string>("OperateUserName")
                         .IsRequired()
                         .ValueGeneratedOnAdd()
+                        .HasMaxLength(128)
                         .HasColumnType("nvarchar(128)")
-                        .HasDefaultValueSql("(N'SYSTEM')")
-                        .HasMaxLength(128);
+                        .HasDefaultValueSql("(N'SYSTEM')");
 
                     b.HasKey("EventLogId");
 
@@ -2542,27 +2549,27 @@ namespace DataBaseSetupV3.Migrations
             modelBuilder.Entity("DataBaseSetupV3.Model.Holiday", b =>
                 {
                     b.Property<string>("HolidayId")
-                        .HasColumnType("varchar(20)")
                         .HasMaxLength(20)
-                        .IsUnicode(false);
+                        .IsUnicode(false)
+                        .HasColumnType("varchar(20)");
 
                     b.Property<string>("HolidayCnName")
-                        .HasColumnType("nvarchar(150)")
-                        .HasMaxLength(150);
+                        .HasMaxLength(150)
+                        .HasColumnType("nvarchar(150)");
 
                     b.Property<DateTime>("HolidayDate")
                         .HasColumnType("date");
 
                     b.Property<string>("HolidayEnName")
-                        .HasColumnType("nvarchar(150)")
-                        .HasMaxLength(150);
+                        .HasMaxLength(150)
+                        .HasColumnType("nvarchar(150)");
 
                     b.Property<int>("HolidayPaidType")
                         .HasColumnType("int");
 
                     b.Property<string>("HolidayPaidTypeName")
-                        .HasColumnType("nvarchar(50)")
-                        .HasMaxLength(50);
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<int>("IsWholeDay")
                         .ValueGeneratedOnAdd()
@@ -2570,11 +2577,11 @@ namespace DataBaseSetupV3.Migrations
                         .HasDefaultValueSql("((1))");
 
                     b.Property<string>("MainComId")
-                        .HasColumnType("nvarchar(20)")
-                        .HasMaxLength(20);
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
 
                     b.Property<decimal>("OnDutyPaidRatio")
-                        .HasColumnType("decimal(18, 2)");
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<bool?>("StatutoryHoliday")
                         .HasColumnType("bit");
@@ -2587,8 +2594,8 @@ namespace DataBaseSetupV3.Migrations
             modelBuilder.Entity("DataBaseSetupV3.Model.Industry", b =>
                 {
                     b.Property<string>("IndustryId")
-                        .HasColumnType("nvarchar(128)")
-                        .HasMaxLength(128);
+                        .HasMaxLength(128)
+                        .HasColumnType("nvarchar(128)");
 
                     b.Property<string>("EnIndustryName")
                         .HasColumnType("nvarchar(max)");
@@ -2607,36 +2614,36 @@ namespace DataBaseSetupV3.Migrations
             modelBuilder.Entity("DataBaseSetupV3.Model.InfoCate", b =>
                 {
                     b.Property<string>("InfoCateId")
-                        .HasColumnName("InfoCateID")
+                        .HasMaxLength(128)
                         .HasColumnType("nvarchar(128)")
-                        .HasMaxLength(128);
+                        .HasColumnName("InfoCateID");
 
                     b.Property<string>("InfoCateName")
-                        .HasColumnType("nvarchar(50)")
-                        .HasMaxLength(50);
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<string>("LanguageCode")
-                        .HasColumnType("nvarchar(20)")
-                        .HasMaxLength(20);
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
 
                     b.Property<int>("Levels")
                         .HasColumnType("int");
 
                     b.Property<string>("MainComId")
-                        .HasColumnType("nvarchar(20)")
-                        .HasMaxLength(20);
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
 
                     b.Property<DateTime>("OperatedDate")
                         .HasColumnType("datetime");
 
                     b.Property<string>("OperatedUserName")
-                        .HasColumnType("nvarchar(128)")
-                        .HasMaxLength(128);
+                        .HasMaxLength(128)
+                        .HasColumnType("nvarchar(128)");
 
                     b.Property<string>("PrarentsId")
-                        .HasColumnName("PrarentsID")
+                        .HasMaxLength(500)
                         .HasColumnType("nvarchar(500)")
-                        .HasMaxLength(500);
+                        .HasColumnName("PrarentsID");
 
                     b.HasKey("InfoCateId");
 
@@ -2646,75 +2653,75 @@ namespace DataBaseSetupV3.Migrations
             modelBuilder.Entity("DataBaseSetupV3.Model.InfoDetail", b =>
                 {
                     b.Property<string>("InfoId")
-                        .HasColumnType("nvarchar(20)")
-                        .HasMaxLength(20);
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
 
                     b.Property<string>("Author")
-                        .HasColumnType("nvarchar(256)")
-                        .HasMaxLength(256);
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
 
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("datetime");
 
                     b.Property<string>("InfoCateId")
-                        .HasColumnType("nvarchar(6)")
-                        .HasMaxLength(6);
+                        .HasMaxLength(6)
+                        .HasColumnType("nvarchar(6)");
 
                     b.Property<string>("InfoDescription")
                         .HasColumnType("ntext");
 
                     b.Property<string>("InfoItemTemplateIds")
-                        .HasColumnType("nvarchar(256)")
-                        .HasMaxLength(256);
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
 
                     b.Property<bool>("IsOriginal")
                         .HasColumnType("bit");
 
                     b.Property<string>("MainComId")
-                        .HasColumnType("nvarchar(20)")
-                        .HasMaxLength(20);
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
 
                     b.Property<DateTime>("OperatedDate")
                         .HasColumnType("datetime");
 
                     b.Property<string>("OperatedUserName")
-                        .HasColumnType("nvarchar(256)")
-                        .HasMaxLength(256);
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
 
                     b.Property<string>("SeoDescription")
-                        .HasColumnType("nvarchar(256)")
-                        .HasMaxLength(256);
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
 
                     b.Property<string>("SeoKeyword")
-                        .HasColumnType("nvarchar(256)")
-                        .HasMaxLength(256);
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
 
                     b.Property<bool>("ShowTitleThumbNail")
                         .HasColumnType("bit");
 
                     b.Property<string>("StaffId")
-                        .HasColumnType("nvarchar(128)")
-                        .HasMaxLength(128);
+                        .HasMaxLength(128)
+                        .HasColumnType("nvarchar(128)");
 
                     b.Property<string>("SubTitle")
-                        .HasColumnType("nvarchar(512)")
-                        .HasMaxLength(512);
+                        .HasMaxLength(512)
+                        .HasColumnType("nvarchar(512)");
 
                     b.Property<string>("Title")
-                        .HasColumnType("nvarchar(256)")
-                        .HasMaxLength(256);
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
 
                     b.Property<string>("TitleThumbNail")
-                        .HasColumnType("nvarchar(256)")
-                        .HasMaxLength(256);
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
 
                     b.Property<string>("UserTraceId")
-                        .HasColumnType("nvarchar(128)")
-                        .HasMaxLength(128);
+                        .HasMaxLength(128)
+                        .HasColumnType("nvarchar(128)");
 
                     b.Property<string>("VideoUrl")
-                        .HasColumnType("nvarchar(512)")
-                        .HasMaxLength(512);
+                        .HasMaxLength(512)
+                        .HasColumnType("nvarchar(512)");
 
                     b.Property<int>("Views")
                         .HasColumnType("int");
@@ -2728,8 +2735,8 @@ namespace DataBaseSetupV3.Migrations
             modelBuilder.Entity("DataBaseSetupV3.Model.Job", b =>
                 {
                     b.Property<string>("JobId")
-                        .HasColumnType("nvarchar(128)")
-                        .HasMaxLength(128);
+                        .HasMaxLength(128)
+                        .HasColumnType("nvarchar(128)");
 
                     b.Property<string>("EnJobName")
                         .HasColumnType("nvarchar(max)");
@@ -2746,9 +2753,9 @@ namespace DataBaseSetupV3.Migrations
                     b.Property<string>("MainComId")
                         .IsRequired()
                         .ValueGeneratedOnAdd()
+                        .HasMaxLength(20)
                         .HasColumnType("nvarchar(20)")
-                        .HasDefaultValueSql("((190605))")
-                        .HasMaxLength(20);
+                        .HasDefaultValueSql("((190605))");
 
                     b.Property<string>("The3rdJobId")
                         .HasColumnType("nvarchar(max)");
@@ -2761,12 +2768,12 @@ namespace DataBaseSetupV3.Migrations
             modelBuilder.Entity("DataBaseSetupV3.Model.Language", b =>
                 {
                     b.Property<string>("KeyName")
-                        .HasColumnType("nvarchar(50)")
-                        .HasMaxLength(50);
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<string>("EnUs")
-                        .HasColumnName("en_US")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("en_US");
 
                     b.Property<string>("IndustryIdArr")
                         .HasColumnType("nvarchar(max)");
@@ -2781,12 +2788,12 @@ namespace DataBaseSetupV3.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ZhCn")
-                        .HasColumnName("zh_CN")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("zh_CN");
 
                     b.Property<string>("ZhHk")
-                        .HasColumnName("zh_HK")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("zh_HK");
 
                     b.HasKey("KeyName");
 
@@ -2796,12 +2803,12 @@ namespace DataBaseSetupV3.Migrations
             modelBuilder.Entity("DataBaseSetupV3.Model.Leave", b =>
                 {
                     b.Property<string>("LeaveId")
-                        .HasColumnType("nvarchar(20)")
-                        .HasMaxLength(20);
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
 
                     b.Property<string>("ApplovedBy")
-                        .HasColumnType("nvarchar(50)")
-                        .HasMaxLength(50);
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<DateTime>("ApprovedDatetime")
                         .ValueGeneratedOnAdd()
@@ -2810,20 +2817,20 @@ namespace DataBaseSetupV3.Migrations
                         .HasComment("審批的日期時間");
 
                     b.Property<string>("ApprovedRemarks")
-                        .HasColumnType("nvarchar(250)")
-                        .HasMaxLength(250);
+                        .HasMaxLength(250)
+                        .HasColumnType("nvarchar(250)");
 
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("datetime");
 
                     b.Property<string>("EmployeeId")
                         .IsRequired()
-                        .HasColumnType("nvarchar(20)")
-                        .HasMaxLength(20);
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
 
                     b.Property<string>("EmployeeName")
-                        .HasColumnType("nvarchar(50)")
-                        .HasMaxLength(50);
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<bool>("IsApproved")
                         .HasColumnType("bit");
@@ -2842,23 +2849,23 @@ namespace DataBaseSetupV3.Migrations
 
                     b.Property<string>("MainComId")
                         .ValueGeneratedOnAdd()
+                        .HasMaxLength(20)
                         .HasColumnType("nvarchar(20)")
-                        .HasDefaultValueSql("((0))")
-                        .HasMaxLength(20);
+                        .HasDefaultValueSql("((0))");
 
                     b.Property<string>("OperatedUserName")
                         .IsRequired()
-                        .HasColumnType("nvarchar(50)")
-                        .HasMaxLength(50);
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<string>("Reason")
-                        .HasColumnType("nvarchar(300)")
-                        .HasMaxLength(300);
+                        .HasMaxLength(300)
+                        .HasColumnType("nvarchar(300)");
 
                     b.Property<string>("ScheduleId")
+                        .IsUnicode(false)
                         .HasColumnType("varchar(max)")
-                        .HasComment("allow the array or  Single")
-                        .IsUnicode(false);
+                        .HasComment("allow the array or  Single");
 
                     b.Property<double>("TotalDaySpan")
                         .HasColumnType("float");
@@ -2868,15 +2875,73 @@ namespace DataBaseSetupV3.Migrations
                     b.ToTable("Leave");
                 });
 
+            modelBuilder.Entity("DataBaseSetupV3.Model.LeaveTypeDay", b =>
+                {
+                    b.Property<string>("LeaveType")
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)")
+                        .HasComment("MainComId 和 LeaveType 确定唯一的记录，例如定义 公司6000014的年假10天");
+
+                    b.Property<string>("MainComId")
+                        .HasMaxLength(20)
+                        .IsUnicode(false)
+                        .HasColumnType("varchar(20)");
+
+                    b.Property<DateTime>("CreateDate")
+                        .HasColumnType("datetime");
+
+                    b.Property<bool?>("IsForTotal")
+                        .IsRequired()
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValueSql("((1))")
+                        .HasComment("是否允許與其他累計 如果統計總的請假天數則視乎此值");
+
+                    b.Property<string>("LeaveTypeDayId")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .IsUnicode(false)
+                        .HasColumnType("varchar(50)")
+                        .HasComment("Auto-increment ID 使用 函数 DataBaseContext.GetTableIdentityID");
+
+                    b.Property<string>("LeaveTypeName")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<byte[]>("MaxLeaveDaySpan")
+                        .IsConcurrencyToken()
+                        .IsRequired()
+                        .ValueGeneratedOnAddOrUpdate()
+                        .HasColumnType("rowversion")
+                        .HasComment("累計的時長：年假10天，標準工作時間8小時，則對應的值等於80小時 ");
+
+                    b.Property<decimal>("MaxLeaveNatureWorkDay")
+                        .HasColumnType("decimal(4,2)")
+                        .HasComment("如 3-8婦女節 半天假期 = 0.5 個工作日 換算成 MaxLeaveDaySpan =  0.5*GlobalConfig.StandardWorkDaySpan(8小時) 即4小時 ");
+
+                    b.Property<string>("OperatedUser")
+                        .IsRequired()
+                        .HasMaxLength(128)
+                        .HasColumnType("nvarchar(128)");
+
+                    b.Property<DateTime>("UpdateDate")
+                        .HasColumnType("datetime");
+
+                    b.HasKey("LeaveType", "MainComId");
+
+                    b.ToTable("LeaveTypeDay");
+                });
+
             modelBuilder.Entity("DataBaseSetupV3.Model.MainCom", b =>
                 {
                     b.Property<string>("MainComId")
-                        .HasColumnType("nvarchar(20)")
-                        .HasMaxLength(20);
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
 
                     b.Property<string>("CicReferenceNo")
-                        .HasColumnName("CIC_ReferenceNo")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("CIC_ReferenceNo");
 
                     b.Property<string>("CompanyAbbreviation")
                         .HasColumnType("nvarchar(max)");
@@ -2906,9 +2971,9 @@ namespace DataBaseSetupV3.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("CurrencySymbol")
-                        .HasColumnType("varchar(20)")
                         .HasMaxLength(20)
-                        .IsUnicode(false);
+                        .IsUnicode(false)
+                        .HasColumnType("varchar(20)");
 
                     b.Property<string>("IndustryId")
                         .HasColumnType("nvarchar(max)");
@@ -2917,10 +2982,10 @@ namespace DataBaseSetupV3.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<decimal>("Latitude")
-                        .HasColumnType("decimal(18, 7)");
+                        .HasColumnType("decimal(18,7)");
 
                     b.Property<decimal>("Longitude")
-                        .HasColumnType("decimal(18, 7)");
+                        .HasColumnType("decimal(18,7)");
 
                     b.Property<DateTime>("OperatedDate")
                         .HasColumnType("datetime");
@@ -2945,8 +3010,8 @@ namespace DataBaseSetupV3.Migrations
             modelBuilder.Entity("DataBaseSetupV3.Model.MenuItem", b =>
                 {
                     b.Property<string>("MenuItemId")
-                        .HasColumnType("nvarchar(128)")
-                        .HasMaxLength(128);
+                        .HasMaxLength(128)
+                        .HasColumnType("nvarchar(128)");
 
                     b.Property<string>("EngMenuItemName")
                         .HasColumnType("nvarchar(max)");
@@ -2980,8 +3045,8 @@ namespace DataBaseSetupV3.Migrations
             modelBuilder.Entity("DataBaseSetupV3.Model.Position", b =>
                 {
                     b.Property<string>("PositionId")
-                        .HasColumnType("nvarchar(128)")
-                        .HasMaxLength(128);
+                        .HasMaxLength(128)
+                        .HasColumnType("nvarchar(128)");
 
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("datetime");
@@ -2997,16 +3062,16 @@ namespace DataBaseSetupV3.Migrations
 
                     b.Property<string>("MainComId")
                         .IsRequired()
-                        .HasColumnType("nvarchar(20)")
-                        .HasMaxLength(20);
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
 
                     b.Property<string>("ParentsNodeId")
                         .IsRequired()
                         .ValueGeneratedOnAdd()
+                        .HasMaxLength(128)
                         .HasColumnType("nvarchar(128)")
                         .HasDefaultValueSql("((0))")
-                        .HasComment("default value = 0 (IsParentsNode)")
-                        .HasMaxLength(128);
+                        .HasComment("default value = 0 (IsParentsNode)");
 
                     b.Property<string>("PositionTitle")
                         .HasColumnType("nvarchar(max)");
@@ -3016,17 +3081,155 @@ namespace DataBaseSetupV3.Migrations
                     b.ToTable("Position");
                 });
 
+            modelBuilder.Entity("DataBaseSetupV3.Model.SalaryAndFinanceSecurity", b =>
+                {
+                    b.Property<string>("SalaryAndFinanceSecurityId")
+                        .HasMaxLength(128)
+                        .IsUnicode(false)
+                        .HasColumnType("varchar(128)");
+
+                    b.Property<DateTime>("CreatedDatetime")
+                        .HasColumnType("datetime");
+
+                    b.Property<string>("HamcResult")
+                        .IsRequired()
+                        .HasMaxLength(128)
+                        .IsUnicode(false)
+                        .HasColumnType("varchar(128)");
+
+                    b.Property<string>("TargetPrimaryKey")
+                        .IsRequired()
+                        .HasMaxLength(256)
+                        .IsUnicode(false)
+                        .HasColumnType("varchar(256)");
+
+                    b.Property<string>("TargetTableName")
+                        .IsRequired()
+                        .HasMaxLength(128)
+                        .IsUnicode(false)
+                        .HasColumnType("varchar(128)");
+
+                    b.Property<DateTime>("UpdatedDatetime")
+                        .HasColumnType("datetime");
+
+                    b.HasKey("SalaryAndFinanceSecurityId");
+
+                    b.ToTable("SalaryAndFinanceSecurity");
+                });
+
+            modelBuilder.Entity("DataBaseSetupV3.Model.SalaryDeduction", b =>
+                {
+                    b.Property<string>("SalaryDeductionId")
+                        .HasMaxLength(128)
+                        .IsUnicode(false)
+                        .HasColumnType("varchar(128)");
+
+                    b.Property<int>("AccountingComplete")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasDefaultValueSql("((1))")
+                        .HasComment("OPEN=1");
+
+                    b.Property<decimal>("Amount")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<string>("ApprovedBy")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<int>("ApprovedStatus")
+                        .HasColumnType("int");
+
+                    b.Property<string>("AttendanceByPeriodId")
+                        .IsRequired()
+                        .HasMaxLength(30)
+                        .HasColumnType("nvarchar(30)");
+
+                    b.Property<decimal>("AvgOnDutyPaidRatio")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("AvgOnDutyWorkRatio")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<DateTime>("CalcDateTime")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime")
+                        .HasDefaultValueSql("(getdate())");
+
+                    b.Property<string>("ContractorId")
+                        .HasMaxLength(128)
+                        .HasColumnType("nvarchar(128)");
+
+                    b.Property<string>("ContractorName")
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<string>("DepartmentId")
+                        .HasMaxLength(128)
+                        .HasColumnType("nvarchar(128)");
+
+                    b.Property<string>("DepartmentName")
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<int>("DrorCr")
+                        .HasColumnType("int")
+                        .HasColumnName("DRorCR");
+
+                    b.Property<string>("EmployeeId")
+                        .IsRequired()
+                        .HasMaxLength(128)
+                        .HasColumnType("nvarchar(128)");
+
+                    b.Property<string>("EmployeeName")
+                        .IsRequired()
+                        .HasMaxLength(128)
+                        .HasColumnType("nvarchar(128)");
+
+                    b.Property<int>("GeneralStatus")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasDefaultValueSql("((1))")
+                        .HasComment("GeneralStatus (ACTIVE=1;INACTIVE = 0) ");
+
+                    b.Property<string>("MainComId")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
+
+                    b.Property<DateTime>("OperateDateTime")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime")
+                        .HasDefaultValueSql("(getdate())");
+
+                    b.Property<decimal>("OverAllCompletedRatio")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("SalaryAssessmentValue")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<int>("SettlePeriodMode")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("StartDate")
+                        .HasColumnType("datetime");
+
+                    b.HasKey("SalaryDeductionId");
+
+                    b.ToTable("SalaryDeduction");
+                });
+
             modelBuilder.Entity("DataBaseSetupV3.Model.SalAssessment", b =>
                 {
                     b.Property<string>("SalAssessmentId")
-                        .HasColumnType("varchar(128)")
                         .HasMaxLength(128)
-                        .IsUnicode(false);
+                        .IsUnicode(false)
+                        .HasColumnType("varchar(128)");
 
                     b.Property<string>("ApprovedBy")
                         .IsRequired()
-                        .HasColumnType("nvarchar(256)")
-                        .HasMaxLength(256);
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
 
                     b.Property<int>("ApprovedStatus")
                         .HasColumnType("int");
@@ -3036,49 +3239,49 @@ namespace DataBaseSetupV3.Migrations
 
                     b.Property<string>("CreatedUser")
                         .IsRequired()
-                        .HasColumnType("varchar(128)")
                         .HasMaxLength(128)
-                        .IsUnicode(false);
+                        .IsUnicode(false)
+                        .HasColumnType("varchar(128)");
 
                     b.Property<string>("DepartmentId")
-                        .HasColumnType("nvarchar(128)")
-                        .HasMaxLength(128);
+                        .HasMaxLength(128)
+                        .HasColumnType("nvarchar(128)");
 
                     b.Property<string>("DepartmentName")
-                        .HasColumnType("nvarchar(128)")
-                        .HasMaxLength(128);
+                        .HasMaxLength(128)
+                        .HasColumnType("nvarchar(128)");
 
                     b.Property<string>("EmployeeFunllName")
                         .IsRequired()
-                        .HasColumnType("nvarchar(256)")
-                        .HasMaxLength(256);
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
 
                     b.Property<string>("EmployeeId")
                         .IsRequired()
-                        .HasColumnType("varchar(128)")
                         .HasMaxLength(128)
-                        .IsUnicode(false);
+                        .IsUnicode(false)
+                        .HasColumnType("varchar(128)");
 
                     b.Property<string>("FormulaOfAssessment")
                         .IsRequired()
-                        .HasColumnType("nvarchar(2000)")
-                        .HasMaxLength(2000);
+                        .HasMaxLength(2000)
+                        .HasColumnType("nvarchar(2000)");
 
                     b.Property<string>("MainComId")
                         .IsRequired()
-                        .HasColumnType("nvarchar(50)")
-                        .HasMaxLength(50);
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<DateTime>("OperateDateTime")
                         .HasColumnType("datetime");
 
                     b.Property<string>("OperatedUser")
                         .IsRequired()
-                        .HasColumnType("nvarchar(256)")
-                        .HasMaxLength(256);
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
 
                     b.Property<decimal>("SalaryAssessmentValue")
-                        .HasColumnType("decimal(18, 2)");
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<int>("SettlePeriodMode")
                         .HasColumnType("int");
@@ -3091,13 +3294,13 @@ namespace DataBaseSetupV3.Migrations
             modelBuilder.Entity("DataBaseSetupV3.Model.SalTaxRate", b =>
                 {
                     b.Property<string>("SalTaxRateId")
-                        .HasColumnType("varchar(20)")
                         .HasMaxLength(20)
-                        .IsUnicode(false);
+                        .IsUnicode(false)
+                        .HasColumnType("varchar(20)");
 
                     b.Property<string>("ApprovedBy")
-                        .HasColumnType("nvarchar(256)")
-                        .HasMaxLength(256);
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
 
                     b.Property<int>("ApprovedStatus")
                         .HasColumnType("int");
@@ -3109,24 +3312,24 @@ namespace DataBaseSetupV3.Migrations
 
                     b.Property<string>("EmployeeId")
                         .IsRequired()
-                        .HasColumnType("nvarchar(128)")
-                        .HasMaxLength(128);
+                        .HasMaxLength(128)
+                        .HasColumnType("nvarchar(128)");
 
                     b.Property<string>("FullName")
-                        .HasColumnType("nvarchar(128)")
-                        .HasMaxLength(128);
+                        .HasMaxLength(128)
+                        .HasColumnType("nvarchar(128)");
 
                     b.Property<string>("MainComId")
                         .IsRequired()
-                        .HasColumnType("nvarchar(20)")
-                        .HasMaxLength(20);
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
 
                     b.Property<decimal>("Quota")
-                        .HasColumnType("decimal(18, 2)")
+                        .HasColumnType("decimal(18,2)")
                         .HasComment("priority to use Ratio , if Ratio is zero then use the Quota.");
 
                     b.Property<decimal>("Ratio")
-                        .HasColumnType("decimal(18, 2)");
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<int>("SettlePeriodMode")
                         .ValueGeneratedOnAdd()
@@ -3134,7 +3337,7 @@ namespace DataBaseSetupV3.Migrations
                         .HasDefaultValueSql("((3))");
 
                     b.Property<decimal>("SocialInsuranceRatio")
-                        .HasColumnType("decimal(18, 2)");
+                        .HasColumnType("decimal(18,2)");
 
                     b.HasKey("SalTaxRateId");
 
@@ -3144,16 +3347,16 @@ namespace DataBaseSetupV3.Migrations
             modelBuilder.Entity("DataBaseSetupV3.Model.SalWelfareCalc", b =>
                 {
                     b.Property<string>("SalWelfareCalcId")
-                        .HasColumnType("varchar(20)")
                         .HasMaxLength(20)
-                        .IsUnicode(false);
+                        .IsUnicode(false)
+                        .HasColumnType("varchar(20)");
 
                     b.Property<decimal>("Amount")
-                        .HasColumnType("decimal(18, 2)");
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<string>("ApprovedBy")
-                        .HasColumnType("nvarchar(256)")
-                        .HasMaxLength(256);
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
 
                     b.Property<int?>("ApprovedStatus")
                         .ValueGeneratedOnAdd()
@@ -3165,34 +3368,34 @@ namespace DataBaseSetupV3.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("DrorCr")
-                        .HasColumnName("DRorCR")
-                        .HasColumnType("int");
+                        .HasColumnType("int")
+                        .HasColumnName("DRorCR");
 
                     b.Property<string>("EmployeeFunllName")
                         .IsRequired()
-                        .HasColumnType("nvarchar(256)")
-                        .HasMaxLength(256);
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
 
                     b.Property<string>("EmployeeId")
                         .IsRequired()
-                        .HasColumnType("nvarchar(128)")
-                        .HasMaxLength(128);
+                        .HasMaxLength(128)
+                        .HasColumnType("nvarchar(128)");
 
                     b.Property<string>("EplyFinanceItemNameId")
                         .IsRequired()
-                        .HasColumnType("varchar(128)")
                         .HasMaxLength(128)
-                        .IsUnicode(false);
+                        .IsUnicode(false)
+                        .HasColumnType("varchar(128)");
 
                     b.Property<string>("ItemName")
                         .IsRequired()
-                        .HasColumnType("nvarchar(50)")
-                        .HasMaxLength(50);
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<string>("MainComId")
                         .IsRequired()
-                        .HasColumnType("nvarchar(20)")
-                        .HasMaxLength(20);
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
 
                     b.Property<DateTime>("OperateDateTime")
                         .ValueGeneratedOnAdd()
@@ -3207,164 +3410,22 @@ namespace DataBaseSetupV3.Migrations
                     b.ToTable("SalWelfareCalc");
                 });
 
-            modelBuilder.Entity("DataBaseSetupV3.Model.SalaryAndFinanceSecurity", b =>
-                {
-                    b.Property<string>("SalaryAndFinanceSecurityId")
-                        .HasColumnType("varchar(128)")
-                        .HasMaxLength(128)
-                        .IsUnicode(false);
-
-                    b.Property<DateTime>("CreatedDatetime")
-                        .HasColumnType("datetime");
-
-                    b.Property<string>("HamcResult")
-                        .IsRequired()
-                        .HasColumnType("varchar(128)")
-                        .HasMaxLength(128)
-                        .IsUnicode(false);
-
-                    b.Property<string>("TargetPrimaryKey")
-                        .IsRequired()
-                        .HasColumnType("varchar(256)")
-                        .HasMaxLength(256)
-                        .IsUnicode(false);
-
-                    b.Property<string>("TargetTableName")
-                        .IsRequired()
-                        .HasColumnType("varchar(128)")
-                        .HasMaxLength(128)
-                        .IsUnicode(false);
-
-                    b.Property<DateTime>("UpdatedDatetime")
-                        .HasColumnType("datetime");
-
-                    b.HasKey("SalaryAndFinanceSecurityId");
-
-                    b.HasIndex("TargetPrimaryKey", "TargetTableName")
-                        .IsUnique()
-                        .HasName("IX_SalaryAndFinanceSecurity");
-
-                    b.ToTable("SalaryAndFinanceSecurity");
-                });
-
-            modelBuilder.Entity("DataBaseSetupV3.Model.SalaryDeduction", b =>
-                {
-                    b.Property<string>("SalaryDeductionId")
-                        .HasColumnType("varchar(128)")
-                        .HasMaxLength(128)
-                        .IsUnicode(false);
-
-                    b.Property<int>("AccountingComplete")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasDefaultValueSql("((1))")
-                        .HasComment("OPEN=1");
-
-                    b.Property<decimal>("Amount")
-                        .HasColumnType("decimal(18, 2)");
-
-                    b.Property<string>("ApprovedBy")
-                        .HasColumnType("nvarchar(256)")
-                        .HasMaxLength(256);
-
-                    b.Property<int>("ApprovedStatus")
-                        .HasColumnType("int");
-
-                    b.Property<string>("AttendanceByPeriodId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(30)")
-                        .HasMaxLength(30);
-
-                    b.Property<decimal>("AvgOnDutyPaidRatio")
-                        .HasColumnType("decimal(18, 2)");
-
-                    b.Property<decimal>("AvgOnDutyWorkRatio")
-                        .HasColumnType("decimal(18, 2)");
-
-                    b.Property<DateTime>("CalcDateTime")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("datetime")
-                        .HasDefaultValueSql("(getdate())");
-
-                    b.Property<string>("ContractorId")
-                        .HasColumnType("nvarchar(128)")
-                        .HasMaxLength(128);
-
-                    b.Property<string>("ContractorName")
-                        .HasColumnType("nvarchar(50)")
-                        .HasMaxLength(50);
-
-                    b.Property<string>("DepartmentId")
-                        .HasColumnType("nvarchar(128)")
-                        .HasMaxLength(128);
-
-                    b.Property<string>("DepartmentName")
-                        .HasColumnType("nvarchar(50)")
-                        .HasMaxLength(50);
-
-                    b.Property<int>("DrorCr")
-                        .HasColumnName("DRorCR")
-                        .HasColumnType("int");
-
-                    b.Property<string>("EmployeeId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(128)")
-                        .HasMaxLength(128);
-
-                    b.Property<string>("EmployeeName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(128)")
-                        .HasMaxLength(128);
-
-                    b.Property<int>("GeneralStatus")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasDefaultValueSql("((1))")
-                        .HasComment("GeneralStatus (ACTIVE=1;INACTIVE = 0) ");
-
-                    b.Property<string>("MainComId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(20)")
-                        .HasMaxLength(20);
-
-                    b.Property<DateTime>("OperateDateTime")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("datetime")
-                        .HasDefaultValueSql("(getdate())");
-
-                    b.Property<decimal>("OverAllCompletedRatio")
-                        .HasColumnType("decimal(18, 2)");
-
-                    b.Property<decimal>("SalaryAssessmentValue")
-                        .HasColumnType("decimal(18, 2)");
-
-                    b.Property<int>("SettlePeriodMode")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("StartDate")
-                        .HasColumnType("datetime");
-
-                    b.HasKey("SalaryDeductionId");
-
-                    b.ToTable("SalaryDeduction");
-                });
-
             modelBuilder.Entity("DataBaseSetupV3.Model.Schedule", b =>
                 {
                     b.Property<string>("ScheduleId")
-                        .HasColumnType("varchar(128)")
                         .HasMaxLength(128)
-                        .IsUnicode(false);
+                        .IsUnicode(false)
+                        .HasColumnType("varchar(128)");
 
                     b.Property<string>("EmployeeId")
                         .IsRequired()
-                        .HasColumnType("nvarchar(128)")
-                        .HasMaxLength(128);
+                        .HasMaxLength(128)
+                        .HasColumnType("nvarchar(128)");
 
                     b.Property<string>("IdOfMonthlyShiftEmploy")
                         .IsRequired()
-                        .HasColumnType("nvarchar(128)")
-                        .HasMaxLength(128);
+                        .HasMaxLength(128)
+                        .HasColumnType("nvarchar(128)");
 
                     b.Property<bool>("IsCompleted")
                         .HasColumnType("bit");
@@ -3372,9 +3433,9 @@ namespace DataBaseSetupV3.Migrations
                     b.Property<string>("MainComId")
                         .IsRequired()
                         .ValueGeneratedOnAdd()
+                        .HasMaxLength(20)
                         .HasColumnType("nvarchar(20)")
-                        .HasDefaultValueSql("((0))")
-                        .HasMaxLength(20);
+                        .HasDefaultValueSql("((0))");
 
                     b.Property<bool>("OnDataLocked")
                         .HasColumnType("bit");
@@ -3386,16 +3447,16 @@ namespace DataBaseSetupV3.Migrations
 
                     b.Property<string>("ShiftAbbrId")
                         .IsRequired()
-                        .HasColumnType("nvarchar(10)")
-                        .HasMaxLength(10);
+                        .HasMaxLength(10)
+                        .HasColumnType("nvarchar(10)");
 
                     b.Property<int>("ShiftAssignedMode")
                         .HasColumnType("int");
 
                     b.Property<string>("ShiftId")
                         .IsRequired()
-                        .HasColumnType("nvarchar(30)")
-                        .HasMaxLength(30);
+                        .HasMaxLength(30)
+                        .HasColumnType("nvarchar(30)");
 
                     b.Property<DateTime>("SysCalcDateTime")
                         .ValueGeneratedOnAdd()
@@ -3417,9 +3478,9 @@ namespace DataBaseSetupV3.Migrations
                 {
                     b.Property<string>("ShiftId")
                         .ValueGeneratedOnAdd()
+                        .HasMaxLength(30)
                         .HasColumnType("nvarchar(30)")
-                        .HasDefaultValueSql("((6))")
-                        .HasMaxLength(30);
+                        .HasDefaultValueSql("((6))");
 
                     b.Property<DateTime>("AppliedEndDate")
                         .HasColumnType("date");
@@ -3442,31 +3503,31 @@ namespace DataBaseSetupV3.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("CompanyName")
-                        .HasColumnType("nvarchar(50)")
-                        .HasMaxLength(50);
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("datetime");
 
                     b.Property<string>("DepartmentIdArr")
-                        .HasColumnType("nvarchar(500)")
-                        .HasMaxLength(500);
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
 
                     b.Property<string>("ExcludeOverTime")
-                        .HasColumnType("nvarchar(50)")
-                        .HasMaxLength(50);
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<string>("ExcludeWeekDay")
-                        .HasColumnType("nvarchar(50)")
-                        .HasMaxLength(50);
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<string>("IconColor")
                         .IsRequired()
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("varchar(50)")
-                        .HasDefaultValueSql("('FC0366')")
                         .HasMaxLength(50)
-                        .IsUnicode(false);
+                        .IsUnicode(false)
+                        .HasColumnType("varchar(50)")
+                        .HasDefaultValueSql("('FC0366')");
 
                     b.Property<bool>("IsApproved")
                         .HasColumnType("bit");
@@ -3483,7 +3544,7 @@ namespace DataBaseSetupV3.Migrations
                         .HasDefaultValueSql("((30))");
 
                     b.Property<decimal>("LunchTimeSpan")
-                        .HasColumnType("decimal(18, 2)");
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<TimeSpan>("LunchTimeStart")
                         .HasColumnType("time");
@@ -3495,8 +3556,8 @@ namespace DataBaseSetupV3.Migrations
 
                     b.Property<string>("MainComId")
                         .IsRequired()
-                        .HasColumnType("nvarchar(50)")
-                        .HasMaxLength(50);
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<int>("MissingLunchEnd")
                         .HasColumnType("int");
@@ -3522,8 +3583,8 @@ namespace DataBaseSetupV3.Migrations
 
                     b.Property<string>("OperatedUserName")
                         .IsRequired()
-                        .HasColumnType("nvarchar(128)")
-                        .HasMaxLength(128);
+                        .HasMaxLength(128)
+                        .HasColumnType("nvarchar(128)");
 
                     b.Property<TimeSpan>("OverTimeEnd")
                         .HasColumnType("time");
@@ -3534,7 +3595,7 @@ namespace DataBaseSetupV3.Migrations
                         .HasDefaultValueSql("((60))");
 
                     b.Property<decimal>("OverTimeSpan")
-                        .HasColumnType("decimal(18, 2)");
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<TimeSpan>("OverTimeStart")
                         .HasColumnType("time");
@@ -3545,13 +3606,13 @@ namespace DataBaseSetupV3.Migrations
                         .HasDefaultValueSql("((60))");
 
                     b.Property<string>("RuleDescription")
-                        .HasColumnType("nvarchar(600)")
-                        .HasMaxLength(600);
+                        .HasMaxLength(600)
+                        .HasColumnType("nvarchar(600)");
 
                     b.Property<string>("ShiftAbbrId")
                         .IsRequired()
-                        .HasColumnType("nvarchar(10)")
-                        .HasMaxLength(10);
+                        .HasMaxLength(10)
+                        .HasColumnType("nvarchar(10)");
 
                     b.Property<int>("ShiftAppliedMode")
                         .HasColumnType("int");
@@ -3561,12 +3622,12 @@ namespace DataBaseSetupV3.Migrations
 
                     b.Property<string>("ShiftName")
                         .IsRequired()
-                        .HasColumnType("nvarchar(150)")
-                        .HasMaxLength(150);
+                        .HasMaxLength(150)
+                        .HasColumnType("nvarchar(150)");
 
                     b.Property<string>("SpecialWeekDays")
-                        .HasColumnType("nvarchar(50)")
-                        .HasMaxLength(50);
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<TimeSpan>("SpecialWeekDaysWorkEnd")
                         .ValueGeneratedOnAdd()
@@ -3598,7 +3659,7 @@ namespace DataBaseSetupV3.Migrations
                         .HasColumnType("int");
 
                     b.Property<decimal>("WorkTimeSpan")
-                        .HasColumnType("decimal(18, 2)");
+                        .HasColumnType("decimal(18,2)");
 
                     b.HasKey("ShiftId");
 
@@ -3608,22 +3669,22 @@ namespace DataBaseSetupV3.Migrations
             modelBuilder.Entity("DataBaseSetupV3.Model.Site", b =>
                 {
                     b.Property<string>("SiteId")
-                        .HasColumnType("nvarchar(10)")
-                        .HasMaxLength(10);
+                        .HasMaxLength(10)
+                        .HasColumnType("nvarchar(10)");
 
                     b.Property<string>("MainComId")
                         .IsRequired()
-                        .HasColumnType("nvarchar(20)")
-                        .HasMaxLength(20);
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
 
                     b.Property<string>("SiteAddress")
-                        .HasColumnType("nvarchar(256)")
-                        .HasMaxLength(256);
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
 
                     b.Property<string>("SiteName")
                         .IsRequired()
-                        .HasColumnType("nvarchar(50)")
-                        .HasMaxLength(50);
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.HasKey("SiteId");
 
@@ -3634,48 +3695,49 @@ namespace DataBaseSetupV3.Migrations
                 {
                     b.Property<int>("SourceStatisticsId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("SourceStatisticsId"), 1L, 1);
 
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("datetime");
 
                     b.Property<decimal>("Duration")
-                        .HasColumnType("decimal(18, 2)");
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<string>("Ip")
                         .IsRequired()
-                        .HasColumnName("IP")
+                        .HasMaxLength(128)
                         .HasColumnType("nvarchar(128)")
-                        .HasMaxLength(128);
+                        .HasColumnName("IP");
 
                     b.Property<DateTime>("LastUpdateDate")
                         .HasColumnType("datetime");
 
                     b.Property<int>("LoadTime")
-                        .HasColumnName("loadTime")
-                        .HasColumnType("int");
+                        .HasColumnType("int")
+                        .HasColumnName("loadTime");
 
                     b.Property<string>("MainComId")
-                        .HasColumnType("nvarchar(20)")
-                        .HasMaxLength(20);
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
 
                     b.Property<string>("OpenId")
-                        .HasColumnType("nvarchar(256)")
-                        .HasMaxLength(256);
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
 
                     b.Property<string>("Osversion")
-                        .HasColumnName("OSVersion")
+                        .HasMaxLength(128)
                         .HasColumnType("nvarchar(128)")
-                        .HasMaxLength(128);
+                        .HasColumnName("OSVersion");
 
                     b.Property<string>("RecommUserId")
-                        .HasColumnType("nvarchar(128)")
-                        .HasMaxLength(128);
+                        .HasMaxLength(128)
+                        .HasColumnType("nvarchar(128)");
 
                     b.Property<string>("SourceArea")
-                        .HasColumnType("nvarchar(256)")
-                        .HasMaxLength(256);
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
 
                     b.Property<string>("SourceUrl")
                         .HasColumnType("nvarchar(max)");
@@ -3686,25 +3748,25 @@ namespace DataBaseSetupV3.Migrations
                     b.Property<string>("TableKeyId")
                         .IsRequired()
                         .ValueGeneratedOnAdd()
+                        .HasMaxLength(128)
                         .HasColumnType("nvarchar(128)")
-                        .HasDefaultValueSql("('')")
-                        .HasMaxLength(128);
+                        .HasDefaultValueSql("('')");
 
                     b.Property<string>("Title")
-                        .HasColumnType("nvarchar(256)")
-                        .HasMaxLength(256);
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
 
                     b.Property<string>("UserId")
-                        .HasColumnType("nvarchar(128)")
-                        .HasMaxLength(128);
+                        .HasMaxLength(128)
+                        .HasColumnType("nvarchar(128)");
 
                     b.Property<string>("VisitorIcon")
-                        .HasColumnType("nvarchar(256)")
-                        .HasMaxLength(256);
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
 
                     b.Property<string>("WxNickName")
-                        .HasColumnType("nvarchar(50)")
-                        .HasMaxLength(50);
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.HasKey("SourceStatisticsId")
                         .HasName("PK_dbo.SourceStatistic");
@@ -3715,21 +3777,21 @@ namespace DataBaseSetupV3.Migrations
             modelBuilder.Entity("DataBaseSetupV3.Model.Staff", b =>
                 {
                     b.Property<string>("StaffId")
-                        .HasColumnType("nvarchar(128)")
-                        .HasMaxLength(128);
+                        .HasMaxLength(128)
+                        .HasColumnType("nvarchar(128)");
 
                     b.Property<string>("ChannelId")
-                        .HasColumnName("ChannelID")
+                        .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)")
-                        .HasMaxLength(256);
+                        .HasColumnName("ChannelID");
 
                     b.Property<string>("ContactTitle")
-                        .HasColumnType("nvarchar(100)")
-                        .HasMaxLength(100);
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<string>("IconPortrait")
-                        .HasColumnType("nvarchar(256)")
-                        .HasMaxLength(256);
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
 
                     b.Property<string>("Introduction")
                         .HasColumnType("ntext");
@@ -3738,43 +3800,43 @@ namespace DataBaseSetupV3.Migrations
                         .HasColumnType("bit");
 
                     b.Property<string>("MainComId")
-                        .HasColumnType("nvarchar(20)")
-                        .HasMaxLength(20);
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
 
                     b.Property<DateTime>("OperatedDate")
                         .HasColumnType("datetime");
 
                     b.Property<string>("OperatedUserName")
-                        .HasColumnType("nvarchar(256)")
-                        .HasMaxLength(256);
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
 
                     b.Property<string>("OtherChannelName")
-                        .HasColumnType("nvarchar(256)")
-                        .HasMaxLength(256);
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
 
                     b.Property<string>("OtherQrcode")
-                        .HasColumnType("nvarchar(256)")
-                        .HasMaxLength(256);
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
 
                     b.Property<string>("PublicNo")
-                        .HasColumnType("nvarchar(300)")
-                        .HasMaxLength(300);
+                        .HasMaxLength(300)
+                        .HasColumnType("nvarchar(300)");
 
                     b.Property<string>("Qrcode")
-                        .HasColumnType("nvarchar(256)")
-                        .HasMaxLength(256);
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
 
                     b.Property<string>("StaffName")
-                        .HasColumnType("nvarchar(256)")
-                        .HasMaxLength(256);
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
 
                     b.Property<string>("UserId")
-                        .HasColumnType("nvarchar(128)")
-                        .HasMaxLength(128);
+                        .HasMaxLength(128)
+                        .HasColumnType("nvarchar(128)");
 
                     b.Property<string>("UserName")
-                        .HasColumnType("nvarchar(128)")
-                        .HasMaxLength(128);
+                        .HasMaxLength(128)
+                        .HasColumnType("nvarchar(128)");
 
                     b.HasKey("StaffId");
 
@@ -3784,13 +3846,13 @@ namespace DataBaseSetupV3.Migrations
             modelBuilder.Entity("DataBaseSetupV3.Model.SysModule", b =>
                 {
                     b.Property<string>("KeyId")
-                        .HasColumnType("nvarchar(128)")
-                        .HasMaxLength(128);
+                        .HasMaxLength(128)
+                        .HasColumnType("nvarchar(128)");
 
                     b.Property<string>("Config")
-                        .HasColumnType("varchar(4000)")
                         .HasMaxLength(4000)
-                        .IsUnicode(false);
+                        .IsUnicode(false)
+                        .HasColumnType("varchar(4000)");
 
                     b.Property<DateTime>("EndDate")
                         .ValueGeneratedOnAdd()
@@ -3798,8 +3860,8 @@ namespace DataBaseSetupV3.Migrations
                         .HasDefaultValueSql("(getdate())");
 
                     b.Property<string>("FuncDesc")
-                        .HasColumnType("nvarchar(1200)")
-                        .HasMaxLength(1200);
+                        .HasMaxLength(1200)
+                        .HasColumnType("nvarchar(1200)");
 
                     b.Property<int>("GeneralStatus")
                         .ValueGeneratedOnAdd()
@@ -3808,8 +3870,8 @@ namespace DataBaseSetupV3.Migrations
 
                     b.Property<string>("MainComId")
                         .IsRequired()
-                        .HasColumnType("nvarchar(20)")
-                        .HasMaxLength(20);
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
 
                     b.Property<DateTime>("StartDate")
                         .ValueGeneratedOnAdd()
@@ -3818,13 +3880,13 @@ namespace DataBaseSetupV3.Migrations
 
                     b.Property<string>("SysModuleId")
                         .IsRequired()
-                        .HasColumnType("nvarchar(50)")
-                        .HasMaxLength(50);
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<string>("SysModuleName")
                         .IsRequired()
-                        .HasColumnType("nvarchar(50)")
-                        .HasMaxLength(50);
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<int>("SysModuleType")
                         .HasColumnType("int");
@@ -3837,8 +3899,8 @@ namespace DataBaseSetupV3.Migrations
             modelBuilder.Entity("DataBaseSetupV3.Model.TableIdentity", b =>
                 {
                     b.Property<string>("TableName")
-                        .HasColumnType("nvarchar(128)")
-                        .HasMaxLength(128);
+                        .HasMaxLength(128)
+                        .HasColumnType("nvarchar(128)");
 
                     b.Property<DateTime>("OperatedDate")
                         .HasColumnType("datetime");
@@ -3855,8 +3917,8 @@ namespace DataBaseSetupV3.Migrations
             modelBuilder.Entity("DataBaseSetupV3.Model.TaskJob", b =>
                 {
                     b.Property<string>("TaskJobId")
-                        .HasColumnType("nvarchar(20)")
-                        .HasMaxLength(20);
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
 
                     b.Property<int>("CalcPeriodType")
                         .HasColumnType("int");
@@ -3870,23 +3932,23 @@ namespace DataBaseSetupV3.Migrations
                     b.Property<string>("MainComId")
                         .IsRequired()
                         .ValueGeneratedOnAdd()
+                        .HasMaxLength(20)
                         .HasColumnType("nvarchar(20)")
-                        .HasDefaultValueSql("((0))")
-                        .HasMaxLength(20);
+                        .HasDefaultValueSql("((0))");
 
                     b.Property<bool>("OnDataLocked")
                         .HasColumnType("bit");
 
                     b.Property<string>("TableName")
                         .IsRequired()
-                        .HasColumnType("varchar(50)")
                         .HasMaxLength(50)
-                        .IsUnicode(false);
+                        .IsUnicode(false)
+                        .HasColumnType("varchar(50)");
 
                     b.Property<string>("TargetTalbeKeyId")
                         .IsRequired()
-                        .HasColumnType("nvarchar(50)")
-                        .HasMaxLength(50);
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<DateTime>("TriggerDateTime")
                         .HasColumnType("datetime");
@@ -3899,8 +3961,8 @@ namespace DataBaseSetupV3.Migrations
             modelBuilder.Entity("DataBaseSetupV3.Model.TaskSetting", b =>
                 {
                     b.Property<string>("TaskSettingId")
-                        .HasColumnType("nvarchar(50)")
-                        .HasMaxLength(50);
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<int>("CalcPeriodSpan")
                         .ValueGeneratedOnAdd()
@@ -3911,8 +3973,8 @@ namespace DataBaseSetupV3.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("TaskRemarks")
-                        .HasColumnType("nvarchar(250)")
-                        .HasMaxLength(250);
+                        .HasMaxLength(250)
+                        .HasColumnType("nvarchar(250)");
 
                     b.Property<TimeSpan>("TaskRuningEndTime")
                         .ValueGeneratedOnAdd()
@@ -3938,48 +4000,48 @@ namespace DataBaseSetupV3.Migrations
             modelBuilder.Entity("DataBaseSetupV3.Model.TransferObjectList", b =>
                 {
                     b.Property<string>("TransferObjectListId")
-                        .HasColumnType("varchar(20)")
                         .HasMaxLength(20)
-                        .IsUnicode(false);
+                        .IsUnicode(false)
+                        .HasColumnType("varchar(20)");
 
                     b.Property<string>("HolderId")
                         .IsRequired()
-                        .HasColumnType("nvarchar(128)")
-                        .HasMaxLength(128);
+                        .HasMaxLength(128)
+                        .HasColumnType("nvarchar(128)");
 
                     b.Property<string>("HolderName")
-                        .HasColumnType("nvarchar(128)")
-                        .HasMaxLength(128);
+                        .HasMaxLength(128)
+                        .HasColumnType("nvarchar(128)");
 
                     b.Property<string>("HolderRfId")
                         .IsRequired()
+                        .HasMaxLength(10)
                         .HasColumnType("nchar(10)")
-                        .IsFixedLength(true)
-                        .HasMaxLength(10);
+                        .IsFixedLength();
 
                     b.Property<string>("MainComId")
                         .IsRequired()
-                        .HasColumnType("nvarchar(20)")
-                        .HasMaxLength(20);
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
 
                     b.Property<string>("ObjectId")
                         .IsRequired()
-                        .HasColumnType("nvarchar(128)")
-                        .HasMaxLength(128);
+                        .HasMaxLength(128)
+                        .HasColumnType("nvarchar(128)");
 
                     b.Property<long>("ObjectLogDateTime")
                         .HasColumnType("bigint");
 
                     b.Property<string>("ObjectName")
-                        .HasColumnType("nvarchar(128)")
-                        .HasMaxLength(128);
+                        .HasMaxLength(128)
+                        .HasColumnType("nvarchar(128)");
 
                     b.Property<string>("ObjectRfId")
                         .IsRequired()
-                        .HasColumnType("varchar(20)")
-                        .HasComment("对应AccessCardId")
                         .HasMaxLength(20)
-                        .IsUnicode(false);
+                        .IsUnicode(false)
+                        .HasColumnType("varchar(20)")
+                        .HasComment("对应AccessCardId");
 
                     b.Property<int>("Quantity")
                         .ValueGeneratedOnAdd()
@@ -3991,8 +4053,8 @@ namespace DataBaseSetupV3.Migrations
 
                     b.Property<string>("Unit")
                         .IsRequired()
-                        .HasColumnType("nvarchar(50)")
-                        .HasMaxLength(50);
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.HasKey("TransferObjectListId");
 
@@ -4002,43 +4064,43 @@ namespace DataBaseSetupV3.Migrations
             modelBuilder.Entity("DataBaseSetupV3.Model.UploadItem", b =>
                 {
                     b.Property<string>("UploadItemId")
-                        .HasColumnType("nvarchar(100)")
-                        .HasMaxLength(100);
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<string>("FileExt")
-                        .HasColumnType("nvarchar(20)")
-                        .HasMaxLength(20);
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
 
                     b.Property<string>("MainComId")
                         .IsRequired()
-                        .HasColumnType("nvarchar(20)")
-                        .HasMaxLength(20);
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
 
                     b.Property<DateTime>("OperatedDate")
                         .HasColumnType("datetime");
 
                     b.Property<string>("OperatedUserName")
-                        .HasColumnType("nvarchar(256)")
-                        .HasMaxLength(256);
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
 
                     b.Property<int>("RankOrder")
                         .HasColumnType("int");
 
                     b.Property<string>("RawName")
-                        .HasColumnType("nvarchar(100)")
-                        .HasMaxLength(100);
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<string>("SubPath")
-                        .HasColumnType("nvarchar(256)")
-                        .HasMaxLength(256);
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
 
                     b.Property<string>("TargetTalbeKeyId")
-                        .HasColumnType("nvarchar(256)")
-                        .HasMaxLength(256);
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
 
                     b.Property<string>("Url")
-                        .HasColumnType("nvarchar(256)")
-                        .HasMaxLength(256);
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
 
                     b.HasKey("UploadItemId");
 
@@ -4048,29 +4110,29 @@ namespace DataBaseSetupV3.Migrations
             modelBuilder.Entity("DataBaseSetupV3.Model.UserTrace", b =>
                 {
                     b.Property<string>("UserTraceId")
-                        .HasColumnName("UserTraceID")
+                        .HasMaxLength(128)
                         .HasColumnType("nvarchar(128)")
-                        .HasMaxLength(128);
+                        .HasColumnName("UserTraceID");
 
                     b.Property<string>("MainComId")
-                        .HasColumnType("nvarchar(20)")
-                        .HasMaxLength(20);
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
 
                     b.Property<DateTime>("OperatedDate")
                         .HasColumnType("datetime");
 
                     b.Property<string>("OperatedUserName")
-                        .HasColumnType("nvarchar(256)")
-                        .HasMaxLength(256);
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
 
                     b.Property<string>("TableKeyId")
-                        .HasColumnName("TableKeyID")
+                        .HasMaxLength(128)
                         .HasColumnType("nvarchar(128)")
-                        .HasMaxLength(128);
+                        .HasColumnName("TableKeyID");
 
                     b.Property<string>("UserId")
-                        .HasColumnType("nvarchar(128)")
-                        .HasMaxLength(128);
+                        .HasMaxLength(128)
+                        .HasColumnType("nvarchar(128)");
 
                     b.HasKey("UserTraceId");
 
@@ -4084,6 +4146,8 @@ namespace DataBaseSetupV3.Migrations
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Role");
                 });
 
             modelBuilder.Entity("DataBaseSetupV3.Model.AspNetUserClaims", b =>
@@ -4093,6 +4157,8 @@ namespace DataBaseSetupV3.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("DataBaseSetupV3.Model.AspNetUserLogins", b =>
@@ -4102,6 +4168,8 @@ namespace DataBaseSetupV3.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("DataBaseSetupV3.Model.AspNetUserRoles", b =>
@@ -4117,6 +4185,10 @@ namespace DataBaseSetupV3.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Role");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("DataBaseSetupV3.Model.AspNetUserTokens", b =>
@@ -4126,6 +4198,26 @@ namespace DataBaseSetupV3.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("DataBaseSetupV3.Model.AspNetRoles", b =>
+                {
+                    b.Navigation("AspNetRoleClaims");
+
+                    b.Navigation("AspNetUserRoles");
+                });
+
+            modelBuilder.Entity("DataBaseSetupV3.Model.AspNetUsers", b =>
+                {
+                    b.Navigation("AspNetUserClaims");
+
+                    b.Navigation("AspNetUserLogins");
+
+                    b.Navigation("AspNetUserRoles");
+
+                    b.Navigation("AspNetUserTokens");
                 });
 #pragma warning restore 612, 618
         }

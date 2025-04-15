@@ -1,11 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace DataBaseSetupV3.DbFirst
+namespace AttendanceBussiness.DbFirst
 {
     public partial class Position
     {
         public string PositionId { get; set; }
+        /// <summary>
+        /// default value = 0 (IsParentsNode)
+        /// </summary>
         public string ParentsNodeId { get; set; }
         public string IndustryId { get; set; }
         public string IndustryName { get; set; }

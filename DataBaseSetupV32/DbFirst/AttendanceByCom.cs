@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace DataBaseSetupV3.DbFirst
+namespace AttendanceBussiness.DbFirst
 {
     public partial class AttendanceByCom
     {
@@ -25,6 +25,6 @@ namespace DataBaseSetupV3.DbFirst
         public DateTime EndDate { get; set; }
         public bool IsCompleted { get; set; }
         public bool OnDataLocked { get; set; }
-        public DateTime? SysCalcDateTime { get; set; }
+        public DateTime SysCalcDateTime { get; set; }
     }
 }

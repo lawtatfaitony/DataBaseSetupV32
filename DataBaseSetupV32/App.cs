@@ -53,7 +53,7 @@ namespace DataBaseSetupV3
             sw.Start();
 
             Console.Title = "DATABASE SEED BATCH DATA";
-            
+            Console.ForegroundColor = ConsoleColor.Yellow;
             ////-------------------------------------------------------------
             _logger.LogInformation("[SYSTEM USER]\n");
             InistializeData1.MainComId = SystemData.CreateMainComId();
@@ -62,12 +62,13 @@ namespace DataBaseSetupV3
             _logger.LogInformation("[SYSTEM USER COUNT = {0}]\n", userCount);
              
             //end
-            string time = sw.Elapsed + "(" + sw.Elapsed.Seconds + "s" + sw.Elapsed.Milliseconds + "ms)";
+            string time = sw.Elapsed + "(" + sw.Elapsed.Seconds + "s" + sw.Elapsed.Milliseconds + "ms)"; 
             Console.WriteLine(">>>APP RUN FINISHED Elapsed Time = {0}", sw.Elapsed);
             sw.Stop();
             //await Task.CompletedTask;
             _logger.LogInformation("APP RUN FINISHED!");
-             
+            Console.ResetColor();
+
             #endregion END 
         }
 

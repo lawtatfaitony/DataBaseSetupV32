@@ -63,8 +63,14 @@ namespace DataBaseSetupV3.Model
         public int AccuTimesOfMissingOverTimeEnd { get; set; }
         public decimal AvgOnDutyWorkRatio { get; set; }
         public decimal AvgOnDutyPaidRatio { get; set; }
+        /// <summary>
+        /// 加權平均考勤率：加權平均法計算出這個時期的平均加權考勤率
+        /// </summary>
         public decimal AvgAttWeightedRatio { get; set; }
         public decimal PresetWorkTimeSpan { get; set; }
+        /// <summary>
+        /// 總體完成率 是指實際確切的工作時間減去應工作的排班時間 如週期(月度)結束,合理情況是100%
+        /// </summary>
         public decimal OverAllCompletedRatio { get; set; }
         public bool OnDataLocked { get; set; }
         public bool IsCompleted { get; set; }

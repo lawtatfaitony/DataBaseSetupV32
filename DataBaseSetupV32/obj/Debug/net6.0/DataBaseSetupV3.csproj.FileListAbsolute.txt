@@ -113,3 +113,4 @@ D:\APP\DGX_NET6\STAR_NEW\DataBaseSetupV32\DataBaseSetupV32\obj\Debug\net6.0\refi
 D:\APP\DGX_NET6\STAR_NEW\DataBaseSetupV32\DataBaseSetupV32\obj\Debug\net6.0\DataBaseSetupV3.pdb
 D:\APP\DGX_NET6\STAR_NEW\DataBaseSetupV32\DataBaseSetupV32\obj\Debug\net6.0\DataBaseSetupV3.genruntimeconfig.cache
 D:\APP\DGX_NET6\STAR_NEW\DataBaseSetupV32\DataBaseSetupV32\obj\Debug\net6.0\ref\DataBaseSetupV3.dll
+D:\APP\DGX_NET6\STAR_NEW\DataBaseSetupV32\DataBaseSetupV32\obj\Debug\net6.0\DataBaseSetupV3.sourcelink.json

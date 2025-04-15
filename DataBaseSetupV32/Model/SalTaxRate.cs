@@ -9,6 +9,9 @@ namespace DataBaseSetupV3.Model
         public string EmployeeId { get; set; }
         public string FullName { get; set; }
         public decimal Ratio { get; set; }
+        /// <summary>
+        /// priority to use Ratio , if Ratio is zero then use the Quota.
+        /// </summary>
         public decimal Quota { get; set; }
         public decimal SocialInsuranceRatio { get; set; }
         public string ApprovedBy { get; set; }

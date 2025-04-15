@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace DataBaseSetupV3.DbFirst
+namespace AttendanceBussiness.DbFirst
 {
     public partial class SalWelfareCalc
     {
@@ -15,7 +15,7 @@ namespace DataBaseSetupV3.DbFirst
         public int DrorCr { get; set; }
         public string CalcBusinessDesc { get; set; }
         public string ApprovedBy { get; set; }
-        public int? ApprovedStatus { get; set; }
+        public int ApprovedStatus { get; set; }
         public DateTime OperateDateTime { get; set; }
         public string MainComId { get; set; }
     }

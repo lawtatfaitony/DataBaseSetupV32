@@ -15,6 +15,14 @@ protected override void OnConfiguring 去掉注释,
   
 Scaffold-DbContext "Data Source=192.168.0.9;Initial Catalog=DataGuardXcore;User ID=admin;Password=admin123;Connect Timeout=300;TrustServerCertificate=True;ApplicationIntent=ReadWrite;MultiSubnetFailover=False;;MultipleActiveResultSets=true" Microsoft.EntityFrameworkCore.SqlServer -force -OutputDir Model -Context DataBaseContext
  
+ # 詳細解釋
+Scaffold-DbContext "Data Source=192.168.0.9;Initial Catalog=DataGuardXcore;User ID=admin;Password=admin123;Connect Timeout=300;TrustServerCertificate=True;ApplicationIntent=ReadWrite;MultiSubnetFailover=False;;MultipleActiveResultSets=true" Microsoft.EntityFrameworkCore.SqlServer `
+-Force 
+-OutputDir DbFirst 
+-Context DataBaseContext 
+-namespace AttendanceBussiness.DbFirst
+-UseDatabaseNames  // # 关键参数：直接使用数据库表名，不修改为单复数形式
+
 第二步：启动迁移，添加迁移，更新迁移。目标把数据库架构同步到代码，一边创建脚本和数据库一致。
 
 PM> Enable-Migrations 
@@ -22,6 +30,9 @@ PM> Add-Migration 不行 要指定具体上下文 : 这个可以:add-migration I
 PM> Update-Database 不行 用這個 上行結構到數據庫: Update-Database  -c DataBaseContext 
 
  add-migration InitializeDatabase -c DataBaseContext
+
+ ==========================================================================================================
+ 這個語句導致數據庫被改變，危險，請小心使用
  update-database -c DataBaseContext (这个不用,是反过来更新数据库结构)
 
 

@@ -18,8 +18,8 @@ namespace DataBaseSetupV3
             Industry industry = context.Industry.Find(IndustryId);
             if(industry == null)
             {
-                industry = new Industry { IndustryId = "IN60006", IndustryName = LangAuto.Auto("建造業"), EnIndustryName = "Construction industry", ParentsIndustryId = 0 };
-                //初始化行業數據補救
+                industry = new Industry { IndustryId = "IN60006", IndustryName = LangAuto.Auto("Construction Industry"), EnIndustryName = "Construction Industry", ParentsIndustryId = 0 };
+                
                 IndustryInitialize.IndustryInitializeSeedData();
                 
             }

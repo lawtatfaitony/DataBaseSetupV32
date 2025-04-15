@@ -23,6 +23,5 @@ namespace DataBaseSetupV3.Model
                 optionsBuilder.UseSqlServer(CONNECTION_STRING);
             }
         }
-
     }
 }

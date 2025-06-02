@@ -423,7 +423,7 @@ WITH FORMAT
 
 
 
-j建議選擇大綱瀏覽
+It is recommended to select outline browsing!
 
 Author:Tony Law 
 

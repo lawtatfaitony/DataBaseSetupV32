@@ -1,4 +1,4 @@
-using DataBaseSetupV3.Model;
+using AttendanceBussiness.DbFirst;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using System;
 using System.Collections.Generic;

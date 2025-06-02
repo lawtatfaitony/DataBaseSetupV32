@@ -1,4 +1,4 @@
-﻿using DataBaseSetupV3.Model;
+﻿using AttendanceBussiness.DbFirst;
 using DataBaseSetupV3.SeedData;
 using System;
 using System.Collections.Generic;

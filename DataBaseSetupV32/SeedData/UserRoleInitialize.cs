@@ -1,4 +1,4 @@
-using DataBaseSetupV3.Model;
+using AttendanceBussiness.DbFirst;
 using DataBaseSetupV3.SeedData;
 using Newtonsoft.Json;
 using System;
@@ -88,8 +88,8 @@ namespace DataBaseSetupV3
             {
                aspNetUserRoles.ForEach(a =>
                     {
-                        bool exist = context.AspNetUserRoles.Where(c => c.RoleId.Contains(a.RoleId) && c.UserId.Contains(a.UserId)).Count() == 0;
-                        if (exist)
+                        bool anyOne = context.AspNetUserRoles.Any(c => c.RoleId.Contains(a.RoleId) && c.UserId.Contains(a.UserId));
+                        if (!anyOne)
                         {
                             try
                             {
@@ -118,6 +118,7 @@ namespace DataBaseSetupV3
                         Thread.Sleep(300);
                     });
                 Console.WriteLine("\nPRESS ENTER TO COMTINUE\n");
+
             } while (Console.ReadKey(true).Key != ConsoleKey.Enter);
             
             #endregion

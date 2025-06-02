@@ -2,10 +2,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Policy;
-using System.Threading;
-using DataBaseSetupV3.Model;
+using System.Threading; 
 using Newtonsoft.Json;
-using Site = DataBaseSetupV3.Model.Site;
+using AttendanceBussiness.DbFirst;
+using Site = AttendanceBussiness.DbFirst.Site;
 
 namespace DataBaseSetupV3
 {
@@ -54,16 +54,16 @@ namespace DataBaseSetupV3
         /// 獲取默認的Site
         /// </summary>
         /// <returns></returns>
-        public static DataBaseSetupV3.Model.Site GetDetauleSite()
+        public static Site GetDetauleSite()
         {
             var databaseContext = Configurations.GetDataBaseContext();
-            DataBaseSetupV3.Model.Site site = databaseContext.Site.FirstOrDefault();
+            Site site = databaseContext.Site.FirstOrDefault();
 
             if(site == null)
             {
                 string MainComId = SystemData.CreateMainComId();
                 string siteId = GetFirstSiteId();
-                site = new DataBaseSetupV3.Model.Site { SiteId = siteId, SiteName = "Default Site Name1", MainComId = MainComId, SiteAddress = "Success Road No. 01" };
+                site = new Site { SiteId = siteId, SiteName = "Default Site Name1", MainComId = MainComId, SiteAddress = "Success Road No. 01" };
             }
 
             return site;

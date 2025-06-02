@@ -1,8 +1,9 @@
 using DataBaseSetupV3;
-using DataBaseSetupV3.Model;
+using AttendanceBussiness.DbFirst;
 using System;
 using System.Collections.Generic;
 using System.Threading;
+using DataBaseSetupV3.Context;
 
 namespace DataBaseSetupV3
 {
@@ -12,7 +13,8 @@ namespace DataBaseSetupV3
         public static void MainComInitializeSeedData(string LanguageCode,string IndustryId,out string MainComId)
         {
             MainComId = SystemData.CreateMainComId();
-           
+            string companyName = AppSetting.GetConfig("CompanyName");
+
             Industry industry = context.Industry.Find(IndustryId); 
             if(industry!=null)
             {
@@ -22,7 +24,7 @@ namespace DataBaseSetupV3
                 {
                      new  MainCom{
                         MainComId = MainComId ,
-                        CompanyName ="CompanyName1",
+                        CompanyName = companyName,
                         CompanyAbbreviation =$"M{MainComId}",
                         IndustryId = IndustryId,
                         IndustryName = industry.IndustryName??string.Empty,
@@ -31,7 +33,7 @@ namespace DataBaseSetupV3
                         CompanyTel ="",
                         CompanyFax =  "",
                         CompanyLogo = "",
-                        CicReferenceNo = "",
+                        ReferenceNo = "",
                         ContractorNo = "",
                         ServiceStartDate= DateTime.Now,
                         ServiceEndDate= DateTime.Now,

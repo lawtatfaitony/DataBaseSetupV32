@@ -1,5 +1,5 @@
 ﻿using DataBaseSetupV3.Data;
-using DataBaseSetupV3.Model;
+using AttendanceBussiness.DbFirst;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
 using System;

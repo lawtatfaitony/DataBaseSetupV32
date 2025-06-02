@@ -1,10 +1,10 @@
-using DataBaseSetupV3.Model;
 using LanguageResource;
 using System;
 using System.Collections.Generic;
 using System.Threading;
 using DataBaseSetupV3.SeedData;
 using Microsoft.Extensions.DependencyInjection;
+using AttendanceBussiness.DbFirst;
 namespace DataBaseSetupV3
 {
     public static class IndustryInitialize

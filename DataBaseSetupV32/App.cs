@@ -17,7 +17,7 @@ using Caching;
 using Microsoft.AspNetCore.Identity;
 using DataBaseSetupV3.Data;
 using System.Linq;
-using DataBaseSetupV3.Model; 
+using AttendanceBussiness.DbFirst; 
 using Newtonsoft.Json;
 using System.IO;
 using DataBaseSetupV3.Context;
@@ -31,7 +31,7 @@ namespace DataBaseSetupV3
         private static List<SystemUser> _systemUserList;
         private UserManager<IdentityUser> _userManager;
      
-        public static readonly FIFOCache<string, byte[]> cache = RunTimeCache.FIFOCache();
+        //public static readonly FIFOCache<string, byte[]> cache = RunTimeCache.FIFOCache();
 
         public App( ILogger<App> logger, IOptions<List<SystemUser>> systemUserList, UserManager<IdentityUser> userManager)
         {
@@ -215,6 +215,18 @@ namespace DataBaseSetupV3
                     _logger.LogInformation("\n[USER ROLES][{0}]  [{1} [ROLE] = [{2}] \n", user.Email, user.UserName, RoleConst.GUEST.ToUpper());
                 }
 
+                var taskResult10 = userManager.AddToRoleAsync(user, RoleConst.ACCOUNTANT.ToUpper());
+                if (taskResult10.Result.Succeeded)
+                {
+                    _logger.LogInformation("\n[USER ROLES][{0}]  [{1} [ROLE] = [{2}] \n", user.Email, user.UserName, RoleConst.ACCOUNTANT.ToUpper());
+                }
+
+                var taskResult11 = userManager.AddToRoleAsync(user, RoleConst.CASHIER.ToUpper());
+                if (taskResult11.Result.Succeeded)
+                {
+                    _logger.LogInformation("\n[USER ROLES][{0}]  [{1} [ROLE] = [{2}] \n", user.Email, user.UserName, RoleConst.CASHIER.ToUpper());
+                }
+
                 bool r1 = taskResult1.Result.Succeeded;
                 bool r2 = taskResult2.Result.Succeeded;
                 bool r3 = taskResult3.Result.Succeeded;
@@ -224,7 +236,10 @@ namespace DataBaseSetupV3
                 bool r7 = taskResult7.Result.Succeeded;
                 bool r8 = taskResult8.Result.Succeeded;
                 bool r9 = taskResult9.Result.Succeeded;
-                userRolesResult = r1 && r2 && r3 && r4 && r5 && r6 && r7 && r8 && r9;
+                bool r10 = taskResult10.Result.Succeeded;
+                bool r11 = taskResult11.Result.Succeeded;
+
+                userRolesResult = r1 && r2 && r3 && r4 && r5 && r6 && r7 && r8 && r9 && r10 && r11;
             }
             catch (Exception e)
             {

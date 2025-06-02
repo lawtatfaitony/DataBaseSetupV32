@@ -10,8 +10,7 @@ using Caching;
 using DataBaseSetupV3;
 using DataBaseSetupV3.Context;
 using DataBaseSetupV3.Data;
-using DataBaseSetupV3.Model;
-using Encryption;
+using AttendanceBussiness.DbFirst;
 using LanguageResource;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
@@ -22,22 +21,21 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
+using DataBaseSetupV3.SeedData;
 
 namespace DataBaseSetupV3
 {
     class Program
     {
         public static CancellationToken cancellationToken { get; set; }
-        public static readonly FIFOCache<string, byte[]> cache = RunTimeCache.FIFOCache();
+         
         static void Main(string[] args)
         {
-            Console.Title = "數據庫服務初始化部署 Database Service Initial Deployment ";
-            Console.WriteLine("\n[--------------------{0}-------------------------------]\n", Console.Title);
-
-            DateTime dt = DateTime.Now.AddHours(3);
-            DateTimeOffset thisOffsetTime = new DateTimeOffset(dt);
-
-            SystemData.SetParmsCache(args, thisOffsetTime);
+            string title = "DataGuardXcore V3.1 數據庫服務初始化部署 Database Service Initial Deployment ";
+            Console.Title = title;
+            Console.WriteLine("\n[----------{0}----------]\n", title);
+             
+            SystemData.SetParmsCache(args);
 
             #region TEST
             var UninTimeStamp = DateTimeOffset.UtcNow.ToUnixTimeSeconds();
@@ -48,10 +46,8 @@ namespace DataBaseSetupV3
             SystemData.CheckParmsCache();
             #endregion
 
-            //Get CPU Serial Number
-            string cpuSeralNo = EncryptionRSA.GetCpuSeralNo();
-            Console.WriteLine("\n------------------------------------------");
-            Console.WriteLine("\n[CPU SERIAL NUMBER={0}]\n", cpuSeralNo);
+           
+            Console.WriteLine("\n------------------------------------------"); 
             Console.WriteLine("------------------------------------------\n");
 
 
@@ -118,7 +114,7 @@ namespace DataBaseSetupV3
             }else
             {
                 Console.WriteLine("\n[DATABASE EXCEPTION] [CONNECT FAILED] [CHECK CONNECTION_STRING]");
-                //goto Q;
+                goto Q;  //撤換到退出標籤 Q
             }
                 
             Stopwatch sw = new Stopwatch();
@@ -190,19 +186,13 @@ namespace DataBaseSetupV3
             }
         // Thread.Sleep(3000);
         #endregion
-            bool v = true;
-#if RELEASE
-            v = EncryptionRSA.VerifyCurrentMachine();
-            Console.WriteLine("ERSA {0} (AppAuth.key)", v);
-            if (v == false)
-            {
-                Console.WriteLine("v {0}", v);
-                return;
-            }
-#endif
+
+            //去掉軟件授權控制
+            bool v = true;  
+ 
             if (v)
             {
-                Console.WriteLine("CHECK ERSA = {0}", v);
+                Console.WriteLine("CHECK ERSA = {0} [N/A]", v);
 
                 var logger = serviceProvider.GetRequiredService<ILogger<Program>>();
                      
@@ -265,7 +255,7 @@ namespace DataBaseSetupV3
             Console.ResetColor();
 
             //創建備份存儲過程 
-            //InistializeData1.CreateStoreProcedure(); //改用手動 執行腳本
+            InistializeData1.CreateStoreProcedure(); //改用手動 執行腳本
 
             //FINISHED!!!
 

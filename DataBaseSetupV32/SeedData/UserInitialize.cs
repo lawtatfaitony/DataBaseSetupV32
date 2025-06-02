@@ -1,4 +1,4 @@
-using DataBaseSetupV3.Model;
+using AttendanceBussiness.DbFirst;
 using DataBaseSetupV3.Data;
 using DataBaseSetupV3.SeedData;
 using Microsoft.AspNetCore.Identity;
@@ -6,8 +6,7 @@ using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Threading;
-using DataBaseContext = DataBaseSetupV3.Model.DataBaseContext;
+using System.Threading; 
 
 namespace DataBaseSetupV3
 {

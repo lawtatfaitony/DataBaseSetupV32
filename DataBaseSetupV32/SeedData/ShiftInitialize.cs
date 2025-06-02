@@ -1,9 +1,10 @@
 using System;
-using DataBaseSetupV3.Model;
 using System.Collections.Generic; 
 using System.Threading;
 using Newtonsoft.Json;
 using System.IO;
+using AttendanceBussiness.DbFirst;
+using DataBaseSetupV3.Context;
 
 namespace DataBaseSetupV3
 {
@@ -15,7 +16,7 @@ namespace DataBaseSetupV3
              
             #region  Initialize 
             string MainComId = SystemData.CreateMainComId();
-
+            string companyName = AppSetting.GetConfig("CompanyName");
             //[FROM JSON]
             string shiftListJsonPath = System.IO.Path.Combine(System.IO.Directory.GetCurrentDirectory(), "JsonData");
             string shiftJsonFileName = "ShiftList.json";
@@ -30,7 +31,8 @@ namespace DataBaseSetupV3
 
                 foreach(Shift shift in shiftList)
                 {
-                    if(databaseContext.Shift.Find(shift.ShiftId)==null)
+                    shift.CompanyName = companyName;
+                    if (databaseContext.Shift.Find(shift.ShiftId)==null)
                     {
                         databaseContext.Shift.Add(shift);
                     }
@@ -57,7 +59,7 @@ namespace DataBaseSetupV3
                     ShiftAppliedMode = 0,
                     DepartmentIdArr = "",
                     MainComId = MainComId,
-                    CompanyName = MainComId,
+                    CompanyName = companyName,
                     WorkTimeSpan = 9,
                     WorkStart = new TimeSpan(9, 0, 0),
                     WorkEnd = new TimeSpan(18, 0, 0),
@@ -110,7 +112,7 @@ namespace DataBaseSetupV3
                     ShiftAppliedMode = 1,
                     DepartmentIdArr = "",
                     MainComId = MainComId,
-                    CompanyName = MainComId,
+                    CompanyName = companyName,
                     WorkTimeSpan = 9,
                     WorkStart = new TimeSpan(21, 0, 0),
                     WorkEnd = new TimeSpan(6, 0, 0),

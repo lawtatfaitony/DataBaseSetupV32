@@ -1,10 +1,9 @@
 using System;
 using System.Collections.Generic; 
-using System.Threading;
-using DataBaseSetupV3.Model;
+using System.Threading; 
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
-
+using AttendanceBussiness.DbFirst;
 namespace DataBaseSetupV3
 {
     public static class DepartmentInitialize

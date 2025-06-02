@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic; 
 using System.Threading;
-using DataBaseSetupV3.Model;
+using AttendanceBussiness.DbFirst;
 using Newtonsoft.Json;
 namespace DataBaseSetupV3
 {

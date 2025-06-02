@@ -1,0 +1,2 @@
+﻿SUCCESS PLEASE REMEMBER [WRITE DOWN TO FOLDER ./ACCOUNT] [SAVE TO THE ROOT AS FILE:AccountOfAdmin25060215426.TXT]: 
+User Id=25060215426 Email = Supervisor@abc.com, Password = admin888,  MainComId (CompanyId) = 25060215

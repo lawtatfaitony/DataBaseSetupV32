@@ -1,0 +1,5 @@
+D:\APP\DGX_NET6\STAR_NEW\DataBaseSetupV32\DataBaseSetupV32\bin\Release\DataBaseSetupV3.pdb
+D:\APP\DGX_NET6\STAR_NEW\DataBaseSetupV32\DataBaseSetupV32\bin\Release\aspnetcorev2_inprocess.dll
+D:\APP\DGX_NET6\STAR_NEW\DataBaseSetupV32\DataBaseSetupV32\bin\Release\Microsoft.Data.SqlClient.SNI.dll
+D:\APP\DGX_NET6\STAR_NEW\DataBaseSetupV32\DataBaseSetupV32\bin\Release\AttDataCore.pdb
+D:\APP\DGX_NET6\STAR_NEW\DataBaseSetupV32\DataBaseSetupV32\bin\Release\DataBaseSetupV3.exe

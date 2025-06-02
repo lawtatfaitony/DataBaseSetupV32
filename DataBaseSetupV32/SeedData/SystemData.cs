@@ -1,5 +1,4 @@
-﻿using DataBaseSetupV3.Model;
-using System;
+﻿using System;
 using System.Globalization;
 namespace DataBaseSetupV3
 {
@@ -86,24 +85,27 @@ namespace DataBaseSetupV3
                 Console.WriteLine(">>> [NO CACHE] [IndustryId] ");
             }
         }
+
         /// <summary>
-        /// 
+        /// 設置公司ID和行業ID的緩存
         /// </summary>
         /// <param name="args">默認行業ID = IN60006</param>
         /// <param name="offset"></param>
-        public static void SetParmsCache(string[] args,DateTimeOffset offset)
+        public static void SetParmsCache(string[] args)
         {
+            DateTime dt = DateTime.Now.AddHours(3);
+            DateTimeOffset offset = new DateTimeOffset(dt);
+
             string MainComId;
             string IndustryId;
 
             if(args.Length == 0)
             {
-                MainComId = DateTime.Now.ToString("yyyyMMddHH").Remove(0, 2);
+                MainComId = CreateMainComId();  // DateTime.Now.ToString("yyyyMMddHH").Remove(0, 2);
                 
                 args = new string[] { MainComId, "IN60006" };
             }
             
-
             MainComId = args[0].Trim().ToUpper();
             DataBaseSetupV3.MemoryCacheHelper.Set("MainComId", MainComId, offset);
             Console.WriteLine(">>> [SET CACHE] [MainComId] = {0} [{1}]", MainComId, offset);
@@ -111,9 +113,27 @@ namespace DataBaseSetupV3
             if (args.Length > 1)
             {
                 IndustryId = args[1].Trim().ToUpper();
-                DataBaseSetupV3.MemoryCacheHelper.Set("IndustryId", IndustryId, offset);
-                Console.WriteLine(">>> [SET CACHE] [IndustryId] = [{0} [{1}]]", IndustryId, offset);
+                SetIndustryIdCache(IndustryId);  
             }
+        }
+         
+        /// <summary>
+        /// 設置公司ID和行業ID的緩存
+        /// </summary>
+        /// <param name="args">默認行業ID = IN60006</param>
+        /// <param name="offset"></param>
+        public static void SetIndustryIdCache(string IndustryId)
+        {
+            if(string.IsNullOrEmpty(IndustryId))
+            {
+                IndustryId = "IN60006"; // 默認行業ID
+            }
+
+            DateTime dt = DateTime.Now.AddHours(3);
+            DateTimeOffset offset = new DateTimeOffset(dt);
+             
+            DataBaseSetupV3.MemoryCacheHelper.Set("IndustryId", IndustryId, offset);
+            Console.WriteLine(">>> [SET CACHE] [IndustryId] = [{0} [{1}]]", IndustryId, offset);
         }
     }
 }

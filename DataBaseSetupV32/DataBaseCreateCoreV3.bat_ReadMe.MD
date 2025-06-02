@@ -19,4 +19,4 @@ echo PARAMETERS 1: MainComId 2:IndustryId DEMO: $ DataBaseCoreCoreV3 "20211210" 
 echo The first parameter is the head office ID, which requires less than or equal to 8 digits. The second parameter is the industry ID (refer to the industry number comparison table)
 echo The first parameter of rem is the head office ID, which requires less than or equal to 8 digits. The second parameter is the industry ID (refer to the industry number comparison table)
 
-DataBaseCreateCoreV3 "999901" "IN60006"
+DataBaseSetupV3 "999901" "IN60006"

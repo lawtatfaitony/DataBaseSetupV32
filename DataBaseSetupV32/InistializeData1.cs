@@ -1,5 +1,5 @@
 ﻿using DataBaseSetupV3.Data;
-using DataBaseSetupV3.Model;
+using AttendanceBussiness.DbFirst   ;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
@@ -12,6 +12,7 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using Microsoft.IdentityModel.Tokens;
 
 namespace DataBaseSetupV3
 {
@@ -45,11 +46,12 @@ namespace DataBaseSetupV3
             //------------------------------------------------------------------ 
             if (File.Exists(LangJsonDataFile))
             {
+                int keyNameIndex = 0;
                 string LangJson = File.ReadAllText(LangJsonDataFile, Encoding.UTF8);
                 List<LanguageJsonF> languages = JsonConvert.DeserializeObject<List<LanguageJsonF>>(LangJson);
                 foreach (var item in languages)
                 {
-                    
+                    keyNameIndex++;
                     Language language = databaseContext.Language.Find(item.KeyName);
 
                     if (language == null)
@@ -66,7 +68,7 @@ namespace DataBaseSetupV3
                         };
                         databaseContext.Language.Add(languageF);
                         int result = databaseContext.SaveChanges();
-                        Console.WriteLine(string.Format("\nSUCCESS FROM JSON ADD NEW:{5} : {0} {1} {2} {3} Industry Arr={4}", item.KeyName, item.KeyType, item.ZhCn, item.ZhHk, item.EnUs, item.IndustryIdArr, result));
+                        Console.WriteLine(string.Format("\n[Index:{6}] SUCCESS FROM JSON ADD NEW:{5} : {0} {1} {2} {3} Industry Arr={4}", item.KeyName, item.KeyType, item.ZhCn, item.ZhHk, item.EnUs, item.IndustryIdArr, result, keyNameIndex));
                     }
                     else
                     {
@@ -80,12 +82,12 @@ namespace DataBaseSetupV3
 
                         databaseContext.Language.Update(language);
                         int result = databaseContext.SaveChanges();
-                        Console.WriteLine(string.Format("\nSUCCESS FROM JSON UPDATE:{5} : {0} {1} {2} {3} IndustryIdArr={4}", item.KeyName, item.KeyType, item.ZhCn, item.ZhHk, item.EnUs, item.IndustryIdArr, result));
+                        Console.WriteLine(string.Format("\n[Index:{6}] SUCCESS FROM JSON UPDATE:{5} : {0} {1} {2} {3} IndustryIdArr={4}", item.KeyName, item.KeyType, item.ZhCn, item.ZhHk, item.EnUs, item.IndustryIdArr, result, keyNameIndex));
                     }
 
 
 #if DEBUG
-                    int delay = 300; 
+                    int delay = 50; 
                     Thread.Sleep(delay);
 #endif
 
@@ -99,30 +101,91 @@ namespace DataBaseSetupV3
             Console.WriteLine("[{0:F}][LANGUAGE DATA SYNCHRONIZED FINISHED]",DateTime.Now); 
         }
 
-        //輸入行業ID 與 初始化行業種子數據
+        /// <summary>
+        /// 獲得 AspNetPermissions.json 的數據
+        /// </summary>
+        /// <returns></returns>
+        public static List<AspNetPermissions> GetAspNetPermissionsJson()
+        {
+            string baseDirectoryPath = System.Environment.CurrentDirectory;
+            string JsonDataPath = Path.Combine(baseDirectoryPath, "JsonData");
+            string AspNetPermissionsJsonFile = Path.Combine(JsonDataPath, "AspNetPermissions.json");
+            FileInfo aspNetPermissionsJsonInfo = new FileInfo(AspNetPermissionsJsonFile);
+
+            string msg = $"Language Version : JsonData/AspNetPermissions.json @{aspNetPermissionsJsonInfo.LastWriteTime} (To determine the reference last revised date time.)";
+
+            Console.WriteLine(msg);
+
+            string AspNetPermissionsJson = File.ReadAllText(AspNetPermissionsJsonFile, Encoding.UTF8);
+            List<AspNetPermissions> aspNetPermissionsList = JsonConvert.DeserializeObject<List<AspNetPermissions>>(AspNetPermissionsJson);
+
+            return aspNetPermissionsList;
+
+        }
+        /// <summary>
+        /// 批量處理 AspNetPermissions.json 的數據
+        /// </summary>
+        public static void RunTaskSeedAspNetPermissionsJsonData()
+        {  
+            List<AspNetPermissions> aspNetPermissionsList = GetAspNetPermissionsJson();
+            if (aspNetPermissionsList!=null)
+            { 
+                foreach (var item in aspNetPermissionsList)
+                {
+
+                    AspNetPermissions aspNetPermissions = databaseContext.AspNetPermissions.Find(item.Id);
+
+                    if (aspNetPermissions == null)
+                    { 
+                        databaseContext.AspNetPermissions.Add(item);
+                        int result = databaseContext.SaveChanges();
+                        Console.WriteLine(string.Format("\nAspNetPermissions ADD NEW SUCCESS FROM (AspNetPermissions.Json): [ID: {0}] : [{1}] [Name: {2}] [RoleClaims: {3}] [Result: {4}]", item.Id, item.Name, item.ControllerName, item.ActionName, item.RoleClaims, result));
+                    }
+                    else
+                    { 
+                        databaseContext.AspNetPermissions.Update(item);
+                        int result = databaseContext.SaveChanges();
+                        Console.WriteLine(string.Format("\nAspNetPermissions UPDATE SUCCESS FROM (AspNetPermissions.Json): [ID: {0}] : [{1}] [Name: {2}] [RoleClaims: {3}] [Result: {4}]", item.Id, item.Name, item.ControllerName, item.ActionName, item.RoleClaims, result));
+                    }
+                    int delay = 500;
+#if DEBUG
+                    delay = 100; 
+#endif 
+                    Thread.Sleep(delay);
+                }
+
+                Console.WriteLine("[{0:F}][AspNetPermissions DATA SYNCHRONIZED FINISHED]", DateTime.Now);
+            }
+        }
+
+        /// <summary>
+        /// 輸入行業ID 與 初始化行業種子數據
+        /// 手動輸入行業ID，這個功能目前是無法進入這個流程節點，因為前面如果沒有行業ID，設置默認緩存是 : IN60006
+        /// </summary>
+        /// <param name="languageCode"></param>
         public static void SelectIndustryAndInsertIndustryJsonDataFirrst(string languageCode)
         { 
             Console.WriteLine("\n[ Industry Seed Data (json file first)]");
             RunTaskSeedIndustryJsonData(languageCode);
              
             Console.WriteLine("\nPress input Industry No. as follows");
+            Console.WriteLine("\n[INDUSTRY LIST)]===============================================\n");
             var context = Configurations.GetDataBaseContext();
             foreach (var item in context.Industry.ToList())
             {
-                Console.WriteLine("\n[INDUSTRY LIST)]\n");
                 Console.WriteLine("{0} {1} {2}", item.IndustryId, item.IndustryName,item.EnIndustryName);
             }
 
-            if (DataBaseSetupV3.MemoryCacheHelper.Contains("IndustryId"))
+            if (!string.IsNullOrEmpty(SystemData.GetIndustryId()))
             {
-                InistializeData1.IndustryId = DataBaseSetupV3.MemoryCacheHelper.GetCacheItem<string>("IndustryId");
+                IndustryId = SystemData.GetIndustryId(); 
             }
             else
             {
-                InistializeData1.IndustryId = string.Empty; 
+                IndustryId = string.Empty; 
             }
 
-            if (string.IsNullOrEmpty(InistializeData1.IndustryId))
+            if (string.IsNullOrEmpty(IndustryId))
             {
                 bool IsCorrectIndustryId = false;
                 while (!IsCorrectIndustryId)
@@ -137,14 +200,14 @@ namespace DataBaseSetupV3
                         Console.WriteLine("\nPress input Industry ID \n");
                         Console.WriteLine("\nPlease Press input Industry ID :\n");
 
-                        InistializeData1.IndustryId = Console.ReadLine();
+                        IndustryId = Console.ReadLine();
 
                         Console.ResetColor();
                     }
                     else
-                    {
-                        InistializeData1.IndustryId = industry.IndustryId;
-                        DataBaseSetupV3.MemoryCacheHelper.Set(InistializeData1.IndustryId);
+                    {  
+                        IndustryId = industry.IndustryId;
+                        SystemData.SetIndustryIdCache(IndustryId);
                         IsCorrectIndustryId = true;
                     }
                 }
@@ -292,6 +355,14 @@ namespace DataBaseSetupV3
             UserRoleInitialize.RoleSystemCreated();
             //--------------------- --------------------- ---------------------
 
+            Console.WriteLine("\n[ AspNetPermssions Synchronize ]");
+            InistializeData1.RunTaskSeedAspNetPermissionsJsonData();
+            //--------------------- --------------------- ---------------------
+
+            Console.WriteLine("\n[ Holiday Data Import Synchronize ]");
+            HolidayInitialize.HolidayKeyDataImport();
+            //--------------------- --------------------- ---------------------
+            
             Console.WriteLine("\n\n[ FINISHED ]");
             Console.WriteLine("");
         }
@@ -348,17 +419,10 @@ namespace DataBaseSetupV3
                             set @str = replace(replace(replace(CONVERT(varchar, getdate(), 120 ),'-',''),' ',''),':','')
   
                             SET @strBackup = 'C:\DataBaseBAK\DataGuardXcore_' + @str + '.bak'
-
-                            SET @strBackupIshopX = 'C:\DataBaseBAK\IshopX559_' + @str + '.bak'
-
+ 
                             BACKUP DATABASE DataGuardXcore
                             TO DISK= @strBackup
-                            WITH FORMAT
-
-                            BACKUP DATABASE IshopX559
-                            TO DISK= @strBackupIshopX
-                            WITH FORMAT        
-                        "
+                            WITH FORMAT"
             ;
             var connection = databaseContext.Database.GetDbConnection();
 

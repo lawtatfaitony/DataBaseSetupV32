@@ -1,6 +1,6 @@
-﻿
+﻿ 
+using AttendanceBussiness.DbFirst;
 using DataBaseSetupV3.Data;
-using DataBaseSetupV3.Model;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -15,6 +15,7 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using AppDbContext = DataBaseSetupV3.Data.AppDbContext;
 
 namespace DataBaseSetupV3
 {
@@ -56,7 +57,7 @@ namespace DataBaseSetupV3
                 options.UseSqlServer(
                    configuration.GetConnectionString("DefaultConnection")));
 
-            services.AddDbContext<ApplicationDbContext>(options =>
+            services.AddDbContext<AppDbContext>(options =>
                 options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
 
             //IdentityCore START  
@@ -72,7 +73,7 @@ namespace DataBaseSetupV3
                         options.Password.RequiredUniqueChars = 0;
                     }
                 )
-                .AddEntityFrameworkStores<ApplicationDbContext>()
+                .AddEntityFrameworkStores<AppDbContext>()
                 .AddUserManager<UserManager<IdentityUser>>()
                 .AddSignInManager<SignInManager<IdentityUser>>()
                 .AddDefaultTokenProviders();

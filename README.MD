@@ -278,15 +278,11 @@ set @str = replace(replace(replace(CONVERT(varchar, getdate(), 120 ),'-',''),' '
   
 SET @strBackup = 'C:\DataBaseBAK\DataGuardXcore_' + @str + '.bak'
 
-SET @strBackupIshopX = 'C:\DataBaseBAK\IshopX559_' + @str + '.bak'
-
 BACKUP DATABASE DataGuardXcore
 TO DISK= @strBackup
 WITH FORMAT
 
-BACKUP DATABASE IshopX559
-TO DISK= @strBackupIshopX
-WITH FORMAT
+ 
 ```
 
 ### 第二步: BAT 命令 執行 sqlCMD 

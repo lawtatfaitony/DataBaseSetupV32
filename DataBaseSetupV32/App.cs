@@ -173,10 +173,10 @@ namespace DataBaseSetupV3
                     _logger.LogInformation("\n[USER ROLES][{0}]  [{1} [ROLE] = [{2}] \n", user.Email, user.UserName, RoleConst.ADMIN.ToUpper());
                 }
 
-                var taskResult3 = userManager.AddToRoleAsync(user, RoleConst.SYSTEM_OPERATOR.ToUpper());
+                var taskResult3 = userManager.AddToRoleAsync(user, RoleConst.DEVICE_OPERATOR.ToUpper());
                 if (taskResult3.Result.Succeeded)
                 {
-                    _logger.LogInformation("\n[USER ROLES][{0}]  [{1} [ROLE] = [{2}] \n", user.Email, user.UserName, RoleConst.SYSTEM_OPERATOR.ToUpper());
+                    _logger.LogInformation("\n[USER ROLES][{0}]  [{1} [ROLE] = [{2}] \n", user.Email, user.UserName, RoleConst.DEVICE_OPERATOR.ToUpper());
                 }
 
                 var taskResult4 = userManager.AddToRoleAsync(user, RoleConst.MAINCOM_OPERATOR.ToUpper());

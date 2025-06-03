@@ -17,7 +17,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCopyrightAttribute("DATAGUARD DGX HRMS")]
 [assembly: System.Reflection.AssemblyDescriptionAttribute("DGX HRMS 數據庫初始化 \r\nDGX HRMS Database Initialization")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("3.2.2025.04.30")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("3.2.2025.04+4c455fca7cf709fff599b4c7a52c2297b4144838")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("3.2.2025.04+23482d1cf720d0c5884bb3b6fdff20e236ca941f")]
 [assembly: System.Reflection.AssemblyProductAttribute("DGX HRMS DataBaseSetupV3")]
 [assembly: System.Reflection.AssemblyTitleAttribute("DataBaseSetupV3")]
 [assembly: System.Reflection.AssemblyVersionAttribute("3.2.2025.04")]

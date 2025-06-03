@@ -19,15 +19,15 @@
   },
   // 預設公司名稱
   "CompanyName": "長江新地有限公司1",
-  // 預設系統超級用戶 與 管理用戶
+  // 預設系統超級用戶
   "systemUserList": [
     {
       "userName": "Supervisor",
       "email": "Supervisor@abc.com"
     },
     {
-      "userName": "Admin",
-      "email": "Admin@abc.com"
+      "userName": "SystemAdmin",
+      "email": "SystemAdmin@abc.com"
     }
   ],
   // 預設的默認安裝語言
@@ -40,7 +40,7 @@
 }
 ```
 
-
+**預設系統超級用戶** ： 成功後，自動登記系統賬戶。
 
 ## 注意
 

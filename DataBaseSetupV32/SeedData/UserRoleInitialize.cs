@@ -8,9 +8,23 @@ using System.Threading;
 
 namespace DataBaseSetupV3
 {
+    /// <summary>
+    // Accountant
+    // Admin
+    // Cashier
+    // Department
+    // DeviceOperator
+    // Employee
+    // Guest
+    // LRO
+    // MainComOperator
+    // SystemAdmin
+    // ThirdPartyserviceContractorAdmin
+    // ThirdPartyserviceContractorOperator
+    /// </summary>
     public class RoleConst {
         public const string SYSTEM_ADMIN = "SystemAdmin";
-        public const string SYSTEM_OPERATOR = "SystemOperator";
+        public const string DEVICE_OPERATOR = "DeviceOperator";
         public const string ADMIN = "Admin";
         public const string MAINCOM_OPERATOR = "MainComOperator";
         public const string THIRD_PARTY_SERVICE_CONTRACTOR_ADMIN = "ThirdPartyserviceContractorAdmin";
@@ -20,9 +34,7 @@ namespace DataBaseSetupV3
         public const string GUEST = "Guest";
         public const string DEPARTMENT = "Department";
         public const string ACCOUNTANT = "Accountant";
-        public const string CASHIER = "Cashier";
-        
-
+        public const string CASHIER = "Cashier"; 
     }
     public static class UserRoleInitialize
     {
@@ -32,7 +44,7 @@ namespace DataBaseSetupV3
             var aspNetRoles = new List<AspNetRoles>
             {
                 new AspNetRoles{ Id = RoleConst.SYSTEM_ADMIN.ToUpper() , Name = RoleConst.SYSTEM_ADMIN,NormalizedName = RoleConst.SYSTEM_ADMIN.ToUpper(), ConcurrencyStamp = new DateTimeOffset(DateTime.Now).ToUnixTimeMilliseconds().ToString()  },
-                new AspNetRoles{ Id = RoleConst.SYSTEM_OPERATOR.ToUpper() , Name = RoleConst.SYSTEM_OPERATOR,NormalizedName = RoleConst.SYSTEM_OPERATOR.ToUpper(), ConcurrencyStamp = new DateTimeOffset(DateTime.Now).ToUnixTimeMilliseconds().ToString()  },
+                new AspNetRoles{ Id = RoleConst.DEVICE_OPERATOR.ToUpper() , Name = RoleConst.DEVICE_OPERATOR,NormalizedName = RoleConst.DEVICE_OPERATOR.ToUpper(), ConcurrencyStamp = new DateTimeOffset(DateTime.Now).ToUnixTimeMilliseconds().ToString()  },
                 new AspNetRoles{ Id = RoleConst.ADMIN.ToUpper() , Name = RoleConst.ADMIN,NormalizedName = RoleConst.ADMIN.ToUpper(), ConcurrencyStamp = new DateTimeOffset(DateTime.Now).ToUnixTimeMilliseconds().ToString()},
                 new AspNetRoles{ Id = RoleConst.MAINCOM_OPERATOR.ToUpper() , Name = RoleConst.MAINCOM_OPERATOR,NormalizedName = RoleConst.MAINCOM_OPERATOR.ToUpper(), ConcurrencyStamp = new DateTimeOffset(DateTime.Now).ToUnixTimeMilliseconds().ToString()},
                 new AspNetRoles{ Id = RoleConst.THIRD_PARTY_SERVICE_CONTRACTOR_ADMIN.ToUpper()  , Name =RoleConst.THIRD_PARTY_SERVICE_CONTRACTOR_ADMIN ,NormalizedName =RoleConst.THIRD_PARTY_SERVICE_CONTRACTOR_ADMIN.ToUpper(), ConcurrencyStamp = new DateTimeOffset(DateTime.Now).ToUnixTimeMilliseconds().ToString()},
@@ -67,10 +79,10 @@ namespace DataBaseSetupV3
 
             string Generate_UserId = userId;// SystemData.CreateSupervisorId();  
 
-             var aspNetUserRoles = new List<AspNetUserRoles>
+             var aspNetUserAllRoles = new List<AspNetUserRoles>
                 {
                         new AspNetUserRoles{ UserId = Generate_UserId , RoleId = RoleConst.SYSTEM_ADMIN.ToUpper()},
-                        new AspNetUserRoles{ UserId = Generate_UserId , RoleId = RoleConst.SYSTEM_OPERATOR.ToUpper()},
+                        new AspNetUserRoles{ UserId = Generate_UserId , RoleId = RoleConst.DEVICE_OPERATOR.ToUpper()},
                         new AspNetUserRoles{ UserId = Generate_UserId , RoleId = RoleConst.ADMIN.ToUpper()},
                         new AspNetUserRoles{ UserId = Generate_UserId , RoleId = RoleConst.EMPLOYEE.ToUpper()},
                         new AspNetUserRoles{ UserId = Generate_UserId , RoleId = RoleConst.GUEST.ToUpper()},
@@ -82,11 +94,16 @@ namespace DataBaseSetupV3
 
                         new AspNetUserRoles{ UserId = Generate_UserId , RoleId = RoleConst.ACCOUNTANT.ToUpper() },
                         new AspNetUserRoles{ UserId = Generate_UserId , RoleId = RoleConst.CASHIER.ToUpper() }
-                };
+             };
+            // 只增加系统管理员
+            var aspNetUserSystemAdminRoles = new List<AspNetUserRoles>
+            {
+                    new AspNetUserRoles{ UserId = Generate_UserId , RoleId = RoleConst.SYSTEM_ADMIN.ToUpper()}
+            };
 
             do
             {
-               aspNetUserRoles.ForEach(a =>
+                aspNetUserSystemAdminRoles.ForEach(a =>
                     {
                         bool anyOne = context.AspNetUserRoles.Any(c => c.RoleId.Contains(a.RoleId) && c.UserId.Contains(a.UserId));
                         if (!anyOne)
@@ -97,16 +114,16 @@ namespace DataBaseSetupV3
                                 int result = context.SaveChanges();
                                 if (result > 0)
                                 {
-                                    Console.WriteLine(string.Format("SUCCESS : {0} {1} ", a.UserId, a.RoleId));
+                                    Console.WriteLine(string.Format("Role of SystemAdmin Asigned SUCCESS : {0} {1} ", a.UserId, a.RoleId));
                                 }
                                 else
                                 {
-                                    Console.WriteLine(string.Format("SaveChanges FAIL : {0} {1}   FAIL Result = {2}", a.UserId, a.RoleId, result));
+                                    Console.WriteLine(string.Format("Role of SystemAdmin Asigned SaveChanges FAIL : {0} {1}   FAIL Result = {2}", a.UserId, a.RoleId, result));
                                 }
                             }
                             catch (Exception e)
                             {
-                                Console.WriteLine(string.Format("Exception : {0}  ", e.Message));
+                                Console.WriteLine(string.Format("Role of SystemAdmin Asigned Exception : {0}  ", e.Message));
                                 var jsonA = JsonConvert.SerializeObject(a, Formatting.Indented);
                                 Console.WriteLine(string.Format("\n{0}  ", jsonA));
                             }

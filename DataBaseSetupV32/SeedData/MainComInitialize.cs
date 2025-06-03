@@ -32,7 +32,7 @@ namespace DataBaseSetupV3
                         ContactPhone = "",
                         CompanyTel ="",
                         CompanyFax =  "",
-                        CompanyLogo = "",
+                        CompanyLogo = "/Images/MainComDefaultLogo.jpg", //default logo
                         ReferenceNo = "",
                         ContractorNo = "",
                         ServiceStartDate= DateTime.Now,

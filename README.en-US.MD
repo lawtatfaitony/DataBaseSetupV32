@@ -100,7 +100,7 @@ Check if the Admin account is the database owner, that is, the schema is not dbo
 $ DataBaseCoreCoreV3 "20211210" , "IN60006"  
 
 //The first parameter is the parent company ID, which must be less than or equal to 8 digits.
-//第二個參數是行業ID, 行業ID的參考來源 JsonData/Industry.zh-HK.json 或者其他語言版本 或者 行業對照表.csv。
+//The second parameter is the industry ID, the reference source of the industry ID JsonData/Industry.zh-HK.json Or other language versions Or 行業對照表.csv。
 ```
 
 ## Bat file method
@@ -426,4 +426,3 @@ Author:Tony Law
 
 Email: caihaili82@gmail.com
 
-Phone: 62595738

@@ -1,5 +1,7 @@
 # GDX HRMS 數據庫服務部署
 
+[English Version: README.MD](README.en-US.MD)
+
 ##  DataBaseSetupV32 VERSION: V3.2.2025.04 數據庫初始化
 
 舊版本  DataBaseCreateCoreV3_ENHANCE 2024.05
